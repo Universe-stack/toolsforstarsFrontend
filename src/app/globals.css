@@ -13,11 +13,19 @@
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
+    
   }
 }
 
 body {
  
+}
+
+.herbg {
+  background: linear-gradient(to right, #9F00FF, #F0C27D);
+  background-repeat: no-repeat;  
+  background-size: cover;               
+  margin: 0;                     
 }
 
 @layer utilities {

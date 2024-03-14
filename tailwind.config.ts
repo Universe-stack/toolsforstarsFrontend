@@ -27,7 +27,7 @@ const config: Config = {
     },
     colors: {
       'starsGrey': '#5F6368',
-      'starspurpleLight': '#ce3df3',
+      'starspurpleLight': '#6A0F8E',
       'starspink':'#fc538d',
       'starspurpleDark':'#8d62f4',
       'starsBlack': '#000000',
@@ -36,6 +36,6 @@ const config: Config = {
     extend: {
     },
   },
-  plugins: [],
+  plugins: [require("daisyui")]
 };
 export default config;
