@@ -2,9 +2,9 @@ import React from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import ProductCard from '../productCard';
+import ProductCardII from '../ProductCardII'
 
-function Carousel() {
+function TopChartsCarousel() {
   const products = [
     { name: 'alih', description: 'Connect your WordPress forms with hundreds of popular tools using custom-built integrations' },
     { name: 'Beingo', description: 'Connect your WordPress forms with hundreds of popular tools using custom-built integrations' },
@@ -18,7 +18,7 @@ function Carousel() {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 2,
+    slidesToShow: 4,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
@@ -38,11 +38,11 @@ function Carousel() {
     <Slider {...settings}>
       {products.map((product, index) => (
         <div key={index}>
-          <ProductCard name={product.name} description={product.description} />
+          <ProductCardII name={product.name} description={product.description} />
         </div>
       ))}
     </Slider>
   );
 }
 
-export default Carousel;
+export default TopChartsCarousel;

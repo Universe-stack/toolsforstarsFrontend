@@ -1,11 +1,20 @@
-import React from 'react';
+'use client'
+import React,{useState} from 'react';
 import Carousel from './UI/Slider/Carousel';
+import TopChartsCarousel from './UI/Slider/TopChartsCarousel';
 
-
+const buttonFirst = [
+  {title:"Top free"},
+  {title:"Top grossing"},
+  {title:"Top paid"},
+]
 const Hero = () => {
+
+  const [clickedButton, setClickedButton] = useState(null);
+
   return (
-    <section className='flex flex-col justify-center w-[100vw] h-[80vh] '>
-      <div className='self-center w-[100%] flex gap-[5%] h-[100%] herbg'>
+    <section className='flex flex-col justify-center w-[100vw]'>
+      <div className='self-center w-[100%] flex gap-[5%] h-[100%] herbg h-[80vh]'>
         <div className='w-[50%] flex self-center '>
           <div className='w-[72%] ml-auto'>
             <h1 className='text-[48px] font-[700] text-starsWhite '> You've got the skills already -  Let us kit you up</h1>
@@ -27,6 +36,56 @@ const Hero = () => {
         </div>
         <div className='w-[50%] self-center'>
           <Carousel />
+        </div>
+      </div>
+
+      <div className="w-[75%] self-center ">
+        <div className="mt-[3rem]">
+          <h2 className='font-[600] text-[1.5rem]'> Top Charts</h2>
+          <div className='flex gap-[1rem] mt-[1rem]'>
+            {
+              buttonFirst.map((item,id)=>(
+                <button key={id} className={`px-[12px] py-[8px] rounded-full border hover:bg-starspurpleDark hover:text-starspurpleLight hover:border-none ${clickedButton === id ? 'bg-starspink' : ''}`}>
+                  {item.title}
+                </button>
+              ))
+            }
+          </div>
+          <div className='mt-[2rem]'>
+              <TopChartsCarousel />
+          </div>
+        </div>
+
+        <div className="mt-[3rem]">
+          <h2 className='font-[600] text-[1.5rem]'> Video Editing Tools</h2>
+          <div className='flex gap-[1rem] mt-[1rem]'>
+            {
+              buttonFirst.map((item,id)=>(
+                <button key={id} className={`px-[12px] py-[8px] rounded-full border hover:bg-starspurpleDark hover:text-starspurpleLight hover:border-none ${clickedButton === id ? 'bg-starspink' : ''}`}>
+                  {item.title}
+                </button>
+              ))
+            }
+          </div>
+          <div className='mt-[2rem]'>
+              <TopChartsCarousel />
+          </div>
+        </div>
+
+        <div className="mt-[3rem]">
+          <h2 className='font-[600] text-[1.5rem]'> Writing Tools</h2>
+          <div className='flex gap-[1rem] mt-[1rem]'>
+            {
+              buttonFirst.map((item,id)=>(
+                <button key={id} className={`px-[12px] py-[8px] rounded-full border hover:bg-starspurpleDark hover:text-starspurpleLight hover:border-none ${clickedButton === id ? 'bg-starspink' : ''}`}>
+                  {item.title}
+                </button>
+              ))
+            }
+          </div>
+          <div className='mt-[2rem]'>
+              <TopChartsCarousel />
+          </div>
         </div>
       </div>
     </section>
