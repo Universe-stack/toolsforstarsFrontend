@@ -3,10 +3,12 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Lato } from 'next/font/google';
 import { Space_Grotesk } from 'next/font/google';
+import Navbar from "./component/Navbar";
+import Footer from "./component/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 const lato = Lato({subsets: ['latin'],weight:"400"})
-const space = Space_Grotesk({subsets: ['latin'],weight:"400"})
+const space = Space_Grotesk({subsets: ['latin'],weight:"400"});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,7 +22,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={space.className}>{children}</body>
+      <body className={lato.className}>
+        <Navbar />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }
