@@ -49,7 +49,7 @@ const Footer = () => {
                             <li>
                                 <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white"> Privacy Policy </a>
                             </li>
-            y            </ul>
+                        </ul>
                     </div>
 
                     <div>

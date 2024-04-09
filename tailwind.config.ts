@@ -34,6 +34,9 @@ const config: Config = {
       'starsWhite': '#FFFFFF'
     },
     extend: {
+      fontFamily: {
+        sans: ['var(--font-circular)']
+      }
     },
   },
   plugins: [require("daisyui")]

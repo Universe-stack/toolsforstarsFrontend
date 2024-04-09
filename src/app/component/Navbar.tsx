@@ -27,7 +27,7 @@ const Navbar = () => {
         <div className=" flex align-middle justify-between w-[95%] self-center ">
             <div className="flex lg:gap-[3.3rem] xsm:gap-[5rem] xl:gap-[5rem] md:gap-[2rem]  align-middle text-center  md:w-[80%] md:justify-start xsm:w-[55%] xsm:justify-between lg:w-[90%]">
 
-                <h2 className='self-center font-[700]'>tools4stars</h2>
+                <h2 className='self-center font-[700]'>CreateCamp</h2>
                 <div className="md:flex self-center xsm:hidden">
                     <ul className="flex xl:gap-[2.5rem] md:gap-[1.6rem]">
                         <li className="font-[500] leading-normal text-[16px] hover:text-starspurpleLight"><Link href={"/"}>SaaS</Link></li>
