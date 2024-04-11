@@ -1,10 +1,20 @@
 "use client"
 import React, { useContext, useState, useEffect } from 'react';
 import SaasCarousel from '../component/UI/Slider/SaasCarousel';
-import ProductCard from '../component/UI/productCard/ProductCard';
+import ProductCard from '../component/UI/saasProductCard/ProductCard';
 import { IconsContext } from '@/context/IconsContext';
+import Link from 'next/link'
 
 export default function Page() {
+  const products = [
+    { link:'', name: 'alih', description: 'Connect your WordPress forms with hundreds of popular tools using custom-built integrations',images:['https://res.cloudinary.com/dck5v2kub/image/upload/v1710263377/toolsForstars/SAASPIC1_yv31md.webp', 'https://res.cloudinary.com/dck5v2kub/image/upload/v1710263377/toolsForstars/SAASPIC1_yv31md.webp'] },
+    { link:'', name: 'Beingo', description: 'Connect your WordPress forms with hundreds of popular tools using custom-built integrations',images:['https://res.cloudinary.com/dck5v2kub/image/upload/v1710263377/toolsForstars/SAASPIC1_yv31md.webp', 'https://res.cloudinary.com/dck5v2kub/image/upload/v1710263377/toolsForstars/SAASPIC1_yv31md.webp'] },
+    { link:'', name: 'Lakpa', description: 'Connect your WordPress forms with hundreds of popular tools using custom-built integrations', images:['https://res.cloudinary.com/dck5v2kub/image/upload/v1710263377/toolsForstars/SAASPIC1_yv31md.webp', 'https://res.cloudinary.com/dck5v2kub/image/upload/v1710263377/toolsForstars/SAASPIC1_yv31md.webp'] },
+    { link:'', name: 'Feura', description: 'Connect your WordPress forms with hundreds of popular tools using custom-built integrations',images:['https://res.cloudinary.com/dck5v2kub/image/upload/v1710263377/toolsForstars/SAASPIC1_yv31md.webp', 'https://res.cloudinary.com/dck5v2kub/image/upload/v1710263377/toolsForstars/SAASPIC1_yv31md.webp'] },
+    { link:'', name: 'Bioan', description: 'Connect your WordPress forms with hundreds of popular tools using custom-built integrations',images:['https://res.cloudinary.com/dck5v2kub/image/upload/v1710263377/toolsForstars/SAASPIC1_yv31md.webp', 'https://res.cloudinary.com/dck5v2kub/image/upload/v1710263377/toolsForstars/SAASPIC1_yv31md.webp'] },
+    { link:'', name: 'haone', description: 'Connect your WordPress forms with hundreds of popular tools using custom-built integrations',images:['https://res.cloudinary.com/dck5v2kub/image/upload/v1710263377/toolsForstars/SAASPIC1_yv31md.webp', 'https://res.cloudinary.com/dck5v2kub/image/upload/v1710263377/toolsForstars/SAASPIC1_yv31md.webp'] }
+  ];
+
   const { icon } = useContext<any>(IconsContext);
   const [data, setData] = useState<any>(null);
 
@@ -44,6 +54,10 @@ export default function Page() {
 
           <div className=''>
             {data && <ProductCard data={data} />}
+          </div>
+
+          <div className= 'grid grid-cols-3 gap-9 mt-[5rem]'>
+              {products.map((item)=><Link href={item.link} key={''}><ProductCard data={item} /></Link>)}
           </div>
         </div>
       </div>

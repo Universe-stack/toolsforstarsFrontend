@@ -1,5 +1,6 @@
 import CardCarousel from "../Slider/CardCarousel";
 
+
 interface ProductCardProps {
   data:any
 }
@@ -8,11 +9,11 @@ interface ProductCardProps {
 
   
   const ProductCard: React.FC<ProductCardProps> = ({data}) => {
-  
+    console.log(data)
     return (
       <div className="card w-[22rem] bg-base-100 shadow-xl">
         <div className="">
-            <CardCarousel images={data.images}/>
+         {data && <CardCarousel images={data.images} />}
         </div>
         <div className="card-body">
           <h2 className="card-title">{data.name}</h2>

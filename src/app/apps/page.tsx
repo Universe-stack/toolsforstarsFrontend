@@ -2,7 +2,7 @@
 
 import React, { useContext, useState, useEffect } from 'react';
 import SaasCarousel from '../component/UI/Slider/SaasCarousel';
-import ProductCard from '../component/UI/productCard/ProductCard';
+import ProductCard from '../component/UI/saasProductCard/ProductCard';
 import { IconsContext } from '@/context/IconsContext';
 
 export default function Page() {

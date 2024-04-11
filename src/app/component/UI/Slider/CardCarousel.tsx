@@ -5,7 +5,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import Image from 'next/image';
 
 function CardCarousel(images:any) {
-
+console.log(images,'images')
   const settings = {
     dots: false,
     infinite: true,
@@ -28,8 +28,8 @@ function CardCarousel(images:any) {
 
   return (
     <Slider {...settings}>
-      {images.map((image:any, index:any) => (
-        <Image key={index} src={image} alt={image.desc} width={400} height={400} />
+      {images.images.map((image:any, index:any) => (
+        <Image key={index} src={image} alt={''} width={400} height={400} />
       ))}
     </Slider>
   );
