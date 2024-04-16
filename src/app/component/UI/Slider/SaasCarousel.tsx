@@ -17,9 +17,6 @@ import { MdPhotoLibrary } from "react-icons/md";
 import { IconsContext } from '@/context/IconsContext';
 
 
-interface SaasCarouselProps {
-  onIconClick: (icon: string) => void; // Explicitly define the type of onIconClick
-}
 
 function SampleNextArrow(props:any) {
   const { className, style, onClick } = props;

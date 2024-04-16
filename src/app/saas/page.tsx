@@ -45,7 +45,7 @@ export default function Page() {
 
         <div className='custom-after absolute left-0 right-0'></div>
 
-        <div className=''>
+        <div className='w-[100%]'>
           <div className='flex gap-3 mt-[2rem]'>
             <div className='w-[90%] mt-[0.83rem]'>
               <SaasCarousel />
@@ -56,8 +56,8 @@ export default function Page() {
             {data && <ProductCard data={data} />}
           </div>
 
-          <div className= 'grid grid-cols-3 gap-9 mt-[5rem]'>
-              {products.map((item)=><Link href={item.link} key={''}><ProductCard data={item} /></Link>)}
+          <div className= 'grid grid-cols-4 gap-10 mt-[5rem] w-[100%]'>
+              {products.map((item)=><ProductCard key={''} data={item} />)}
           </div>
         </div>
       </div>

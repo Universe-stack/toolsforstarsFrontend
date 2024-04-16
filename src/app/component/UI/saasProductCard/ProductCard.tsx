@@ -11,15 +11,15 @@ interface ProductCardProps {
   const ProductCard: React.FC<ProductCardProps> = ({data}) => {
     console.log(data)
     return (
-      <div className="card w-[22rem] bg-base-100 shadow-xl">
+      <div className="card w-[100%] bg-base-100 shadow-none rounded-md ">
         <div className="">
          {data && <CardCarousel images={data.images} />}
         </div>
-        <div className="card-body">
+        <div className="flex flex-col gap-[0.85rem] py-[0.5rem]">
           <h2 className="card-title">{data.name}</h2>
-          <p>{data.description}</p>
+          <p className='text-[15px]'>{data.description}</p>
           <div className="card-actions justify-end">
-            <button className="btn btn-primary">Buy Now</button>
+            <button className="p-[0.6rem] bg-starsBlack text-starsWhite rounded-md text-[0.75rem]">Buy Now</button>
           </div>
         </div>
       </div>
