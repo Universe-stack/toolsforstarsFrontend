@@ -18,22 +18,22 @@ export default function Page() {
   const { icon } = useContext<any>(IconsContext);
   const [data, setData] = useState<any>(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch(`https://api.example/${icon}`);
-        if (!res.ok) {
-          throw new Error('Failed to fetch data');
-        }
-        const jsonData = await res.json();
-        setData(jsonData);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const res = await fetch(`https://api.example/${icon}`);
+  //       if (!res.ok) {
+  //         throw new Error('Failed to fetch data');
+  //       }
+  //       const jsonData = await res.json();
+  //       setData(jsonData);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
 
-    fetchData();
-  }, [icon]); 
+  //   fetchData();
+  // }, [icon]); 
 
 
   return (

@@ -1,16 +1,18 @@
+'use client'
+
 import React from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Image from 'next/image';
 
-function ProductdetailCarousel(images:any) {
-console.log(images,'images')
+function ProductdetailCarousel(props:any) {
+
   const settings = {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 5,
+    slidesToShow: 2,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
@@ -27,10 +29,12 @@ console.log(images,'images')
   };
 
   return (
-    <Slider {...settings}>
-      {images.images.map((image:any, index:any) => (
-        <Image key={index} src={image} alt={''} width={400} height={400} />
-      ))}
+    <Slider {...settings} className='gap-[1%]'>
+     {props.productImages.images?.map((image: string, index: number) => (
+                <div key={' '} className='w-[100%] px-[10px] py-[5px]'>
+                    <Image src={`${image}`} width={500} height={400} alt="" className='rounded-md'/>
+                </div>
+            ))}
     </Slider>
   );
 }
