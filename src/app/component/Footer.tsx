@@ -4,7 +4,7 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <section className='w-[100%] flex flex-col bg-starspurpleLight mt-[3rem]'>
+    <section className='w-[100%] flex flex-col bg-starsBlack mt-[2rem]'>
         <div className="py-10 pt-[3rem] sm:pt-16 lg:pt-24 self-center">
             <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl self-center">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-y-12 gap-x-12 text-starsWhite opacity-95">
@@ -13,19 +13,19 @@ const Footer = () => {
 
                         <ul className="mt-8 space-y-4">
                             <li>
-                                <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white"> About </a>
+                                <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white text-[14px]"> About </a>
                             </li>
 
                             <li>
-                                <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white"> Features </a>
+                                <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white text-[14px]"> Features </a>
                             </li>
 
                             <li>
-                                <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white"> Works </a>
+                                <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white text-[14px]"> Works </a>
                             </li>
 
                             <li>
-                                <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white"> Career </a>
+                                <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white text-[14px]"> Career </a>
                             </li>
                         </ul>
                     </div>
@@ -35,19 +35,19 @@ const Footer = () => {
 
                         <ul className="mt-8 space-y-4">
                             <li>
-                                <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white"> Customer Support </a>
+                                <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white text-[14px]"> Customer Support </a>
                             </li>
 
                             <li>
-                                <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white"> Delivery Details </a>
+                                <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white text-[14px]"> Delivery Details </a>
                             </li>
 
                             <li>
-                                <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white"> Terms & Conditions </a>
+                                <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white text-[14px]"> Terms & Conditions </a>
                             </li>
 
                             <li>
-                                <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white"> Privacy Policy </a>
+                                <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white text-[14px]"> Privacy Policy </a>
                             </li>
                         </ul>
                     </div>
@@ -57,19 +57,19 @@ const Footer = () => {
 
                         <ul className="mt-8 space-y-4">
                             <li>
-                                <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white"> Free eBooks </a>
+                                <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white text-[14px]"> Free eBooks </a>
                             </li>
 
                             <li>
-                                <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white"> Development Tutorial </a>
+                                <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white text-[14px]"> Development Tutorial </a>
                             </li>
 
                             <li>
-                                <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white"> How to - Blog </a>
+                                <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white text-[14px]"> How to - Blog </a>
                             </li>
 
                             <li>
-                                <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white"> YouTube Playlist </a>
+                                <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white text-[14px]"> YouTube Playlist </a>
                             </li>
                         </ul>
                     </div>
@@ -79,19 +79,19 @@ const Footer = () => {
 
                         <ul className="mt-8 space-y-4">
                             <li>
-                                <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white"> Customer Support </a>
+                                <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white text-[14px]"> Customer Support </a>
                             </li>
 
                             <li>
-                                <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white"> Delivery Details </a>
+                                <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white text-[14px]"> Delivery Details </a>
                             </li>
 
                             <li>
-                                <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white"> Terms & Conditions </a>
+                                <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white text-[14px]"> Terms & Conditions </a>
                             </li>
 
                             <li>
-                                <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white"> Privacy Policy </a>
+                                <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white text-[14px]"> Privacy Policy </a>
                             </li>
                         </ul>
                     </div>

@@ -23,7 +23,7 @@ const Navbar = () => {
   
 
   return (
-    <nav className="flex flex-col justify-center w-full xl:py-[1.5rem] xsm:py-[1rem] relative">
+    <nav className="flex flex-col justify-center w-full xl:py-[1.5rem] xsm:py-[1rem] relative shadow">
         <div className=" flex align-middle justify-between w-[95%] self-center ">
             <div className="flex lg:gap-[3.3rem] xsm:gap-[5rem] xl:gap-[5rem] md:gap-[2rem]  align-middle text-center  md:w-[80%] md:justify-start xsm:w-[55%] xsm:justify-between lg:w-[90%]">
 

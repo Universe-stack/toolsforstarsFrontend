@@ -27,7 +27,7 @@ const Hero = () => {
 
               <div className='flex w-[100%] gap-3 mt-[1rem]'>
                 <input type="text" placeholder="Enter your email" className="input input-bordered w-[100%] max-w-xs" />
-                <button className='bg-[#e49a2d] text-starsWhite w-[30%] rounded-md hover:bg-[#3700ff] hover:text-starsWhite'>
+                <button className='bg-[#e49a2d] text-starsWhite w-[30%] rounded-md hover:bg-[#3700ff] hover:text-starsWhite inline-flex items-center justify-center'>
                 Join in
                 </button>
               </div>
@@ -45,7 +45,7 @@ const Hero = () => {
           <div className='flex gap-[1rem] mt-[1rem]'>
             {
               buttonFirst.map((item,id)=>(
-                <button key={id} className={`px-[12px] py-[8px] rounded-full border hover:bg-[#3700ff] hover:text-starsWhite hover:border-none ${clickedButton === id ? 'bg-starspink' : ''}`}>
+                <button key={id} className={`inline-flex items-center justify-center px-[12px] py-[8px] rounded-full border hover:bg-[#3700ff] hover:text-starsWhite hover:border-none ${clickedButton === id ? 'bg-starspink' : ''}`}>
                   {item.title}
                 </button>
               ))
@@ -61,7 +61,7 @@ const Hero = () => {
           <div className='flex gap-[1rem] mt-[1rem]'>
             {
               buttonFirst.map((item,id)=>(
-                <button key={id} className={`px-[12px] py-[8px] rounded-full border hover:bg-[#3700ff] hover:text-starsWhite hover:border-none ${clickedButton === id ? 'bg-starspink' : ''}`}>
+                <button key={id} className={`inline-flex items-center justify-center px-[12px] py-[8px] rounded-full border hover:bg-[#3700ff] hover:text-starsWhite hover:border-none ${clickedButton === id ? 'bg-starspink' : ''}`}>
                   {item.title}
                 </button>
               ))
@@ -77,7 +77,7 @@ const Hero = () => {
           <div className='flex gap-[1rem] mt-[1rem]'>
             {
               buttonFirst.map((item,id)=>(
-                <button key={id} className={`px-[12px] py-[8px] rounded-full border hover:bg-[blue] hover:text-starsWhite hover:border-none ${clickedButton === id ? 'bg-starspink' : ''}`}>
+                <button key={id} className={`inline-flex items-center justify-center px-[12px] py-[8px] rounded-full border hover:bg-[blue] hover:text-starsWhite hover:border-none ${clickedButton === id ? 'bg-starspink' : ''}`}>
                   {item.title}
                 </button>
               ))

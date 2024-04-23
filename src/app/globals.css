@@ -17,9 +17,6 @@
   }
 }
 
-body {
- 
-}
 
 .herbg {
   background: linear-gradient(to right, #9F00FF, #F0C27D);
@@ -38,8 +35,3 @@ body {
   background-color: #717171; /* Replace with your desired color */
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-}
