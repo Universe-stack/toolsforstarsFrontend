@@ -12,7 +12,7 @@ export interface Metadata {
   description: string;
 }
 
-const maison = localFont({
+const maison= localFont({
   src: '../centra.otf',
 });
 
@@ -29,7 +29,7 @@ const RootLayout: NextPage<{ children: React.ReactNode }> = ({ children }) => {
         <meta name="description" content={metadata.description} />
         <link rel="stylesheet" href={maison.className} /> {/* Assuming CSS class */}
       </Head>
-      <body>
+      <body className={maison.className}>
         <AuthProvider>
           <Navbar />
           <IconsContextProvider>

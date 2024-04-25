@@ -1,70 +1,72 @@
+//@ts-nocheck
 "use client"
 
-import React,{useState, useEffect} from 'react'
-import {useAuth} from '@/context/AuthContext'
+import React, { useState,useEffect } from 'react';
+import { useAuth } from '@/context/AuthContext';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useRouter } from 'next/navigation'
-
+import { useRouter } from 'next/navigation';
 
 const Page = () => {
-    const {signup} = useAuth();
-    const {user, error}= useAuth();
-    const router = useRouter()
+  const { state, dispatch, handleSignup } = useAuth();
+  const router = useRouter();
+  const [form, setForm] = useState({
+    email: '',
+    password: '',
+    username: '',
+    name: '',
+    role: '',
+  });
+  const [agreeChecked, setAgreeChecked] = useState(false);
 
 
-    const notifyAuthSuccess = () => toast("Sign up successful");
-    const notifyAuthError = () => toast(`${error.message}`);
-    const notifyformError = ()=>toast("Please agree to the terms and conditions before signing up.")
-
-    const [form, setForm] = useState({
+  useEffect(() => {
+    if (state.isLoading) {
+      toast.info('Signing up...'); 
+      setForm({
         email: '',
         password: '',
         username: '',
-        name:'',
-        role: ''
-    });
+        name: '',
+        role: '',
+      })
+    } else if (state.signUpResult) {
+      if (state.signUpResult.message) {
+        toast.error(state.signUpResult.message); 
+      } else {
+        toast.success('Signup successful!');
+        router.push("/")
+      }
+    }
+  }, [state.isLoading, state.signUpResult,router])
 
-    const [agreeChecked, setAgreeChecked] = useState(false); // State to track checkbox status
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setForm((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
-        setForm(prevState => ({
-            ...prevState,
-            [name]: value
-        }));
-    };
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setAgreeChecked(e.target.checked);
+  };
 
-    const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setAgreeChecked(e.target.checked);
-    };
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (agreeChecked) {
+      try {
+        await handleSignup(form);
+        
+      } catch (error) {
+        console.error('Signup failed:', error);
+      }
+    } else {
+      notifyFormError();
+    }
+  };
 
-    useEffect(() => {
-        if (user) {
-           notifyAuthSuccess()
-           console.log(user, "userrrrr")
-            //router.push('/');
-        }else if(error) {
-          notifyAuthError()
-          console.log(error,"errorrr")
-        }
-    })
 
-    const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        if (agreeChecked) {
-            try {
-                await signup(form);
-            } catch (error:any) {
-                console.error('Signup failed:', error)
-            }
-        } else {
-            notifyformError
-        }
-    };
-    
-
-    
   return (
 <section className="py-10 herbg sm:py-16 lg:py-24 relative">
     <ToastContainer className="absolute" />
@@ -77,7 +79,7 @@ const Page = () => {
         <div className="relative max-w-md mx-auto mt-8 md:mt-16 bg-starsWhite rounded-md">
             <div className="overflow-hidden bg-white rounded-md shadow-md">
                 <div className="px-4 py-6 sm:px-8 sm:py-7">
-                    <form action="#" method="POST" onSubmit={handleSignup}>
+                    <form action="#" method="POST" onSubmit={handleSubmit}>
                         <div className="space-y-5">
                             <div>
                                 <label className="text-base font-medium text-gray-900"> Name </label>

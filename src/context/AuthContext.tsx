@@ -1,106 +1,94 @@
+//@ts-nocheck
 "use client";
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useContext, useReducer } from 'react';
+import { useRouter } from "next/navigation";
 
 interface User {
   name: string;
   email: string;
-  username:string;
+  username: string;
 }
 
-interface AuthContextType {
-  error:any;
+interface SignUpResult {
+  message: string;
+}
+
+interface AuthState {
   user: User | null;
+  signUpResult: SignUpResult | null;
   isLoading: boolean;
-  signup: (userData: { email: string; password: string; username: string }) => Promise<void>;
-  signIn: (credentials: { email: string; password: string; username: string}) => Promise<void>;
-  logout: () => void;
 }
 
-const AuthContext = createContext<AuthContextType>({
-  error:null,
+const initialState: AuthState = {
   user: null,
-  isLoading: true,
-  signup: async () => {},
-  signIn: async () => {},
-  logout: () => {},
+  signUpResult: null,
+  isLoading: false,
+};
+
+type Action =
+  | { type: 'SET_USER'; payload: User }
+  | { type: 'SET_SIGNUP_RESULT'; payload: SignUpResult }
+  | { type: 'SET_LOADING'; payload: boolean };
+
+const reducer = (state: AuthState, action: Action): AuthState => {
+  switch (action.type) {
+    case 'SET_USER':
+      return { ...state, user: action.payload };
+    case 'SET_SIGNUP_RESULT':
+      return { ...state, signUpResult: action.payload };
+    case 'SET_LOADING':
+      return { ...state, isLoading: action.payload };
+    default:
+      return state;
+  }
+};
+
+const AuthContext = createContext<{
+  state: AuthState;
+  dispatch: React.Dispatch<Action>;
+}>({
+  state: initialState,
+  dispatch: () => null,
 });
 
-export const AuthProvider = ({ children }:{children:any}) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [error, setError] = useState(null)
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const router = useRouter();
 
-  const signup = async (userData: { email: string; password: string; username: string }) => {
+  const handleSignup = async (userData: { email: string; password: string; username: string }) => {
     try {
-      console.log('sending 222')
-      setIsLoading(true);
-      const response = await fetch('https://createcamp.onrender.com/users/register', {
+      dispatch({ type: 'SET_LOADING', payload: true });
+      const res = await fetch('https://createcamp.onrender.com/users/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(userData),
       });
-      const data = await response.json();
-      console.log(data, "Response auth")
-      if (data){
-      setUser(data);
-      console.log(user, "user response")
+
+      if (res.ok) {
+       
+        const data = await res.json();
+        console.log(data, "darrra")
+        dispatch({ type: 'SET_SIGNUP_RESULT', payload: data });
+        //router.push("/");
+      } else {
+        const data = await res.json();
+        dispatch({ type: 'SET_SIGNUP_RESULT', payload: { message: data.message || "An error occurred. Please try again." } });
       }
-    } catch (error:any) {
+    } catch (error: any) {
       console.error('Signup failed:', error);
-      if(error){
-        setError(error)
-      }
+      dispatch({ type: 'SET_SIGNUP_RESULT', payload: { message: 'Signup failed. Please try again.' } });
     } finally {
-      setIsLoading(false);
+      dispatch({ type: 'SET_LOADING', payload: false });
     }
   };
-
-  useEffect(() => {
-    console.log(user, "user response 2");
-  }, [user]);
-
-  
-
-  const signIn = async (credentials: { email: string; password: string; username:string }) => {
-    try {
-      // Simulate asynchronous signin process
-      setIsLoading(true);
-      // Example: Call your API to authenticate the user
-      const response = await fetch('/api/signin', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(credentials),
-      });
-      const data = await response.json();
-      setUser(data.user);
-    } catch (error) {
-      console.error('Signin failed:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const logout = () => {
-    // Implement your logout logic here
-    setUser(null);
-  };
-
-  // Simulating asynchronous login process
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-  }, []);
 
   return (
-    <AuthContext.Provider value={{ user, error, isLoading, signup, signIn, logout }}>
+    <AuthContext.Provider value={{ state, dispatch, handleSignup }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-export const useAuth = (): AuthContextType => useContext(AuthContext);
+export const useAuth = () => useContext(AuthContext);
