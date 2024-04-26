@@ -20,6 +20,7 @@ const Page = () => {
   const [agreeChecked, setAgreeChecked] = useState(false);
 
 
+
   useEffect(() => {
     if (state.isLoading) {
       toast.info('Signing up...'); 
@@ -52,6 +53,10 @@ const Page = () => {
     setAgreeChecked(e.target.checked);
   };
 
+  const notifyFormError = () => {
+    toast.error('Please agree to the Terms of Service and Privacy Policy.');
+  };
+  
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (agreeChecked) {

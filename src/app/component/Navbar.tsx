@@ -1,5 +1,6 @@
+//@ts-nocheck
 'use client'
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Image from "next/image"
 import Link from "next/link"
 import logo from "../../../public/logo1.png";
@@ -21,6 +22,9 @@ const Navbar = () => {
 //     setIsDropdownOpen(prevState => !prevState);
 //   };  
   
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    console.log(storedUser);
+ 
 
   return (
     <nav className="flex flex-col justify-center w-full xl:py-[1.5rem] xsm:py-[1rem] relative shadow">
@@ -41,13 +45,16 @@ const Navbar = () => {
                 </div>
             </div>
             <div className='flex flex-col justify-center'>
-                <button className="self-center bg-[#000000] text-[#FFFFFF] rounded-md p-[0.825rem] flex gap-[0.625rem] justify-center align-middle text-[1rem] font-[500] md:w-[6.875rem] md:p-[0.5rem] xsm: w-[6.6rem] xsm:gap-[0.1rem] xsm:text-[0.8rem] xsm:p-[0.5rem] xsm:hidden lg:flex xl:flex md:flex">Sign up
-                <span className="self-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.964} stroke="currentColor" className="w-[0.85938rem] h-[0.85938rem] self-center">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
-                    </svg>
-                </span>
-                </button>
+                {storedUser ? <h2>Signed In</h2>:
+                
+                                <button className="self-center bg-[#000000] text-[#FFFFFF] rounded-md p-[0.825rem] flex gap-[0.625rem] justify-center align-middle text-[1rem] font-[500] md:w-[6.875rem] md:p-[0.5rem] xsm: w-[6.6rem] xsm:gap-[0.1rem] xsm:text-[0.8rem] xsm:p-[0.5rem] xsm:hidden lg:flex xl:flex md:flex">Sign up
+                                <span className="self-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.964} stroke="currentColor" className="w-[0.85938rem] h-[0.85938rem] self-center">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                                    </svg>
+                                </span>
+                                </button>
+                }
 
                 <button className='rounded-full bg-[#000000] text-[#FFFFFF] p-[0.325rem] xl:hidden lg:hidden md:hidden'>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">

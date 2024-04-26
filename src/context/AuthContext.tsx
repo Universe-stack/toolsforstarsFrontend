@@ -22,12 +22,14 @@ interface AuthState {
 const initialState: AuthState = {
   user: null,
   signUpResult: null,
+  signInResult : null,
   isLoading: false,
 };
 
 type Action =
   | { type: 'SET_USER'; payload: User }
   | { type: 'SET_SIGNUP_RESULT'; payload: SignUpResult }
+  | { type: 'SET_SIGNIN_RESULT'; payload: SignInResult }
   | { type: 'SET_LOADING'; payload: boolean };
 
 const reducer = (state: AuthState, action: Action): AuthState => {
@@ -38,6 +40,8 @@ const reducer = (state: AuthState, action: Action): AuthState => {
       return { ...state, signUpResult: action.payload };
     case 'SET_LOADING':
       return { ...state, isLoading: action.payload };
+    case 'SET_SIGNIN_RESULT':
+        return { ...state, signInResult: action.payload };
     default:
       return state;
   }
@@ -84,8 +88,34 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+  const handleSignIn = async (userData: { username: string; password: string }) => {
+    try {
+      dispatch({ type: 'SET_LOADING', payload: true });
+      const res = await fetch('https://createcamp.onrender.com/users/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      });
+  
+      if (res.ok) {
+        const data = await res.json();
+        dispatch({ type: 'SET_SIGNIN_RESULT', payload: data });
+      } else {
+        const data = await res.json();
+        dispatch({ type: 'SET_SIGNIN_RESULT', payload: { message: data.message || "An error occurred. Please try again." } });
+      }
+    } catch (error: any) {
+      console.error('Sign-in failed:', error);
+      dispatch({ type: 'SET_SIGNIN_RESULT', payload: { message: 'Sign-in failed. Please try again.' } });
+    } finally {
+      dispatch({ type: 'SET_LOADING', payload: false });
+    }
+  };
+  
   return (
-    <AuthContext.Provider value={{ state, dispatch, handleSignup }}>
+    <AuthContext.Provider value={{ state, dispatch, handleSignup, handleSignIn }}>
       {children}
     </AuthContext.Provider>
   );

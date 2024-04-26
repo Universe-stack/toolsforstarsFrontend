@@ -1,7 +1,10 @@
+//@ts-nocheck
 'use client'
-import React,{useState} from 'react';
+
+import React,{useState, useEffect} from 'react';
 import Carousel from './UI/Slider/Carousel';
 import TopChartsCarousel from './UI/Slider/TopChartsCarousel';
+import { useAuth } from '@/context/AuthContext';
 
 const buttonFirst = [
   {title:"Top free"},
@@ -11,6 +14,21 @@ const buttonFirst = [
 const Hero = () => {
 
   const [clickedButton, setClickedButton] = useState(null);
+  const {state, dispatch} = useAuth()
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     console.log(await state.signUpResult.user, "sign in message");
+  //   };
+  
+  //   fetchData();
+  // }, [state]);
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    console.log(storedUser);
+  }, []);
+  
 
   return (
     <section className='flex flex-col justify-center w-[100vw]'>
