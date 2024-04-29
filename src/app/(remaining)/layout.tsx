@@ -6,6 +6,7 @@ import Footer from '../component/Footer';
 import localFont from '@next/font/local';
 import { IconsContextProvider } from '@/context/IconsContext';
 import { AuthProvider } from '@/context/AuthContext';
+import { ResourceProvider } from '@/context/ResourceContext';
 
 export interface Metadata {
   title: string;
@@ -32,9 +33,11 @@ const RootLayout: NextPage<{ children: React.ReactNode }> = ({ children }) => {
       <body className={maison.className}>
         <AuthProvider>
           <Navbar />
+          <ResourceProvider>
           <IconsContextProvider>
             {children}
           </IconsContextProvider>
+          </ResourceProvider>
           <Footer />
         </AuthProvider>
       </body>

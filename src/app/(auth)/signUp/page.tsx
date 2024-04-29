@@ -56,7 +56,7 @@ const Page = () => {
   const notifyFormError = () => {
     toast.error('Please agree to the Terms of Service and Privacy Policy.');
   };
-  
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (agreeChecked) {
@@ -73,12 +73,12 @@ const Page = () => {
 
 
   return (
-<section className="py-10 herbg sm:py-16 lg:py-24 relative">
+<section className="py-10 bg-starsBlack sm:py-16 lg:py-24 relative">
     <ToastContainer className="absolute" />
     <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div className="max-w-2xl mx-auto text-center">
             <h2 className="text-3xl font-bold leading-tight text-starsWhite sm:text-4xl lg:text-5xl">Create free account</h2>
-            <p className="max-w-xl mx-auto mt-4 text-base leading-relaxed text-starsWhite">You can create a free Celebration account in 2 minutes</p>
+            <p className="max-w-xl mx-auto mt-4 text-base leading-relaxed text-starsWhite">You can create a free CreateCamp account in 60 seconds</p>
         </div>
 
         <div className="relative max-w-md mx-auto mt-8 md:mt-16 bg-starsWhite rounded-md">

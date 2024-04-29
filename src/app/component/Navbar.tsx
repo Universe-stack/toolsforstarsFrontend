@@ -7,11 +7,6 @@ import logo from "../../../public/logo1.png";
 import { ButtonHTMLAttributes } from "react";
 
 
-const servicesLinks= [
-  {id:1, title:"Design", desc:"We create", image:"https://res.cloudinary.com/dck5v2kub/image/upload/v1709453478/jaeyLusson/4738060_1_ryxtwn.jpg", links:["Product design","graphic design", "3D Animation"]},
-  {id:2, title:"Engineering", desc:"We build", image:"https://res.cloudinary.com/dck5v2kub/image/upload/v1709453542/jaeyLusson/4291099_1_labuo5.jpg", links:["Web apps", " Mobile apps" ,"SAAS development"]},
-  {id:3, title:"Content", desc:"We sell", image:"https://res.cloudinary.com/dck5v2kub/image/upload/v1709453518/jaeyLusson/4590506_1_en66hu.jpg", links:["Content writing" ,"SEO"]}
-]
 
 const Navbar = () => {
 
@@ -38,7 +33,7 @@ const Navbar = () => {
                         <li className="text-[16px] font-[500] leading-normal flex justify-center hover:text-starspurpleLight">
                           <Link href={"/"} className="flex gap-1 self-center">Apps </Link>
                         </li>
-                        <li className="text-[16px] font-[500] leading-normal hover:text-starspurpleLight"><Link href={"/"}>Books</Link></li>
+                        <li className="text-[16px] font-[500] leading-normal hover:text-starspurpleLight"><Link href={"/"}>Blog</Link></li>
                         <li className="text-[16px] font-[500] leading-normal hover:text-starspurpleLight"><Link href={"/"}>Courses</Link></li>
                         <li className="text-[16px] font-[500] leading-normal hover:text-starspurpleLight"><Link href={"/"}>List your product</Link></li>
                     </ul>
