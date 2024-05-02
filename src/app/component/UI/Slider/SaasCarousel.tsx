@@ -42,13 +42,13 @@ function SamplePrevArrow(props:any) {
 
 
 
-function SaasCarousel() {
+function SaasCarousel({onIconChange}) {
 
   const {icon, setIcon} = useContext(IconsContext)
 
   const handleIconClick = async (iconn) => {
     await setIcon(iconn)
-    console.log(icon)
+    onIconChange(iconn)
   };
 
   const settings = {

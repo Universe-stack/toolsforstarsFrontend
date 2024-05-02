@@ -1,11 +1,14 @@
+'use client'
 import React from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Image from 'next/image';
 
-function CardCarousel(images:any) {
-console.log(images,'images')
+function CardCarousel({ data }: { data: any }) {
+
+console.log(data,'images')
+
   const settings = {
     dots: false,
     infinite: true,
@@ -27,10 +30,14 @@ console.log(images,'images')
   };
 
   return (
-    <Slider {...settings}>
-      {images.images.map((image:any, index:any) => (
-        <Image key={index} src={image} alt={''} width={400} height={400} />
-      ))}
+  <Slider {...settings}>
+      {data && data.screenshots ? (
+        data.screenshots.map((image: any, index: number) => (
+          <Image key={index} src={`${image}`} alt={''} width={400} height={400} className='h-[180px] cover' />
+        ))
+      ) : (
+        "no images found"
+      )}
     </Slider>
   );
 }

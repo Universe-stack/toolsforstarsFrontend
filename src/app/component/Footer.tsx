@@ -1,7 +1,5 @@
 import React from 'react'
 
-
-
 const Footer = () => {
   return (
     <section className='w-[100%] flex flex-col bg-starsBlack mt-[2rem]'>
