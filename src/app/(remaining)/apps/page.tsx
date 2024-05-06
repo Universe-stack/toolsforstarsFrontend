@@ -13,19 +13,19 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export default function Page() {
   const { icon } = useContext<any>(IconsContext);
-  const [courses, setcourses] = useState([]); // State to store Saas tools
+  const [apps, setapps] = useState([]); // State to store Saas tools
   const [error, setError] = useState(null);
   const [backdrop, setBackdrop] = useState<boolean>(false);
-  const { state, dispatch, handleFetchAllSaas, handleFetchAllcourses } = useResource();
+  const { state, dispatch, handleFetchAllSaas, handleFetchAllApps } = useResource();
 
   const handleIconChange = async (selectedIcon) => {
     console.log('Selected Icon:', selectedIcon);
     try {
       dispatch({ type: 'SET_LOADING', payload: true });
-      const response = await fetch(`https://createcamp.onrender.com/tools/courses/filterResults?category=${selectedIcon}`);
+      const response = await fetch(`https://createcamp.onrender.com/tools/apps/filterResults?category=${selectedIcon}`);
       if (!response.ok) {
         toast.error('Error fetching tools, try again!');
-        throw new Error('Failed to fetch courses');
+        throw new Error('Failed to fetch apps');
         
       }
       const data = await response.json();
@@ -35,7 +35,7 @@ export default function Page() {
         toast.success('Tools fetched successful!');
       }
       console.log(data, "data from tools")
-      setcourses(data.tools); // Update courses state with fetched tools
+      setapps(data.tools); // Update apps state with fetched tools
       setError(null);
     } catch (error) {
       console.error('Error fetching Saas tools:', error);
@@ -47,13 +47,13 @@ export default function Page() {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log('Fetching from courses...')
+      console.log('Fetching from apps...')
       try {
         dispatch({ type: 'SET_LOADING', payload: true });
-        await handleFetchAllcourses();
+        await handleFetchAllApps();
       } catch (error) {
-        console.error('Fetching courses data failed:', error);
-        setError('Fetching courses data failed. Please try again.');
+        console.error('Fetching apps data failed:', error);
+        setError('Fetching apps data failed. Please try again.');
       } finally {
         dispatch({ type: 'SET_LOADING', payload: false });
       }
@@ -61,7 +61,7 @@ export default function Page() {
     fetchData();
   }, []); // Empty dependency array to run the effect only once after the initial render
 
-  console.log(state.coursesResources, "state")
+  console.log(state.appsResources, "state")
 
   const backdropSet = () => {
     setBackdrop(true);
@@ -98,14 +98,14 @@ export default function Page() {
           </div>
 
           <div className='grid grid-cols-4 gap-10 mt-[5rem] w-[100%] justify-center items-center relative'>
-            {courses.length > 0 ? (
-              courses.map((tool) => (
+            {apps.length > 0 ? (
+              apps.map((tool) => (
                 <ProductCard key={tool.id} data={tool} />
               ))
             ) : (
-              state.courseResources ? (
-                state.courseResources.tools ? (
-                  state.courseResources.tools.map((item) => (
+              state.appsResources ? (
+                state.appsResources.tools ? (
+                  state.appsResources.tools.map((item) => (
                     <ProductCard key={item.id} data={item} />
                   ))
                 ) : (

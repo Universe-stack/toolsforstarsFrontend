@@ -102,11 +102,94 @@ export const ResourceProvider = ({ children }: { children: React.ReactNode }) =>
         dispatch({ type: 'SET_LOADING', payload: false });
       }
     };
+
+    const handleFetchFilteredSaas = async (sortBy) => {
+      try {
+        console.log('Fetching filtered Saas tools...');
+        dispatch({ type: 'SET_LOADING', payload: true });
+        console.log(sortBy, "SortBy")
+    
+        const response = await fetch(`https://createcamp.onrender.com/tools/saas/filterResults?sortBy=${sortBy}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+    
+        if (!response.ok) {
+          throw new Error(`Failed to fetch filtered Saas tools. Status: ${response.status}`);
+        }
+    
+        const data = await response.json();
+        console.log('Filtered Saas data:', data);
+    
+        dispatch({ type: 'SET_FILTERED_SAAS', payload: data });
+      } catch (error) {
+        console.error('Error fetching filtered Saas tools:', error);
+        dispatch({ type: 'SET_FILTERED_SAAS', payload: { message: 'An error occurred while fetching Saas tools. Please try again.' } });
+      } finally {
+        dispatch({ type: 'SET_LOADING', payload: false });
+      }
+    };
+    
+
+    const handleFetchAllApps = async () => {
+      try {
+        console.log('fetching...');
+        dispatch({ type: 'SET_LOADING', payload: true });
+        const res = await fetch('https://createcamp.onrender.com/tools/apps', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        const data = await res.json(); // Parse JSON data once
+        console.log(data, "Apps data");
+    
+        if (res.ok) {
+          dispatch({ type: 'SET_APPS', payload: data });
+        } else {
+          const errorMessage = data.message || "An error occurred. Please try again.";
+          dispatch({ type: 'SET_APPS', payload: { message: errorMessage } });
+        }
+      } catch (error) {
+        console.error('Fetching apps failed:', error);
+        dispatch({ type: 'SET_APPS', payload: { message: 'Fetching appps failed. Please try again.' } });
+      } finally {
+        dispatch({ type: 'SET_LOADING', payload: false });
+      }
+    };
   
+    const handleFetchAllCourses = async () => {
+      try {
+        console.log('fetching...');
+        dispatch({ type: 'SET_LOADING', payload: true });
+        const res = await fetch('https://createcamp.onrender.com/tools/courses', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        const data = await res.json(); // Parse JSON data once
+        console.log(data, "Courses data");
+    
+        if (res.ok) {
+          dispatch({ type: 'SET_COURSES', payload: data });
+        } else {
+          const errorMessage = data.message || "An error occurred. Please try again.";
+          dispatch({ type: 'SET_COURSES', payload: { message: errorMessage } });
+        }
+      } catch (error) {
+        console.error('Fetching courses failed:', error);
+        dispatch({ type: 'SET_COURSES', payload: { message: 'Fetching courses failed. Please try again.' } });
+      } finally {
+        dispatch({ type: 'SET_LOADING', payload: false });
+      }
+    };
   
   
   return (
-    <ResourceContext.Provider value={{ state, dispatch, handleFetchAllSaas }}>
+    <ResourceContext.Provider value={{ state, dispatch, handleFetchAllSaas, handleFetchAllApps, handleFetchAllCourses, handleFetchFilteredSaas }}>
       {children}
     </ResourceContext.Provider>
   );

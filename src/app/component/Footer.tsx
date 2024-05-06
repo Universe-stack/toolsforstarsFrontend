@@ -1,15 +1,18 @@
 import React from 'react'
+import Image from 'next/image'
 
 const Footer = () => {
   return (
-    <section className='w-[100%] flex flex-col bg-starsBlack mt-[2rem]'>
+    <section className='w-[100%] flex flex-col bg-starsBlack'>
         <div className="py-10 pt-[3rem] sm:pt-16 lg:pt-24 self-center">
             <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl self-center">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-y-12 gap-x-12 text-starsWhite opacity-95">
                     <div className=''>
-                        <img className="w-auto h-7" src="https://cdn.rareblocks.xyz/collection/celebration/images/logo-alt.svg" alt="" />
+                        <div className='mb-4'>
+                        <Image src={"https://res.cloudinary.com/dck5v2kub/image/upload/v1714846530/jaeyLusson/createcamptwo.png"} alt="Logo" width={400} height={500} className='h-[3rem] w-[4rem]' />
+                        </div>
 
-                        <ul className="mt-8 space-y-4">
+                        <ul className="mt-3 space-y-4">
                             <li>
                                 <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white text-[14px]"> About </a>
                             </li>
@@ -157,7 +160,7 @@ const Footer = () => {
                             </ul>
                         </div>
 
-                        <p className="mt-6 text-sm text-blue-200 lg:mt-0">© Copyright 2021, All Rights Reserved by Postcraft</p>
+                        <p className="mt-6 text-sm text-blue-200 lg:mt-0">© Copyright 2021, All Rights Reserved by Createcamp</p>
                     </div>
                 </div>
             </div>
