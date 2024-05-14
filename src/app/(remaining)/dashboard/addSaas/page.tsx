@@ -3,6 +3,8 @@
 import React,{useState} from 'react'
 import { HiArrowSmRight } from "react-icons/hi";
 import { WithContext as ReactTags } from "react-tag-input";
+import { FaPlus } from "react-icons/fa6";
+import { FaMinus } from "react-icons/fa6";
 
 interface FormData {
   name: string;
@@ -53,6 +55,27 @@ const Page = () => {
     isActive:true
   });
 
+  const handleFeatureChange = (index, value) => {
+    const newFeatures = [...formData.features];
+    newFeatures[index] = value;
+    setFormData({ ...formData, features: newFeatures });
+  };
+
+  const handleAddFeature = () => {
+    if (formData.features.length < 5) {
+      setFormData({ ...formData, features: [...formData.features, ''] });
+    }
+  };
+
+  const handleRemoveFeature = (index) => {
+    const newFeatures = [...formData.features];
+    newFeatures.splice(index, 1);
+    setFormData({ ...formData, features: newFeatures });
+  };
+
+
+
+  
   const handleDelete=(i)=> {
     setFormData({
       ...formData,
@@ -66,6 +89,7 @@ const Page = () => {
       categories: [...formData.categories, category]
     })
   }
+
 
   const handleDeleteAudience =(i)=>{
     setFormData({
@@ -150,7 +174,7 @@ const Page = () => {
       <section className="py-10 bg-gray-50 sm:py-16 lg:py-24">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-[12px] font-bold leading-tight text-starsBlack sm:text-[16px] lg:text-[16px] text-left mb-2">Description</h2>
+          <h2 className=" mt-6 text-[12px] font-bold leading-tight text-starsBlack sm:text-[16px] lg:text-[16px] text-left mb-2">Description</h2>
             <input
               type="text"
               name="description"
@@ -160,18 +184,38 @@ const Page = () => {
               className="block w-full py-2 px-4 mb-4 text-gray-700 bg-gray-200 border border-gray-200 rounded"
             />
 
-            <h2 className="text-[12px] font-bold leading-tight text-starsBlack sm:text-[16px] lg:text-[16px] text-left mb-2">Features</h2>
-            <textarea
-              name="features"
-              id="features"
-              value={formData.features.join('\n')}// Add numbering to each feature
-              onChange={handleInputChange}
-              placeholder="Enter product features, one per line"
-              className="block w-full p-2 mb-4 text-gray-700 bg-gray-200 border border-gray-200 rounded"
-              rows={5}
-            />
+    <div>
+      <h2 className=" mt-6 text-[12px] font-bold leading-tight text-starsBlack sm:text-[16px] lg:text-[16px] text-left mb-2">Product Features</h2>
+      {formData.features.map((feature, index) => (
+        <div key={index} className="mb-4 flex items-center">
+          <input
+            type="text"
+            value={feature}
+            onChange={(e) => handleFeatureChange(index, e.target.value)}
+            className="border border-gray-300 rounded-md px-3 py-2 w-full mr-2"
+            placeholder={`Feature ${index + 1}`}
+          />
+          <button
+            type="button"
+            onClick={() => handleRemoveFeature(index)}
+            className="bg-red-500 text-white px-3 py-2 rounded-md shadow-md border border-starsBlack"
+          >
+            <FaMinus className='text-[#FF0000]'/>
+          </button>
+        </div>
+      ))}
+      {formData.features.length < 5 && (
+        <button
+          type="button"
+          onClick={handleAddFeature}
+          className="bg-blue-500 text-white px-4 py-2 rounded-md border border-starsBlack shadow-md"
+        >
+          <FaPlus className='text-[#00FF00]'/>
+        </button>
+      )}
+    </div>
                 
-            <h2 className="text-[12px] font-bold leading-tight text-starsBlack sm:text-[16px] lg:text-[16px] text-left mb-2 mt-6">
+            <h2 className=" mt-6 text-[12px] font-bold leading-tight text-starsBlack sm:text-[16px] lg:text-[16px] text-left mb-2 ">
             Upload screenshots
             </h2>
             <input
@@ -184,7 +228,7 @@ const Page = () => {
               className=" py-2  block w-full rounded-md bg-gray-100 border-gray-300 focus:border-starsBlack focus:ring focus:ring-starsBlack focus:ring-opacity-80 cursor-pointer mb-4"
             />
 
-            <h2 className="text-[12px] font-bold leading-tight text-starsBlack sm:text-[16px] lg:text-[16px] text-left mb-2 ">
+            <h2 className=" mt-6 text-[12px] font-bold leading-tight text-starsBlack sm:text-[16px] lg:text-[16px] text-left mb-2 ">
             Pricing ($)
             </h2>
             <input
@@ -199,7 +243,7 @@ const Page = () => {
 
 
             <div className="mt-5">
-              <h2 className="text-[12px] font-bold leading-tight text-starsBlack sm:text-[16px] lg:text-[16px] text-left mb-2 ">
+              <h2 className=" mt-6 text-[12px] font-bold leading-tight text-starsBlack sm:text-[16px] lg:text-[16px] text-left mb-2 ">
                 ProductType
               </h2>
               <input
@@ -212,7 +256,7 @@ const Page = () => {
             </div>
 
             <div className="mt-5">
-              <h2 className="text-[12px] font-bold leading-tight text-starsBlack sm:text-[16px] lg:text-[16px] text-left mb-2 ">
+              <h2 className=" mt-6 text-[12px] font-bold leading-tight text-starsBlack sm:text-[16px] lg:text-[16px] text-left mb-2 ">
                 Categories
               </h2>
               <div id="tags">
@@ -232,7 +276,7 @@ const Page = () => {
             </div>
 
             <div className="mt-5">
-              <h2 className="text-[12px] font-bold leading-tight text-starsBlack sm:text-[16px] lg:text-[16px] text-left mb-2 ">
+              <h2 className=" mt-6 text-[12px] font-bold leading-tight text-starsBlack sm:text-[16px] lg:text-[16px] text-left mb-2 ">
               Target Audience
               </h2>
               <div id="tags">
@@ -252,7 +296,7 @@ const Page = () => {
             </div>
             
           <div className='flex gap-4 mt-6'>
-            <button onClick={handlePrevious} className="hover:bg-starspurpleDark text-starsBlack py-2 px-4 rounded border border-[#ccc] flex gap-2">
+            <button onClick={handlePrevious} className=" bg-starsBlack text-starsWhite py-2 px-4 rounded border border-[#ccc] flex gap-2">
                 Previous
               </button>
               <button onClick={handleSubmit} className="hover:bg-starspurpleDark text-starsBlack py-2 px-4 rounded border border-[#ccc] flex gap-2">
@@ -270,7 +314,7 @@ const Page = () => {
       <section className="py-10 bg-gray-50 sm:py-16 lg:py-24">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl lg:text-5xl">Stage 3</h2>
+            <h2 className=" mt-6 text-3xl font-bold leading-tight text-black sm:text-4xl lg:text-5xl">Stage 3</h2>
             <input
               type="password"
               name="password"
@@ -294,7 +338,7 @@ const Page = () => {
   return (
     <div className='bg-starsWhite py-10'>
         <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl lg:text-5xl">Submit a creator product</h2>
+            <h2 className=" mt-6 text-3xl font-bold leading-tight text-black sm:text-4xl lg:text-5xl">Submit a creator product</h2>
             <p className="max-w-xl mx-auto mt-4 text-base leading-relaxed text-gray-600 text-starsGrey">Found a cool product you want everyone to know about? Or maybe you made one yourself and want the world to know about it? Youre in the right place. So relax and follow the steps.</p>
         </div>
       {renderStage()}
