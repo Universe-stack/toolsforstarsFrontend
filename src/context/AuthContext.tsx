@@ -4,25 +4,36 @@ import React, { createContext, useContext, useReducer } from 'react';
 import { useRouter } from "next/navigation";
 
 interface User {
+  id: string;
   name: string;
-  email: string;
   username: string;
+  email: string;
+  role: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 interface SignUpResult {
   message: string;
 }
 
+interface SignInResult {
+  message?: string;
+  user?: User;
+  token?: string;
+}
+
 interface AuthState {
   user: User | null;
   signUpResult: SignUpResult | null;
+  signInResult: SignInResult | null;
   isLoading: boolean;
 }
 
 const initialState: AuthState = {
   user: null,
   signUpResult: null,
-  signInResult : null,
+  signInResult: null,
   isLoading: false,
 };
 
@@ -38,10 +49,10 @@ const reducer = (state: AuthState, action: Action): AuthState => {
       return { ...state, user: action.payload };
     case 'SET_SIGNUP_RESULT':
       return { ...state, signUpResult: action.payload };
+    case 'SET_SIGNIN_RESULT':
+      return { ...state, signInResult: action.payload };
     case 'SET_LOADING':
       return { ...state, isLoading: action.payload };
-    case 'SET_SIGNIN_RESULT':
-        return { ...state, signInResult: action.payload };
     default:
       return state;
   }
@@ -71,11 +82,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       });
 
       if (res.ok) {
-       
         const data = await res.json();
-        console.log(data, "darrra")
         dispatch({ type: 'SET_SIGNUP_RESULT', payload: data });
-        //router.push("/");
       } else {
         const data = await res.json();
         dispatch({ type: 'SET_SIGNUP_RESULT', payload: { message: data.message || "An error occurred. Please try again." } });
@@ -98,10 +106,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         },
         body: JSON.stringify(userData),
       });
-  
+
       if (res.ok) {
         const data = await res.json();
         dispatch({ type: 'SET_SIGNIN_RESULT', payload: data });
+        dispatch({ type: 'SET_USER', payload: data.user }); // Set user in state
       } else {
         const data = await res.json();
         dispatch({ type: 'SET_SIGNIN_RESULT', payload: { message: data.message || "An error occurred. Please try again." } });
@@ -113,7 +122,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       dispatch({ type: 'SET_LOADING', payload: false });
     }
   };
-  
+
   return (
     <AuthContext.Provider value={{ state, dispatch, handleSignup, handleSignIn }}>
       {children}

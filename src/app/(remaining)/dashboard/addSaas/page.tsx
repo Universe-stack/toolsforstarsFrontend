@@ -1,6 +1,6 @@
 //@ts-nocheck
 "use client"
-import React,{useState} from 'react'
+import React, { useState } from 'react';
 import { HiArrowSmRight } from "react-icons/hi";
 import { WithContext as ReactTags } from "react-tag-input";
 import { FaPlus } from "react-icons/fa6";
@@ -11,12 +11,12 @@ interface FormData {
   description: string;
   features: string[];
   screenshots: File[];
-  pricing:number;
-  productType:string,
-  categories:string[],
-  targetAudience:string[],
-  aiEnabled:boolean,
-  isActive:boolean
+  pricing: number;
+  productType: string;
+  categories: { id: string; name: string }[];
+  targetAudience: { id: string; name: string }[];
+  aiEnabled: boolean;
+  isActive: boolean;
 }
 
 const KeyCodes = {
@@ -28,32 +28,43 @@ const delimiters = [KeyCodes.comma, KeyCodes.enter];
 
 const suggestions = [
   { id: "1", name: "audio" },
-  { id: "2", name: "video"},
+  { id: "2", name: "video" },
   { id: "3", name: "productivity" },
   { id: "4", name: "images" }
 ];
 
 const audienceSuggestions = [
   { id: "1", name: "writers" },
-  { id: "2", name: "video editors"},
+  { id: "2", name: "video editors" },
   { id: "3", name: "musicians" },
   { id: "4", name: "content creators" }
 ];
 
 const Page = () => {
+  const token = localStorage.getItem('token');
+  console.log(token)
+  if (!token) {
+    throw new Error('No token found, please log in first');
+  }
+
   const [stage, setStage] = useState(1); // Current stage of the form
   const [formData, setFormData] = useState<FormData>({
     name: '',
     description: '',
     features: [],
-    screenshots: [],
-    pricing:0,
-    productType:'saas',
-    categories:[],
-    targetAudience:[],
-    aiEnabled:false,
-    isActive:true
+    pricing: 0,
+    productType: 'saas',
+    categories: [],
+    targetAudience: [],
+    aiEnabled: false,
+    isActive: true,
+    screenshots: []
   });
+
+  const handleFileChange = (e) => {
+    const files = Array.from(e.target.files) as File[];
+    setFormData({ ...formData, screenshots: [...formData.screenshots, ...files] });
+  };
 
   const handleFeatureChange = (index, value) => {
     const newFeatures = [...formData.features];
@@ -73,37 +84,33 @@ const Page = () => {
     setFormData({ ...formData, features: newFeatures });
   };
 
-
-
-  
-  const handleDelete=(i)=> {
+  const handleDelete = (i) => {
     setFormData({
       ...formData,
-      categories:formData.categories.filter((item, index)=> index !== i)
-    })
-  }
+      categories: formData.categories.filter((item, index) => index !== i)
+    });
+  };
 
-  const handleAddition=(category)=>{
+  const handleAddition = (category) => {
     setFormData({
       ...formData,
       categories: [...formData.categories, category]
-    })
-  }
+    });
+  };
 
-
-  const handleDeleteAudience =(i)=>{
+  const handleDeleteAudience = (i) => {
     setFormData({
       ...formData,
-      targetAudience:formData.targetAudience.filter((item, index)=> index !== i)
-    })
-  }
+      targetAudience: formData.targetAudience.filter((item, index) => index !== i)
+    });
+  };
 
-  const handleAdditionAudience=(audience)=>{
+  const handleAdditionAudience = (audience) => {
     setFormData({
       ...formData,
       targetAudience: [...formData.targetAudience, audience]
-    })
-  }
+    });
+  };
 
   const handleNext = () => {
     setStage(stage + 1); // Move to the next stage
@@ -113,23 +120,66 @@ const Page = () => {
     setStage(stage - 1); // Move to the previous stage
   };
 
-  const handleInputChange = (e:any) => {
+  const handleInputChange = (e) => {
     const { name, value, type } = e.target;
     if (type === 'textarea') {
-      setFormData({ ...formData, [name]: value.split('\n').map((feature:any) => feature.trim()) });
+      setFormData({ ...formData, [name]: value.split('\n').map((feature) => feature.trim()) });
     } else if (type === 'file') {
-      const files = Array.from(e.target.files) as File[];
-      setFormData({ ...formData, screenshots: [...formData.screenshots, ...files] });
+      handleFileChange(e);
     } else {
       setFormData({ ...formData, [name]: value });
     }
   };
-  
-  const handleSubmit = (e:any) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission, e.g., send data to backend
-    console.log('Form submitted:', formData);
+    console.log(formData);
+  
+    const token = localStorage.getItem('token'); // Retrieve the token from local storage
+  
+    if (!token) {
+      console.error('No token found');
+      return;
+    }
+  
+    try {
+      console.log('fetching...');
+  
+      const formDataToSend = new FormData();
+      formDataToSend.append('name', formData.name);
+      formDataToSend.append('description', formData.description);
+      formDataToSend.append('pricing', formData.pricing.toString());
+      formDataToSend.append('productType', formData.productType);
+      formDataToSend.append('aiEnabled', formData.aiEnabled.toString());
+      formDataToSend.append('isActive', formData.isActive.toString());
+      formDataToSend.append('features', formData.features.join(','));
+      formDataToSend.append('categories', formData.categories.map(cat => cat.name).join(','));
+      formDataToSend.append('targetAudience', formData.targetAudience.map(aud => aud.name).join(','));
+  
+      formData.screenshots.forEach((file, index) => {
+        formDataToSend.append(`screenshots`, file);
+      });
+  
+      const res = await fetch('https://createcamp.onrender.com/tools/createtool', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        body: formDataToSend,
+      });
+  
+      if (res.ok) {
+        const data = await res.json();
+        console.log("data", data);
+      } else {
+        const data = await res.json();
+        console.log(data, "failed");
+      }
+    } catch (error) {
+      console.error('create tool failed:', error);
+    }
   };
+  
 
   const renderStage = () => {
     switch (stage) {
@@ -145,7 +195,6 @@ const Page = () => {
   };
 
   const renderStage1 = () => {
-    
     return (
       <section className="py-3 sm:py-4 lg:py-12">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -161,7 +210,7 @@ const Page = () => {
             />
             <button onClick={handleNext} className="hover:bg-starspurpleDark text-starsBlack py-2 px-4 rounded border border-[#ccc] flex gap-2 self-end">
               Next
-              <HiArrowSmRight className='mt-[0.1rem]'/>
+              <HiArrowSmRight className='mt-[0.1rem]' />
             </button>
           </div>
         </div>
@@ -174,7 +223,7 @@ const Page = () => {
       <section className="py-10 bg-gray-50 sm:py-16 lg:py-24">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="max-w-2xl mx-auto text-center">
-          <h2 className=" mt-6 text-[12px] font-bold leading-tight text-starsBlack sm:text-[16px] lg:text-[16px] text-left mb-2">Description</h2>
+            <h2 className="mt-6 text-[12px] font-bold leading-tight text-starsBlack sm:text-[16px] lg:text-[16px] text-left mb-2">Description</h2>
             <input
               type="text"
               name="description"
@@ -184,39 +233,39 @@ const Page = () => {
               className="block w-full py-2 px-4 mb-4 text-gray-700 bg-gray-200 border border-gray-200 rounded"
             />
 
-    <div>
-      <h2 className=" mt-6 text-[12px] font-bold leading-tight text-starsBlack sm:text-[16px] lg:text-[16px] text-left mb-2">Product Features</h2>
-      {formData.features.map((feature, index) => (
-        <div key={index} className="mb-4 flex items-center">
-          <input
-            type="text"
-            value={feature}
-            onChange={(e) => handleFeatureChange(index, e.target.value)}
-            className="border border-gray-300 rounded-md px-3 py-2 w-full mr-2"
-            placeholder={`Feature ${index + 1}`}
-          />
-          <button
-            type="button"
-            onClick={() => handleRemoveFeature(index)}
-            className="bg-red-500 text-white px-3 py-2 rounded-md shadow-md border border-starsBlack"
-          >
-            <FaMinus className='text-[#FF0000]'/>
-          </button>
-        </div>
-      ))}
-      {formData.features.length < 5 && (
-        <button
-          type="button"
-          onClick={handleAddFeature}
-          className="bg-blue-500 text-white px-4 py-2 rounded-md border border-starsBlack shadow-md"
-        >
-          <FaPlus className='text-[#00FF00]'/>
-        </button>
-      )}
-    </div>
-                
-            <h2 className=" mt-6 text-[12px] font-bold leading-tight text-starsBlack sm:text-[16px] lg:text-[16px] text-left mb-2 ">
-            Upload screenshots
+            <div>
+              <h2 className="mt-6 text-[12px] font-bold leading-tight text-starsBlack sm:text-[16px] lg:text-[16px] text-left mb-2">Product Features</h2>
+              {formData.features.map((feature, index) => (
+                <div key={index} className="mb-4 flex items-center">
+                  <input
+                    type="text"
+                    value={feature}
+                    onChange={(e) => handleFeatureChange(index, e.target.value)}
+                    className="border border-gray-300 rounded-md px-3 py-2 w-full mr-2"
+                    placeholder={`Feature ${index + 1}`}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveFeature(index)}
+                    className="bg-red-500 text-white px-3 py-2 rounded-md shadow-md border border-starsBlack"
+                  >
+                    <FaMinus className='text-[#FF0000]' />
+                  </button>
+                </div>
+              ))}
+              {formData.features.length < 5 && (
+                <button
+                  type="button"
+                  onClick={handleAddFeature}
+                  className="bg-blue-500 text-white px-4 py-2 rounded-md border border-starsBlack shadow-md"
+                >
+                  <FaPlus className='text-[#00FF00]' />
+                </button>
+              )}
+            </div>
+
+            <h2 className="mt-6 text-[12px] font-bold leading-tight text-starsBlack sm:text-[16px] lg:text-[16px] text-left mb-2">
+              Upload screenshots
             </h2>
             <input
               type="file"
@@ -225,38 +274,38 @@ const Page = () => {
               accept="image/*" // Only accept image files
               multiple // Allow multiple file selection
               onChange={handleInputChange}
-              className=" py-2  block w-full rounded-md bg-gray-100 border-gray-300 focus:border-starsBlack focus:ring focus:ring-starsBlack focus:ring-opacity-80 cursor-pointer mb-4"
+              className="py-2 block w-full rounded-md bg-gray-100 border-gray-300 focus:border-starsBlack focus:ring focus:ring-starsBlack focus:ring-opacity-80 cursor-pointer mb-4"
             />
 
-            <h2 className=" mt-6 text-[12px] font-bold leading-tight text-starsBlack sm:text-[16px] lg:text-[16px] text-left mb-2 ">
-            Pricing ($)
+            <h2 className="mt-6 text-[12px] font-bold leading-tight text-starsBlack sm:text-[16px] lg:text-[16px] text-left mb-2">
+              Pricing ($)
             </h2>
             <input
-              type="text"
+              type="number"
               id="pricing"
               value={formData.pricing}
               name="pricing"
               onChange={handleInputChange}
-              placeholder='Add price of tool ($)'
+              placeholder="Add price of tool ($)"
               className="block w-full py-2 px-4 mb-4 text-gray-700 bg-gray-200 border border-gray-200 rounded"
             />
 
-
             <div className="mt-5">
-              <h2 className=" mt-6 text-[12px] font-bold leading-tight text-starsBlack sm:text-[16px] lg:text-[16px] text-left mb-2 ">
+              <h2 className="mt-6 text-[12px] font-bold leading-tight text-starsBlack sm:text-[16px] lg:text-[16px] text-left mb-2">
                 ProductType
               </h2>
               <input
-              type="text"
-              name="productType"
-              value={formData.productType}
-              placeholder=""
-              className="block w-full py-2 px-4 mb-4 text-gray-700 bg-gray-200 border border-gray-200 rounded"
-            />
+                type="text"
+                name="productType"
+                value={formData.productType}
+                onChange={handleInputChange}
+                placeholder="e.g. saas"
+                className="block w-full py-2 px-4 mb-4 text-gray-700 bg-gray-200 border border-gray-200 rounded"
+              />
             </div>
 
             <div className="mt-5">
-              <h2 className=" mt-6 text-[12px] font-bold leading-tight text-starsBlack sm:text-[16px] lg:text-[16px] text-left mb-2 ">
+              <h2 className="mt-6 text-[12px] font-bold leading-tight text-starsBlack sm:text-[16px] lg:text-[16px] text-left mb-2">
                 Categories
               </h2>
               <div id="tags">
@@ -276,8 +325,8 @@ const Page = () => {
             </div>
 
             <div className="mt-5">
-              <h2 className=" mt-6 text-[12px] font-bold leading-tight text-starsBlack sm:text-[16px] lg:text-[16px] text-left mb-2 ">
-              Target Audience
+              <h2 className="mt-6 text-[12px] font-bold leading-tight text-starsBlack sm:text-[16px] lg:text-[16px] text-left mb-2">
+                Target Audience
               </h2>
               <div id="tags">
                 <ReactTags
@@ -294,15 +343,15 @@ const Page = () => {
                 />
               </div>
             </div>
-            
-          <div className='flex gap-4 mt-6'>
-            <button onClick={handlePrevious} className=" bg-starsBlack text-starsWhite py-2 px-4 rounded border border-[#ccc] flex gap-2">
+
+            <div className="flex gap-4 mt-6">
+              <button onClick={handlePrevious} className="bg-starsBlack text-starsWhite py-2 px-4 rounded border border-[#ccc] flex gap-2">
                 Previous
               </button>
-              <button onClick={handleSubmit} className="hover:bg-starspurpleDark text-starsBlack py-2 px-4 rounded border border-[#ccc] flex gap-2">
+              <button onClick={(e) => handleSubmit(e, formData)} className="hover:bg-starspurpleDark text-starsBlack py-2 px-4 rounded border border-[#ccc] flex gap-2">
                 Submit
               </button>
-          </div>
+            </div>
           </div>
         </div>
       </section>
@@ -314,7 +363,7 @@ const Page = () => {
       <section className="py-10 bg-gray-50 sm:py-16 lg:py-24">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="max-w-2xl mx-auto text-center">
-            <h2 className=" mt-6 text-3xl font-bold leading-tight text-black sm:text-4xl lg:text-5xl">Stage 3</h2>
+            <h2 className="mt-6 text-3xl font-bold leading-tight text-black sm:text-4xl lg:text-5xl">Stage 3</h2>
             <input
               type="password"
               name="password"
@@ -336,14 +385,17 @@ const Page = () => {
   };
 
   return (
-    <div className='bg-starsWhite py-10'>
-        <div className="max-w-2xl mx-auto text-center">
-            <h2 className=" mt-6 text-3xl font-bold leading-tight text-black sm:text-4xl lg:text-5xl">Submit a creator product</h2>
-            <p className="max-w-xl mx-auto mt-4 text-base leading-relaxed text-gray-600 text-starsGrey">Found a cool product you want everyone to know about? Or maybe you made one yourself and want the world to know about it? Youre in the right place. So relax and follow the steps.</p>
-        </div>
+    <div className="bg-starsWhite py-10">
+      <div className="max-w-2xl mx-auto text-center">
+        <h2 className="mt-6 text-3xl font-bold leading-tight text-black sm:text-4xl lg:text-5xl">Submit a creator product</h2>
+        <p className="max-w-xl mx-auto mt-4 text-base leading-relaxed text-gray-600 text-starsGrey">
+          Found a cool product you want everyone to know about? Or maybe you made one yourself and want the world to know about it? You&apos;re in the right place. So relax and follow the steps.
+        </p>
+      </div>
       {renderStage()}
     </div>
   );
 };
 
-export default Page
+export default Page;
+
