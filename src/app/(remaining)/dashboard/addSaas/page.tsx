@@ -5,6 +5,8 @@ import { HiArrowSmRight } from "react-icons/hi";
 import { WithContext as ReactTags } from "react-tag-input";
 import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa6";
+import { useBackdrop } from '@/context/BackdropContext';
+import { HiOutlineXCircle } from "react-icons/hi";
 
 interface FormData {
   name: string;
@@ -50,6 +52,7 @@ const Page = () => {
   const [stage, setStage] = useState(1); // Current stage of the form
   const [formData, setFormData] = useState<FormData>({
     name: '',
+    productLink:'',
     description: '',
     features: [],
     pricing: 0,
@@ -60,6 +63,17 @@ const Page = () => {
     isActive: true,
     screenshots: []
   });
+
+  const [loading, setLoading] = useState(false)
+  const [res, setRes]=useState(false)
+  const [reserror, setReserror] = useState(false)
+  const [report, setReport] = useState('')
+
+  const { state, dispatch, setBackdrop } = useBackdrop();
+
+  const toggleBackdrop = () => {
+    dispatch(setBackdrop(!state.backdrop));
+  };
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files) as File[];
@@ -131,8 +145,20 @@ const Page = () => {
     }
   };
 
+  const shadowDrop = ()=>{
+    dispatch(setBackdrop(true))
+    setLoading(true)
+  }
+
+  const shadowRemove=()=>{
+    dispatch(setBackdrop(false))
+    setLoading(false)
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    shadowDrop();
+
     console.log(formData);
   
     const token = localStorage.getItem('token'); // Retrieve the token from local storage
@@ -147,6 +173,7 @@ const Page = () => {
   
       const formDataToSend = new FormData();
       formDataToSend.append('name', formData.name);
+      formDataToSend.append('productLink', formData.productLink);
       formDataToSend.append('description', formData.description);
       formDataToSend.append('pricing', formData.pricing.toString());
       formDataToSend.append('productType', formData.productType);
@@ -170,12 +197,18 @@ const Page = () => {
   
       if (res.ok) {
         const data = await res.json();
+        setRes(true);
+        setReport('Succeded!')
         console.log("data", data);
       } else {
         const data = await res.json();
+        setReserror(true)
+        setReport('Failed, Try again please')
         console.log(data, "failed");
       }
     } catch (error) {
+      setReserror(true)
+      setReport('Failed, Try again please')
       console.error('create tool failed:', error);
     }
   };
@@ -223,6 +256,17 @@ const Page = () => {
       <section className="py-10 bg-gray-50 sm:py-16 lg:py-24">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="max-w-2xl mx-auto text-center">
+
+            <h2 className="mt-6 text-[12px] font-bold leading-tight text-starsBlack sm:text-[16px] lg:text-[16px] text-left mb-2">Product Link</h2>
+            <input
+              type="text"
+              name="productLink"
+              value={formData.productLink}
+              onChange={handleInputChange}
+              placeholder="Add the link to your product here"
+              className="block w-full py-2 px-4 mb-4 text-gray-700 bg-gray-200 border border-gray-200 rounded"
+            />
+
             <h2 className="mt-6 text-[12px] font-bold leading-tight text-starsBlack sm:text-[16px] lg:text-[16px] text-left mb-2">Description</h2>
             <input
               type="text"
@@ -339,7 +383,7 @@ const Page = () => {
                   inputFieldPosition="bottom"
                   autocomplete
                   allowDragDrop={false}
-                  placeholder="Add preferred target audience"
+                  placeholder="Add target audience"
                 />
               </div>
             </div>
@@ -358,36 +402,32 @@ const Page = () => {
     );
   };
 
-  const renderStage3 = () => {
-    return (
-      <section className="py-10 bg-gray-50 sm:py-16 lg:py-24">
-        <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <div className="max-w-2xl mx-auto text-center">
-            <h2 className="mt-6 text-3xl font-bold leading-tight text-black sm:text-4xl lg:text-5xl">Stage 3</h2>
-            <input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleInputChange}
-              placeholder="Enter your password"
-              className="block w-full py-2 px-4 mb-4 text-gray-700 bg-gray-200 border border-gray-200 rounded"
-            />
-            <button onClick={handlePrevious} className="bg-gray-500 text-white py-2 px-4 rounded mr-2">
-              Previous
-            </button>
-            <button type="submit" onClick={handleSubmit} className="bg-green-500 text-white py-2 px-4 rounded">
-              Submit
-            </button>
-          </div>
-        </div>
-      </section>
-    );
-  };
+
+  const display=()=>{
+    if(res){
+      return report
+    }else if(reserror){
+      return report
+    }else{
+      return <span className="loading loading-dots loading-lg"></span>
+    }
+  }
+
+
 
   return (
-    <div className="bg-starsWhite py-10">
+    <div className="bg-starsWhite py-10 w-full">
+     { loading &&
+      <div className='w-[20rem] bg-starsWhite rounded-md absolute self-center mt-[2rem] z-50 top-0 right-0 left-[40%] bottom-0'>
+        <div className='self-right p-1 m-2 cursor-pointer' onClick={shadowRemove}><HiOutlineXCircle className='size-6' /></div>
+        <div class="container p-4 self-center text-center">
+          {display()}
+        </div>
+      </div> 
+    }
+      
       <div className="max-w-2xl mx-auto text-center">
-        <h2 className="mt-6 text-3xl font-bold leading-tight text-black sm:text-4xl lg:text-5xl">Submit a creator product</h2>
+        <h2 className="mt-6 text-3xl font-bold leading-tight text-black sm:text-4xl lg:text-5xl">Submit a <span className='text-starspurpleDark'>saas</span> product</h2>
         <p className="max-w-xl mx-auto mt-4 text-base leading-relaxed text-gray-600 text-starsGrey">
           Found a cool product you want everyone to know about? Or maybe you made one yourself and want the world to know about it? You&apos;re in the right place. So relax and follow the steps.
         </p>

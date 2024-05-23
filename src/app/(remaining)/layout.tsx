@@ -7,6 +7,8 @@ import localFont from '@next/font/local';
 import { IconsContextProvider } from '@/context/IconsContext';
 import { AuthProvider } from '@/context/AuthContext';
 import { ResourceProvider } from '@/context/ResourceContext';
+import {BackdropContextProvider} from '@/context/BackdropContext';
+
 
 export interface Metadata {
   title: string;
@@ -31,6 +33,7 @@ const RootLayout: NextPage<{ children: React.ReactNode }> = ({ children }) => {
         <link rel="stylesheet" href={maison.className} /> {/* Assuming CSS class */}
       </Head>
       <body className={maison.className}>
+        <BackdropContextProvider>
         <AuthProvider>
           <Navbar />
           <ResourceProvider>
@@ -40,6 +43,7 @@ const RootLayout: NextPage<{ children: React.ReactNode }> = ({ children }) => {
           </ResourceProvider>
           <Footer />
         </AuthProvider>
+        </BackdropContextProvider>
       </body>
     </html>
   );
