@@ -1,10 +1,14 @@
 import React from 'react'
 
-type Props = {}
 
-const Page = (props: Props) => {
+
+const Page = () => {
   return (
-    <div>Page Analytics</div>
+    <div className="bg-starsBlack h-[100%] py-10 w-full flex flex-col justify-center items-center  ">
+      <div className="max-w-2xl mx-auto text-center w-full justify-center items-center flex flex-col bg-starspurpleLight py-4">
+        <h1 className='text-starsWhite self-center'> Analytics is coming Soon!!</h1>
+      </div>
+    </div>
   )
 }
 

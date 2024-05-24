@@ -45,7 +45,7 @@ const Page = () => {
     // },[toolId])
 
   return (
-    <div className='w-[100%] flex justify-center '>
+    <div className='w-[100%] flex justify-center mb-[2rem]'>
         <div className=' w-[75%] self-center mt-[3rem]'>
             <div className='flex justify-between'>
                 <div className=''>

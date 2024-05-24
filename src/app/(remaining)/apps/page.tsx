@@ -8,6 +8,7 @@ import Link from 'next/link'
 import { FaSliders } from "react-icons/fa6";
 import { useResource } from '@/context/ResourceContext';
 import { ToastContainer, toast } from 'react-toastify';
+import { HiArrowTopRightOnSquare } from "react-icons/hi2";
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -69,7 +70,7 @@ export default function Page() {
   };
 
   return (
-    <section className='w-[100%] flex flex-col justify-center relative'>
+    <section className='w-[100%] flex flex-col justify-center relative pb-[2rem]'>
       <ToastContainer className="absolute" />
       { backdrop ? <><div className="absolute bg-starsBlack z-40 top-0 right-0 left-0 bottom-0 opacity-25" onClick={()=>setBackdrop(false)}></div>
       <div className='w-[40rem] h-[35rem] bg-starsWhite rounded-md absolute self-center mt-[2rem] z-50 top-4 overflow-y-scroll'>
@@ -80,8 +81,9 @@ export default function Page() {
       </div> </> : null}
       
       <div className='w-[75%] self-center'>
-        <div className='w-full h-[25rem] mt-[3rem] bg-starsBlack rounded-[1.5rem] text-starsWhite text-center '>
+        <div className='w-full h-[25rem] mt-[3rem] bg-starsBlack rounded-[1.5rem] text-starsWhite text-center relative '>
           <h2 className='font-[600] text-[3rem] pt-[7rem]'>PLACE ADS HERE</h2>
+          <div className='absolute bottom-0 right-0 p-2 text-starsBlack bg-starsWhite m-3 rounded'><Link href={'/promotions'} className='flex'>Learn more <HiArrowTopRightOnSquare className='ml-1 mt-[0.5]'/></Link></div>
         </div>
 
         <div className='custom-after absolute left-0 right-0'></div>

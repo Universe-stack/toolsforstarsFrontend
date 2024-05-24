@@ -9,6 +9,7 @@ import { FaSliders } from "react-icons/fa6";
 import { useResource } from '@/context/ResourceContext';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { HiArrowTopRightOnSquare } from "react-icons/hi2";
 import { HiOutlineFilter } from "react-icons/hi";
 
 
@@ -125,6 +126,7 @@ export default function Page() {
             <div className="flex justify-end w-[55%] self-center font-[600] text-[20px] gap-2">Filters <span className="mt-1"><HiOutlineFilter/></span></div>
             <div className='w-[45%] flex justify-end px-4'><button className='p-3 self-center cursor-pointer' onClick={()=>setBackdrop(false)}>x</button></div>
         </div>
+
         <div class="container mx-auto p-4">
           <form onSubmit={handleSubmit} class="flex flex-col space-y-4">
             <label for="filterSelect" class="text-base font-medium">Select Filter:</label>
@@ -144,8 +146,9 @@ export default function Page() {
       </> : null}
       
       <div className='w-[75%] self-center'>
-        <div className='w-full h-[25rem] mt-[3rem] bg-starsBlack rounded-[1.5rem] text-starsWhite text-center '>
+        <div className='w-full h-[25rem] mt-[3rem] bg-starsBlack rounded-[1.5rem] text-starsWhite text-center relative '>
           <h2 className='font-[600] text-[3rem] pt-[7rem]'>PLACE ADS HERE</h2>
+          <div className='absolute bottom-0 right-0 p-2 text-starsBlack bg-starsWhite m-3 rounded'><Link href={'/promotions'} className='flex'>Learn more <HiArrowTopRightOnSquare className='ml-1 mt-[0.5]'/></Link></div>
         </div>
 
         <div className='custom-after absolute left-0 right-0'></div>

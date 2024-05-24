@@ -31,13 +31,13 @@ const Navbar = () => {
                 </div>
                 <div className="md:flex self-center xsm:hidden">
                     <ul className="flex xl:gap-[2.5rem] md:gap-[1.6rem]">
-                        <li className="font-[500] leading-normal text-[16px] hover:text-starspurpleLight"><Link href={"/"}>Saas</Link></li>
+                        <li className="font-[500] leading-normal text-[16px] hover:text-starspurpleLight"><Link href={"/saas"}>Saas</Link></li>
                         <li className="text-[16px] font-[500] leading-normal flex justify-center hover:text-starspurpleLight">
-                          <Link href={"/"} className="flex gap-1 self-center">Apps </Link>
+                          <Link href={"/apps"} className="flex gap-1 self-center">Apps </Link>
                         </li>
-                        <li className="text-[16px] font-[500] leading-normal hover:text-starspurpleLight"><Link href={"/"}>Blog</Link></li>
-                        <li className="text-[16px] font-[500] leading-normal hover:text-starspurpleLight"><Link href={"/"}>Courses</Link></li>
-                        <li className="text-[16px] font-[500] leading-normal hover:text-starspurpleLight"><Link href={"/"}>List your product</Link></li>
+                        <li className="text-[16px] font-[500] leading-normal hover:text-starspurpleLight"><Link href={"/blog"}>Blog</Link></li>
+                        <li className="text-[16px] font-[500] leading-normal hover:text-starspurpleLight"><Link href={"/courses"}>Courses</Link></li>
+                        <li className="text-[16px] font-[500] leading-normal hover:text-starspurpleLight"><Link href={"/dashboard"}>List your product</Link></li>
                     </ul>
                 </div>
             </div>
