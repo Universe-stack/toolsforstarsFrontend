@@ -71,9 +71,6 @@ const Page = () => {
 
   const { state, dispatch, setBackdrop } = useBackdrop();
 
-  const toggleBackdrop = () => {
-    dispatch(setBackdrop(!state.backdrop));
-  };
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files) as File[];
