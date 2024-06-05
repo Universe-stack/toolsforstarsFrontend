@@ -8,6 +8,7 @@ import { IconsContextProvider } from '@/context/IconsContext';
 import { AuthProvider } from '@/context/AuthContext';
 import { ResourceProvider } from '@/context/ResourceContext';
 import {BackdropContextProvider} from '@/context/BackdropContext';
+import { PaymentsContextProvider } from '@/context/PaymentsContext';
 
 
 export interface Metadata {
@@ -35,13 +36,15 @@ const RootLayout: NextPage<{ children: React.ReactNode }> = ({ children }) => {
       <body className={maison.className}>
         <BackdropContextProvider>
         <AuthProvider>
-          <Navbar />
-          <ResourceProvider>
-          <IconsContextProvider>
-            {children}
-          </IconsContextProvider>
-          </ResourceProvider>
-          <Footer />
+          <PaymentsContextProvider>
+            <Navbar />
+            <ResourceProvider>
+            <IconsContextProvider>
+              {children}
+            </IconsContextProvider>
+            </ResourceProvider>
+            <Footer />
+          </PaymentsContextProvider>
         </AuthProvider>
         </BackdropContextProvider>
       </body>

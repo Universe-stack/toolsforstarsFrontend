@@ -1,12 +1,12 @@
-//@ts-nocheck
-'use client'
+// @ts-nocheck
+"use client"
 
-import React, { useState } from 'react';
-import Image from 'next/image'
+import React, { useState, useEffect } from 'react';
 
-const AdForm = () => {
+const AdForm = ({ onSubmit }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [link, setLink] = useState('');
   const [price, setPrice] = useState('');
   const [image, setImage] = useState('');
   const [adSpace, setAdSpace] = useState('none');
@@ -16,28 +16,35 @@ const AdForm = () => {
 
   const DESCRIPTION_LIMIT = 65;
 
+  const adSpaceRates = {
+    "none": 0,
+    "hero-pro": 5,
+    "hero-mid": 3,
+    "hero-end": 1.5,
+    "saas-pro": 3,
+    "saas-mid": 1,
+    "saas-end": 1,
+  };
+
+  useEffect(() => {
+    const dailyRate = adSpaceRates[adSpace] || 0;
+    const totalCost = dailyRate * (parseInt(duration, 10) || 0);
+    setCampaignBudget(totalCost.toFixed(2));
+    setPrice(totalCost.toFixed(2));
+  }, [adSpace, duration]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (description.length > DESCRIPTION_LIMIT) {
-      alert('Description exceeds character limit.');
+      alert(`Description exceeds the limit of ${DESCRIPTION_LIMIT} characters.`);
       return;
     }
-    const formData = {
-      title,
-      description,
-      price: parseFloat(price),
-      image,
-      adSpace,
-      startingDate,
-      campaignBudget: parseFloat(campaignBudget),
-      duration: parseInt(duration, 10),
-    };
-    console.log('Form Data:', formData);
-    // Add form submission logic here
+    const formData = { title, description, link, price, image, adSpace, startingDate, campaignBudget, duration };
+    onSubmit(e, formData);
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-xl mx-auto py-6 bg-white rounded-md">
+    <form onSubmit={handleSubmit} className="max-w-xl mx-auto bg-white rounded-md">
       <div className="mb-4">
         <label className="block text-starsBlack text-[16px] mb-1">Title</label>
         <input
@@ -60,6 +67,15 @@ const AdForm = () => {
         {description.length > DESCRIPTION_LIMIT && (
           <div className="text-red-500 text-sm">Character limit exceeded!</div>
         )}
+      </div>
+      <div className="mb-4">
+        <label className="block text-starsBlack text-[16px] mb-1">Product Link</label>
+        <input
+          type="text"
+          value={link}
+          onChange={(e) => setLink(e.target.value)}
+          className="mt-1 p-2 w-full border border-[#ccc] rounded-sm"
+        />
       </div>
       <div className="grid grid-cols-2 gap-4 mb-4">
         <div>
@@ -89,12 +105,12 @@ const AdForm = () => {
           className="mt-1 p-2 w-full border border-[#ccc] rounded-sm"
         >
           <option value="none">None</option>
-          <option value="hero-pro">Hero Pro</option>
-          <option value="hero-mid">Hero Mid</option>
-          <option value="hero-end">Hero End</option>
-          <option value="saas-pro">SaaS Pro</option>
-          <option value="saas-mid">SaaS Mid</option>
-          <option value="saas-end">SaaS End</option>
+          <option value="hero-pro">Landing page top banner  [$5/day]</option>
+          <option value="hero-mid">Landing page middle banner  [$3/day]</option>
+          <option value="hero-end">Landing page end banner  [$1.50/day]</option>
+          <option value="saas-pro">Saas product page top banner  [$3/day]</option>
+          <option value="saas-mid">Saas product page middle banner  [$1/day]</option>
+          <option value="saas-end">Saas product page end banner  [$1/day]</option>
         </select>
       </div>
       <div className="mb-4">
@@ -112,8 +128,8 @@ const AdForm = () => {
           <input
             type="number"
             value={campaignBudget}
-            onChange={(e) => setCampaignBudget(e.target.value)}
             className="mt-1 p-2 w-full border border-[#ccc] rounded-sm"
+            readOnly
           />
         </div>
         <div>
@@ -127,7 +143,7 @@ const AdForm = () => {
         </div>
       </div>
       <div className="flex justify-end">
-        <button type="submit" className="bg-starspurpleDark text-starsWhite p-2 rounded-sm">
+        <button type="submit" className="bg-starspurpleDark text-starsWhite p-2 rounded-md">
           Pay & Launch
         </button>
       </div>
