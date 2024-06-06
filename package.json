@@ -22,9 +22,14 @@
     "react-tag-input": "^6.9.0",
     "react-toastify": "^10.0.5",
     "react-youtube": "^10.1.0",
+    "server-only": "^0.0.1",
     "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
+    "@notion-render/bookmark-plugin": "^0.0.2",
+    "@notion-render/client": "^0.0.2",
+    "@notion-render/hljs-plugin": "^0.0.2",
+    "@notionhq/client": "^2.2.15",
     "@types/node": "^20",
     "@types/rc-progress": "^2.4.3",
     "@types/react": "^18",
