@@ -13,14 +13,14 @@ export const notionClient = new Client({
 
 export const getPages = cache(() => {
   return notionClient.databases.query({
+    database_id: process.env.NOTION_DATABASE_ID!,
     filter: {
-      property: "Status",
+      property: "Select",
       select: {
-        equals: "Published",
+        equals: "Done",
       },
     },
-    database_id: process.env.NOTION_DATABASE_ID!,
-  });
+  }).then((res) => res.results)
 });
 
 export const getPageContent = cache((pageId: string) => {
