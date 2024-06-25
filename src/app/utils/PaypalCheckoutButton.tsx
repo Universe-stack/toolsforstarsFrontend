@@ -1,13 +1,14 @@
-//@ts-nocheck
+// @ts-nocheck
 'use client'
-import { useState } from "react";
-import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
-import { usePayments } from "@/context/PaymentsContext";
 
-interface paymentHost {
-    clientId:string,
-    intent:"capture"
-    currency:string
+import React, { useState } from 'react';
+import { PayPalButtons, PayPalScriptProvider } from '@paypal/react-paypal-js';
+import { usePayments } from '@/context/PaymentsContext';
+
+interface Payment {
+  clientId: string;
+  intent: 'capture';
+  currency: string;
 }
 
 interface PaypalCheckoutButtonProps {
@@ -15,82 +16,109 @@ interface PaypalCheckoutButtonProps {
 }
 
 const PaypalCheckoutButton: React.FC<PaypalCheckoutButtonProps> = ({ payment }) => {
-  console.log(payment)
-  const [paidFor, setPaidFor] = useState(false)
-  const [error, setError] = useState(null)
-  const {state, dispatch} = usePayments()
+  const [paidFor, setPaidFor] = useState(false);
+  const { state, dispatch, setPaid, setSuccess, setError, setLoading } = usePayments();
 
-  const handleApprove = (orderId) => {
-    //call backend function to fulfill order
+  const handleApprove = async (orderId) => {
+    const token = localStorage.getItem('token');
+    setPaidFor(true);
+    dispatch(setLoading(true));
+    dispatch(setPaid(true));
 
-    //if response is success
-    setPaidFor(true)
-    //Refresh user's account or subscription status
+    // Construct a payload object with only the necessary fields
+    const payload = {
+      title: state.title,
+      description: state.description,
+      link: state.link,
+      price: state.price,
+      image: state.image,
+      adSpace: state.adSpace,
+      paid: state.paid,
+      startingDate: state.startingDate,
+      campaignBudget: state.campaignBudget,
+      duration: state.duration,
+    };
 
-    //setError: if the response is error, alert the user "Your payment was processed successfully, however we're unable to fulfill your purchase. Please contact our support @--"
-  }
+    // Log the payload to check its contents
+    console.log("Payload:", payload);
 
-  if(paidFor) {
-    //display success message or redirect user to success page
-    alert("thank you for your purchase")
-  }
-  if (error) {
-    //Display error message, modal
-    alert(error)
-  }
+    // Ensure all required fields are filled
+    if (!payload.title || !payload.description || !payload.link || !payload.price || !payload.image || !payload.adSpace) {
+      dispatch(setError('All required fields must be filled out'));
+      dispatch(setLoading(false));
+      return;
+    }
 
-    return (
-        <>
-        
-        <PayPalScriptProvider options={payment}>
-            <PayPalButtons 
-              style={{ layout: "horizontal", tagline:false }}
-              onClick={(data,actions)=> {
-                //validate on button click, client or server side
-                
-                const hasAlreadyPaid = false;
+    try {
+      const res = await fetch('https://createcamp.onrender.com/ads/create', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload), // Convert payload to JSON string
+      });
 
-                if(hasAlreadyPaid){
-                  setError("You already paid for this space, go to your dashboard to review.")
-                  return actions.reject()
+      if (res.ok) {
+        const data = await res.json();
+        dispatch(setSuccess(true));
+        console.log("data", data);
+      } else {
+        const data = await res.json();
+        dispatch(setLoading(false));
+        dispatch(setError(data.message));
+        console.log("failed", data);
+      }
+    } catch (error) {
+      dispatch(setLoading(false));
+      dispatch(setError(error.message));
+      console.error('create ad failed:', error);
+    }
+  };
 
-                }else {
-                  return actions.resolve()
-                }
-              }}
+  return (
+    <>
+      <PayPalScriptProvider options={payment}>
+        <PayPalButtons
+          style={{ layout: 'horizontal', tagline: false }}
+          onClick={(data, actions) => {
+            const hasAlreadyPaid = false;
 
-              createOrder={(data, actions)=> {
-                return actions.order.create({
-                  purchase_units: [
-                    {
-                      description: state.description,
-                      amount: {
-                        value:state.price
-                      }
-                    }
-                  ]
-                })
-              }}
-
-              onApprove={async (data, actions) => {
-                const order = await actions.order?.capture();
-                console.log("order", order)
-
-                handleApprove(data.orderID)
-              }}
-
-              onCancel={()=> {
-                //Display cancel message, modal or redirect the user or back to the checkout page
-              }}
-
-              onError={(err)=> {
-                setError(err)
-                console.error("paypal checkout onError", err)
-              }}
-            />
-        </PayPalScriptProvider>
-        </>
-  )
-}
+            if (hasAlreadyPaid) {
+              setError('You already paid for this space, go to your dashboard to review.');
+              return actions.reject();
+            } else {
+              return actions.resolve();
+            }
+          }}
+          createOrder={(data, actions) => {
+            return actions.order.create({
+              purchase_units: [
+                {
+                  description: state.description,
+                  amount: {
+                    value: state.price,
+                  },
+                },
+              ],
+            });
+          }}
+          onApprove={async (data, actions) => {
+            const order = await actions.order?.capture();
+            console.log('order', order);
+            handleApprove(data.orderID);
+          }}
+          onCancel={() => {
+            // Display cancel message, modal or redirect the user or back to the checkout page
+          }}
+          onError={(err) => {
+            setError(err.message);
+            console.error('paypal checkout onError', err);
+          }}
+        />
+      </PayPalScriptProvider>
+    </>
+  );
+};
 
 export default PaypalCheckoutButton;

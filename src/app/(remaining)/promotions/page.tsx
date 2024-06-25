@@ -30,7 +30,7 @@ const Page = () => {
                             </svg>
                         </a>
 
-                        <p className="mt-5 text-gray-600">Or get started with <Link href="/ads/new" title="" className="text-starspurpleLight transition-all duration-200 hover:underline ">self-service ads</Link></p>
+                        <p className="mt-5 text-gray-600">Or get started with <Link href="/adverts" title="" className="text-starspurpleLight transition-all duration-200 hover:underline ">self-service ads</Link></p>
                     </div>
 
                     <div className='w-full flex justify-center'>

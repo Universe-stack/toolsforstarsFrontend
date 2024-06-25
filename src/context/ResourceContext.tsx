@@ -21,6 +21,7 @@ interface ResourceFetch {
   courseResources: CourseForm | null;
   courseFiltered: CourseForm | null;
   isLoading: boolean;
+  pagination: number;
 }
 
 const initialState: ResourceFetch = {
@@ -31,6 +32,8 @@ const initialState: ResourceFetch = {
   courseResources: null,
   courseFiltered: null,
   isLoading: false,
+  pagination:0,
+
 };
 
 type Action =
@@ -40,7 +43,8 @@ type Action =
   | { type: 'SET_FILTERED_APPS'; payload: ResourceForm } 
   | { type: 'SET_COURSES'; payload: CourseForm } 
   | { type: 'SET_FILTERED_COURSES'; payload: CourseForm }
-  | { type: 'SET_LOADING'; payload: boolean };
+  | { type: 'SET_LOADING'; payload: boolean }
+  | { type: 'SET_PAGINATION'; payload: number }
 
 const reducer = (state: ResourceFetch, action: Action): ResourceFetch => {
   switch (action.type) {
@@ -58,6 +62,8 @@ const reducer = (state: ResourceFetch, action: Action): ResourceFetch => {
         return { ...state, courseResources: action.payload };
     case 'SET_FILTERED_COURSES':
         return { ...state, courseFiltered: action.payload };
+    case 'SET_PAGINATION':
+        return { ...state, pagination: action.payload };
     default:
       return state;
   }
@@ -76,11 +82,11 @@ export const ResourceProvider = ({ children }: { children: React.ReactNode }) =>
   const router = useRouter();
 
 
-    const handleFetchAllSaas = async () => {
+    const handleFetchAllSaas = async (page = 1) => {
       try {
         console.log('fetching...');
         dispatch({ type: 'SET_LOADING', payload: true });
-        const res = await fetch('https://createcamp.onrender.com/tools/saas', {
+        const res = await fetch(`https://createcamp.onrender.com/tools/saas?page=${page}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -91,6 +97,7 @@ export const ResourceProvider = ({ children }: { children: React.ReactNode }) =>
     
         if (res.ok) {
           dispatch({ type: 'SET_SAAS', payload: data });
+          dispatch({ type: 'SET_PAGINATION', payload: data.pagination });
         } else {
           const errorMessage = data.message || "An error occurred. Please try again.";
           dispatch({ type: 'SET_SAAS', payload: { message: errorMessage } });

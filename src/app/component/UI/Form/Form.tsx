@@ -10,9 +10,10 @@ const AdForm = ({ onSubmit }) => {
   const [price, setPrice] = useState('');
   const [image, setImage] = useState('');
   const [adSpace, setAdSpace] = useState('none');
+  const [paid, setPaid] = useState(false)
   const [startingDate, setStartingDate] = useState('');
-  const [campaignBudget, setCampaignBudget] = useState('');
-  const [duration, setDuration] = useState('');
+  const [campaignBudget, setCampaignBudget] = useState(0);
+  const [duration, setDuration] = useState(0);
 
   const DESCRIPTION_LIMIT = 65;
 
@@ -39,7 +40,7 @@ const AdForm = ({ onSubmit }) => {
       alert(`Description exceeds the limit of ${DESCRIPTION_LIMIT} characters.`);
       return;
     }
-    const formData = { title, description, link, price, image, adSpace, startingDate, campaignBudget, duration };
+    const formData = { title, description, link, price, paid, duration, image, adSpace, startingDate, campaignBudget };
     onSubmit(e, formData);
   };
 

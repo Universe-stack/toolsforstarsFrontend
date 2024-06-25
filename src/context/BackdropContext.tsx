@@ -22,7 +22,7 @@ const reducer = (state, action) => {
 };
 
 // Create action creators
-const setBackdrop = (backdrop) => ({
+const setBackdrops = (backdrop) => ({
   type: SET_BACKDROP,
   payload: backdrop,
 });
@@ -33,7 +33,7 @@ export const BackdropContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
-    <BackdropContext.Provider value={{ state, dispatch, setBackdrop }}>
+    <BackdropContext.Provider value={{ state, dispatch, setBackdrops }}>
       {children}
       {state.backdrop && <div className="backdrop"></div>}
     </BackdropContext.Provider>
