@@ -15,6 +15,7 @@ import { FaSliders, FaAnglesRight, FaAnglesLeft } from "react-icons/fa6";
 export default function Page() {
   const { icon } = useContext<any>(IconsContext);
   const { state, dispatch, handleFetchAllSaas, handleFetchFilteredSaas } = useResource();
+  const { pagination } = state;
   const {setBackdrops} = useBackdrop()
   const [saasTools, setSaasTools] = useState([]);
   const [error, setError] = useState(null);
@@ -97,6 +98,18 @@ export default function Page() {
       fetchData(nextPage);
     }
   };
+
+  const handleFilteredPreviousPage = () => {
+    if (pagination.currentPage > 1) {
+      handleFetchFilteredSaas(filter.selectedValue, Number(state.pagination.currentPage) - 1);
+    }
+  };
+  
+const handleFilteredNextPage = ()=>  {
+  if (pagination.currentPage < pagination.totalPages) {
+      handleFetchFilteredSaas(filter.selectedValue, Number(pagination.currentPage) + 1 );
+  }
+}
 
   const fetchAds = async (retries = 3, delay = 8000) => {
     try {
@@ -217,11 +230,28 @@ export default function Page() {
         </div>
 
         <div className='w-full flex justify-end mt-8'>
-          <div className="join grid grid-cols-2 self-end w-[15rem] ">
-            <button className="join-item btn btn-outline flex gap-2 items-center" onClick={handlePreviousPage} disabled={state.pagination.currentPage === 1}>Previous <FaAnglesLeft className='pb-[0.4rem] text-[1.5rem]' /></button>
-            <button className="join-item btn btn-outline flex gap-2 items-center" onClick={handleNextPage} disabled={state.pagination.currentPage === state.pagination.totalPages}>Next <FaAnglesRight className='pb-[0.4rem] text-[1.5rem]' /> </button>
+        {state.saasFiltered ? (
+          <div className="flex gap-2 items-center">
+            <button className='join-item btn btn-outline flex gap-2 items-center' onClick={handleFilteredPreviousPage}  disabled={state.pagination.currentPage <= 1}>
+              Previous <FaAnglesLeft className='pb-[0.4rem] text-[1.5rem]' />
+            </button>
+            <span className='self-center text-starspurpleLight'>{`${state.pagination.currentPage} / ${state.pagination.totalPages}`}</span>
+            <button className='join-item btn btn-outline flex gap-2 items-center' onClick={handleFilteredNextPage} disabled={state.pagination.currentPage >= state.pagination.totalPages}>
+              Next <FaAnglesRight className='pb-[0.4rem] text-[1.5rem]' />
+            </button>
           </div>
-        </div>
+        ) : (
+          <div className="join grid grid-cols-2 self-end w-[15rem] ">
+            <button className="join-item btn btn-outline flex gap-2 items-center" onClick={handlePreviousPage} disabled={state.pagination.currentPage === 1}>
+              Previous <FaAnglesLeft className='pb-[0.4rem] text-[1.5rem]' />
+            </button>
+            <button className="join-item btn btn-outline flex gap-2 items-center" onClick={handleNextPage} disabled={state.pagination.currentPage === state.pagination.totalPages}>
+              Next <FaAnglesRight className='pb-[0.4rem] text-[1.5rem]' />
+            </button>
+          </div>
+        )}
+      </div>
+
       </div>
     </section>
   );

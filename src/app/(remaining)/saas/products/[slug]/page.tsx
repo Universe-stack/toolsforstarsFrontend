@@ -18,99 +18,100 @@ import YoutubeVideo from '@/app/component/YoutubeVideo';
 import ReactStars from '@/app/component/UI/StarsRating';
 import { Line} from 'rc-progress'
 
-
 const Page = () => {
 
     const products={ link:'', name: 'alih', description: 'Connect your WordPress forms with hundreds of popular tools using custom-built integrations',images:['https://res.cloudinary.com/dck5v2kub/image/upload/v1710263377/toolsForstars/SAASPIC1_yv31md.webp', 'https://res.cloudinary.com/dck5v2kub/image/upload/v1710263377/toolsForstars/SAASPIC1_yv31md.webp'] }
 
-    const [data, setData] = useState<any>(null);
+    const [fetchedData, setFetchedData] = useState<any>(null);
 
-    // const {toolId} = useParams()
+    const params = useParams()
+    console.log(params.slug, "params")
     
-    // useEffect(()=>{
-    //     const fetchData = async () => {
-    //         try {
-    //           const res = await fetch(`https://api.example/saas/tools/${toolId}`);
-    //           if (!res.ok) {
-    //             throw new Error('Failed to fetch data');
-    //           }
-    //           const jsonData = await res.json();
-    //           setData(jsonData);
-    //         } catch (error) {
-    //           console.error(error);
-    //         }
-    //       };
-      
-    //       fetchData();
-    // },[toolId])
+    useEffect(()=>{
+        const fetchData = async () => {
+            try {
+                const res = await fetch(`https://createcamp.onrender.com/tools/${params.slug}`, {
+                    method: 'GET',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                  });
+                  const data = await res.json();
+              console.log(data, "data fetched");
+              setFetchedData(data)
+            } catch (error) {
+              console.error(error);
+            }
+          };
+          fetchData();
+    },[])
 
   return (
     <div className='w-[100%] flex justify-center mb-[2rem]'>
         <div className=' w-[75%] self-center mt-[3rem]'>
-            <div className='flex justify-between'>
+            <div className='flex justify-between items-center'>
                 <div className=''>
-                    <h1 className='text-[3.5rem] leading-[4rem] font-[700]'>Appsumo: Buy your Software</h1>
+                    <h1 className='text-[3.5rem] leading-[4rem] font-[700]'>{fetchedData ? fetchedData.tool.name : ''}</h1>
                     <div className='mt-[16px] flex flex-col'>
-                        <span className='text-[14px] text-starspurpleLight'><Link href={''}>Appsumo</Link></span>
-                        <span className='text-[12px] text-starsGrey'>In-app purchases</span>
+                        <span className='text-[14px] text-starspurpleLight'><Link href={`${fetchedData ? fetchedData.tool.link : ''}`}>{fetchedData ? fetchedData.tool.name : ''}</Link></span>
                     </div>
                     <div className='flex mt-[16px] mb-[24px] py-[12px]'>
-                    <div className="flex flex-col items-center">
-                        <div className='flex text-center items-center'>
-                            <p className='text-[14px]'>3.1</p>
-                            <MdStar className='text-[14px]'/>
+                        <div className="flex flex-col items-center">
+                            <div className='flex text-center items-center'>
+                                <p className='text-[14px] p-0 m-0 mt-[0.35rem]'>{fetchedData ? fetchedData.tool.averageReview : ''}</p>
+                                <MdStar className='text-[14px]'/>
+                            </div>
+                            <span className="flex gap-[0.5rem]">
+                                <p className='text-[14px] text-starsGrey p-0 m-0'>--M</p>
+                                <p className='text-[14px] text-starsGrey p-0 m-0'>reviews</p>
+                            </span>  
                         </div>
-                        <span className="flex gap-[0.5rem]">
-                            <p className='text-[14px] text-starsGrey'>5.67M</p>
-                            <p className='text-[14px] text-starsGrey'>reviews</p>
-                        </span>  
-                    </div>
 
                         <span className="flex after:content-[''] after:w-[2px] after:h-[1rem] after:bg-starsGrey self-center mx-[2rem]"></span>
 
                         <div className='flex flex-col items-center'>
                             <div className='self-center flex items-center'>
-                                <div className='text-[14px] self-center text-center'>109</div>
-                                <HiArrowCircleUp className='self-center text-[14px] text-center leading-[1rem]'/>
+                                <div className='text-[14px] self-center text-center mt-[0.35rem]'>{fetchedData ? fetchedData.tool.upvotes : ''}</div>
+                                <HiArrowCircleUp className='self-center text-[14px] text-center'/>
                             </div>
-                            <div className=''><p className='text-[14px] text-starsGrey'>Upvotes</p></div>
+                            <div className=''><p className='text-[14px] text-starsGrey p-0 m-0'>Upvotes</p></div>
                         </div>
                         <span className="flex after:content-[''] after:w-[2px] after:h-[1rem] after:bg-starsGrey self-center mx-[2rem]"></span>
 
-                        <div className='flex flex-col justify-center items-center'>
-                            <span className='self-center flex items-center'>
-                                <AiFillCarryOut className='self-center text-[14px]'/>
+                        <div className=' self-center flex flex-col items-center justify-around pt-1'>
+                            <span className='self-center flex items-center mb-[0.35rem]'>
+                                <AiFillCarryOut className='self-center text-[14px] text-center'/>
                             </span>
-                            <div className='text-[14px] self-center'>Editors choice</div>
+                            <div className='self-end'><p className='text-[14px] text-starsGrey p-0 m-0'>Editor's choice</p></div>
                         </div>
                     </div>
 
                     <div className="flex gap-[16px]">
-                        <button className="py-[10px] px-[16px] bg-starsBlack text-starsWhite rounded-md min-h-[44px] min-w-[200px] inline-flex items-center justify-center"><Link href={''}>Get now</Link></button>
+                        <button className="py-[10px] px-[16px] bg-starsBlack text-starsWhite rounded-md min-h-[44px] min-w-[200px] inline-flex items-center justify-center"><Link href={`${fetchedData ? fetchedData.tool.link : ''}`}>Get now</Link></button>
                         <div className="flex gap-[8px]">
                             <div className="self-center text-[14px] text-starspurpleLight">
                                 <Link href={''} className='flex gap-1'>
                                     <BiShareAlt className='self-center'/>
-                                    <span className="">Share</span>
+                                    <span className="pt-1">Share</span>
                                 </Link>
                             </div>
                             <div className=" self-center text-[14px]">
                             <Link href={''} className='flex gap-1'>
                                     <BiSolidBookmarkAltPlus className='self-center'/>
-                                    <span className="text-starsGrey">Add to wishlist</span>
+                                    <span className="text-starsGrey pt-1 hover:text-starspurpleDark">Add to wishlist</span>
                             </Link>
                             </div>
                             <div className=" self-center text-[14px]">
                             <Link href={''} className='flex gap-1'>
                                     <FaScaleBalanced className='self-center'/>
-                                    <span className="text-starsGrey">Compare alternatives</span>
+                                    <span className="text-starsGrey pt-1 hover:text-starspurpleDark ">Compare alternatives</span>
                             </Link>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className=''>
-                        <Image src={'https://res.cloudinary.com/dck5v2kub/image/upload/v1708206223/jaeyLusson/pngegg_13_b6usfj.png'} width={500} height={400} alt='tool logo' className='' />
+                <div className='self-end rounded-lg w-[25rem] h-[25rem]'>
+                        <Image src={'https://res.cloudinary.com/dck5v2kub/image/upload/v1708206223/jaeyLusson/pngegg_13_b6usfj.png'} width={500} height={400} alt={`${fetchedData ? fetchedData.tool.name : ''}`} className='self-center w-[100%] h-[100%] rounded-lg object-contain' />
                 </div>
             </div>
 
@@ -122,108 +123,59 @@ const Page = () => {
                     <div className="pt-[24px]">
                         <header className="pb-[20px]">
                             <div className='flex'>
-                                <h2 className="font-[800] mr-[16px]"> About this software</h2>
+                                <h2 className="font-[800] mr-[12px] text-[1.5rem]"> About this software</h2>
                                 <FaArrowRight className='self-center' />
                             </div>
                         </header>
-                        <p className="text-[.875rem] font-[400] leading-[1.25rem]">BET+ is a premium online streaming service with over 2,000 hours of your favorite Black content from the best Black creators. Now, you can stream Black culture: the movies you remember, the TV shows you love and the new series you cant live without, and theyre all in one place.<br/>Everything from modern favorites like Average Joe and The Ms. Pat Show to classics like The Wayans Brothers and Being Mary Jane is available on BET+.</p>
+                        <p className="text-[.875rem] font-[400] leading-[1.25rem]">{fetchedData ? fetchedData.tool.description : ''}</p>
 
-                        <div className="pt-[20px] text-[.875rem] font-[400] leading-[1.25rem]">
+                        <div className="mt-[36px] text-[.875rem] font-[400] leading-[1.25rem] ">
                             <div className='font-[700]'>updated on</div>
-                            <div className='mt-[4px]'>Apr 16, 2024</div>
+                            <div className='mt-[4px] text-starspurpleLight'>Apr 16, 2024</div>
                         </div>
                     </div>
 
                     <div className="mt-[32px]">
-                        <h2 className="my-[16px] text-[1.35rem]">At a glance</h2>
+                        <h2 className="mb-[12px] text-[1.35rem] font-[700]">Best for</h2>
                         <div className="grid grid-cols-2 gap-x-3 gap-y-5">
                             <div className="">
-                                <h3 className="text-[800]">Best For</h3>
                                 <ul className="">
-                                    <li className="flex gap-[1rem] text-[.875rem] font-[400] leading-[1.25rem] mt-[8px]">
-                                        <FaCheckCircle className="self-center"/>
-                                        <p className=''>Content Marketing</p>
+                                {fetchedData ? fetchedData.tool.targetAudience.map((item:any) => (
+                                    <li key={item} className="flex gap-[0.5rem] text-[.875rem] font-[400] leading-[1.25rem]">
+                                    <FaCheckCircle className="self-center" />
+                                    <p className='pt-1'>{item}</p>
                                     </li>
-                                    <li className="flex gap-[1rem] text-[.875rem] font-[400] leading-[1.25rem] mt-[8px]">
-                                        <FaCheckCircle className="self-center"/>
-                                        <p className=''>Marketing Agencies</p>
-                                    </li>
-                                    <li className="flex gap-[1rem] text-[.875rem] font-[400] leading-[1.25rem] mt-[8px]">
-                                        <FaCheckCircle className="self-center"/>
-                                        <p className=''>Small businesses</p>
-                                    </li>
+                                )) : ''}
                                 </ul>
                             </div>
-
-                            <div className="">
-                                <h3 className="text-[800]">Integrations</h3>
-                                <ul className="">
-                                    <li className="flex gap-[1rem] text-[.875rem] font-[400] leading-[1.25rem] mt-[8px]">
-                                        <FaCheckCircle className="self-center"/>
-                                        <p className=''>Facebook</p>
-                                    </li>
-                                    <li className="flex gap-[1rem] text-[.875rem] font-[400] leading-[1.25rem] mt-[8px]">
-                                        <FaCheckCircle className="self-center"/>
-                                        <p className=''>Tiktok</p>
-                                    </li>
-                                    <li className="flex gap-[1rem] text-[.875rem] font-[400] leading-[1.25rem] mt-[8px]">
-                                        <FaCheckCircle className="self-center"/>
-                                        <p className=''>Snapchat</p>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <div className="">
-                                <h3 className="text-[800]">Alternative to</h3>
-                                <ul className="">
-                                    <li className="flex gap-[1rem] text-[.875rem] font-[400] leading-[1.25rem] mt-[8px]">
-                                        <FaCheckCircle className="self-center"/>
-                                        <p className=''>Content Marketing</p>
-                                    </li>
-                                    <li className="flex gap-[1rem] text-[.875rem] font-[400] leading-[1.25rem] mt-[8px]">
-                                        <FaCheckCircle className="self-center"/>
-                                        <p className=''>Marketing Agencies</p>
-                                    </li>
-                                    <li className="flex gap-[1rem] text-[.875rem] font-[400] leading-[1.25rem] mt-[8px]">
-                                        <FaCheckCircle className="self-center"/>
-                                        <p className=''>Small businesses</p>
-                                    </li>
-                                </ul>
-                            </div>
-
-
                         </div>
                     </div>
 
-                    <button className='rounded-full mt-[32px] text-[.875rem] font-[400] leading-[1.25rem] border border-starsGrey py-[0.45rem] px-[0.8rem] inline-flex items-center justify-center'>
-                        <Link href={''}> Entertainment </Link>
+                    <button className='rounded-full mt-[32px] text-[.675rem] font-[400] leading-[1.25rem] py-[0.45rem] px-[0.8rem] inline-flex items-center justify-center bg-starsBlack text-starsWhite'>
+                        <Link href={''}> entertainment </Link>
                     </button>
 
-                    <div className='mt-[32px]'>
+                    <div className='mt-[48px]'>
                         <YoutubeVideo videoId="NgkCgqIogcY" height="500" width="800" autoplay={0} />
                     </div>
 
                     <div className="mt-[32px]">
-                        <h3 className="font-[800]">Plans & Features</h3>
+                        <h3 className="font-[800] text-[1.5rem]">Plans & Features</h3>
 
-                        <div className="pt-[14.5px]">
-                            <div className="flex gap-[1rem] text-[.875rem] font-[400] leading-[1.25rem] mt-[8px] ">
-                                <FaCheck className='self-center' />
-                                <p className="">Edit videos by editing the script</p>
-                            </div>
-                            <div className="flex gap-[1rem] text-[.875rem] font-[400] leading-[1.25rem] mt-[8px]">
-                                <FaCheck className='self-center' />
-                            <p className="">Edit videos by editing the script</p>
-                            </div>
-                            <div className="flex gap-[1rem] text-[.875rem] font-[400] leading-[1.25rem] mt-[8px]">
-                                <FaCheck className='self-center' />
-                            <p className="">Edit videos by editing the script</p>
-                            </div>
+                        <div className="pt-[12px]">
+                            <ul className="">
+                                {fetchedData ? fetchedData.tool.features.map((item:any) => (
+                                    <li key={item} className="flex gap-[0.5rem] text-[.875rem] font-[400] leading-[1.25rem]">
+                                    <FaCheckCircle className="self-center" />
+                                    <p className='pt-1'>{item}</p>
+                                    </li>
+                                )) : ''}
+                                </ul>
                         </div>
                     </div>
 
-                    <div className="mt-[32px] w-[100%]">
-                        <div className=""><h2 className="">Ratings & Reviews</h2></div>
+                    <div className="mt-[64px] w-[100%]">
+                        <div className=""><h2 className="text-[1.5rem] font-[800]">Ratings & Reviews</h2></div>
 
                         <div className="flex gap-[5%] mt-[32px] w-[100%]  py-[12px]">
                             <div className="">

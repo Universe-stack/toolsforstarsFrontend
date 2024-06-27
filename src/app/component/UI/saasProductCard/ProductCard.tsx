@@ -1,17 +1,16 @@
 //@ts-nocheck
 import CardCarousel from "../Slider/CardCarousel";
 import ReactStarsRating from 'react-awesome-stars-rating';
-
+import Link from 'next/link'
+import { useParams } from 'next/navigation'
 
 interface ProductCardProps {
   data:any
 }
   
-
-
-  
   const ProductCard: React.FC<ProductCardProps> = ({data}) => {
-    console.log(data, "product data")
+    const params = useParams()
+    console.log(params, "product param")
     return (
       <div className="card w-[100%] bg-base-100 shadow-md p-2 rounded-lg ">
         <div className="">
@@ -25,7 +24,7 @@ interface ProductCardProps {
           <p className='text-[15px]'>{data.description}</p>
           <div className="card-actions justify-between flex items-baseline">
             <div className="self-center text-[#e49a2d] font-[600]">${data.pricing}</div>
-            <button className="p-[0.6rem] bg-starsBlack text-starsWhite rounded-md text-[0.75rem]">Buy Now</button>
+            <Link href={`/saas/products/${data._id}`} className="p-[0.6rem] bg-starsBlack text-starsWhite rounded-md text-[0.75rem]">Get it</Link>
           </div>
         </div>
       </div>
