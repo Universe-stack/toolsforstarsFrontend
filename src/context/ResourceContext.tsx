@@ -9,10 +9,6 @@ interface ResourceForm {
   username: string;
 }
 
-interface CourseForm {
-  message: string;
-}
-
 interface Pagination {
   currentPage: number;
   totalPages: number;
@@ -24,8 +20,8 @@ interface ResourceFetch {
   saasFiltered: ResourceForm | null;
   appsResources: ResourceForm | null;
   appsFiltered: ResourceForm | null;
-  courseResources: CourseForm | null;
-  courseFiltered: CourseForm | null;
+  courseResources: ResourceForm | null;
+  courseFiltered: ResourceForm | null;
   isLoading: boolean;
   pagination: Pagination;
 }
@@ -50,8 +46,8 @@ type Action =
   | { type: 'SET_FILTERED_SAAS'; payload: ResourceForm }
   | { type: 'SET_APPS'; payload: ResourceForm }
   | { type: 'SET_FILTERED_APPS'; payload: ResourceForm } 
-  | { type: 'SET_COURSES'; payload: CourseForm } 
-  | { type: 'SET_FILTERED_COURSES'; payload: CourseForm }
+  | { type: 'SET_COURSES'; payload: ResourceForm } 
+  | { type: 'SET_FILTERED_COURSES'; payload: ResourceForm }
   | { type: 'SET_LOADING'; payload: boolean }
   | { type: 'SET_PAGINATION'; payload: Pagination }
 
@@ -65,14 +61,14 @@ const reducer = (state: ResourceFetch, action: Action): ResourceFetch => {
       return { ...state, appsResources: action.payload };
     case 'SET_FILTERED_APPS':
       return { ...state, appsFiltered: action.payload };
+    case 'SET_COURSES':
+      return { ...state, courseResources: action.payload };
+    case 'SET_FILTERED_COURSES':
+      return { ...state, courseFiltered: action.payload };
     case 'SET_LOADING':
       return { ...state, isLoading: action.payload };
-    case 'SET_COURSES':
-        return { ...state, courseResources: action.payload };
-    case 'SET_FILTERED_COURSES':
-        return { ...state, courseFiltered: action.payload };
     case 'SET_PAGINATION':
-        return { ...state, pagination: action.payload };
+      return { ...state, pagination: action.payload };
     default:
       return state;
   }
@@ -176,6 +172,38 @@ export const ResourceProvider = ({ children }: { children: React.ReactNode }) =>
     }
   };
 
+  
+  const handleFetchFilteredApps= async (sortBy, page = 1) => {
+    console.log(sortBy, page)
+    try {
+      console.log('Fetching filtered Apps tools...');
+      dispatch({ type: 'SET_LOADING', payload: true });
+      console.log(sortBy, "SortBy");
+
+      const response = await fetch(`https://createcamp.onrender.com/tools/apps/filterResults?sortBy=${sortBy}&page=${page}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch filtered Apps tools. Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log('Filtered Apps data:', data);
+
+      dispatch({ type: 'SET_FILTERED_APPS', payload: data });
+      dispatch({ type: 'SET_PAGINATION', payload: data.pagination });
+    } catch (error) {
+      console.error('Error fetching filtered Apps tools:', error);
+      dispatch({ type: 'SET_FILTERED_APPS', payload: { message: 'An error occurred while fetching Apps tools. Please try again.' } });
+    } finally {
+      dispatch({ type: 'SET_LOADING', payload: false });
+    }
+  };
+
   const handleFetchAllCourses = async () => {
     try {
       console.log('fetching...');
@@ -187,7 +215,6 @@ export const ResourceProvider = ({ children }: { children: React.ReactNode }) =>
         },
       });
       const data = await res.json(); // Parse JSON data once
-      console.log(data, "Courses data");
 
       if (res.ok) {
         dispatch({ type: 'SET_COURSES', payload: data });
@@ -203,8 +230,41 @@ export const ResourceProvider = ({ children }: { children: React.ReactNode }) =>
     }
   };
 
+
+  const handleFetchFilteredCourses= async (sortBy, page = 1) => {
+    console.log(sortBy, page)
+    try {
+      console.log('Fetching filtered Courses...');
+      dispatch({ type: 'SET_LOADING', payload: true });
+      console.log(sortBy, "SortBy");
+
+      const response = await fetch(`https://createcamp.onrender.com/tools/courses/filterResults?sortBy=${sortBy}&page=${page}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch filtered Courses. Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log('Filtered Courses data:', data);
+
+      dispatch({ type: 'SET_FILTERED_COURSES', payload: data });
+      dispatch({ type: 'SET_PAGINATION', payload: data.pagination });
+    } catch (error) {
+      console.error('Error fetching filtered Courses:', error);
+      dispatch({ type: 'SET_FILTERED_COURSES', payload: { message: 'An error occurred while fetching Courses. Please try again.' } });
+    } finally {
+      dispatch({ type: 'SET_LOADING', payload: false });
+    }
+  };
+
+
   return (
-    <ResourceContext.Provider value={{ state, dispatch, handleFetchAllSaas, handleFetchAllApps, handleFetchAllCourses, handleFetchFilteredSaas }}>
+    <ResourceContext.Provider value={{ state, dispatch, handleFetchAllSaas, handleFetchAllApps, handleFetchAllCourses, handleFetchFilteredSaas, handleFetchFilteredApps, handleFetchFilteredCourses }}>
       {children}
     </ResourceContext.Provider>
   );

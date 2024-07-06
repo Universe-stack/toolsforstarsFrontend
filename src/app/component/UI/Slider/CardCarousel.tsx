@@ -33,7 +33,9 @@ console.log(data,'images')
   <Slider {...settings}>
       {data && data.screenshots ? (
         data.screenshots.map((image: any, index: number) => (
-          <Image key={index} src={`${image}`} alt={''} width={400} height={400} className='h-[150px] cover' />
+          <div className='w-[100%] h-[150px] bg-contain'>
+            <Image key={index} src={`${image}`} alt={''} width={400} height={400} className='w-[100%] h-[100%]' />
+          </div>
         ))
       ) : (
         "no images found"

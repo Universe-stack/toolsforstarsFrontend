@@ -69,7 +69,10 @@ const Page = () => {
   const [reserror, setReserror] = useState(false)
   const [report, setReport] = useState('')
 
-  const { state, dispatch, setBackdrop } = useBackdrop();
+  const { state, dispatch } = useBackdrop();
+  const setBackdrop = (value) => {
+    dispatch({ type: 'SET_BACKDROP', payload: value });
+  };
 
 
   const handleFileChange = (e) => {
@@ -207,6 +210,8 @@ const Page = () => {
       setReserror(true)
       setReport('Failed, Try again please')
       console.error('create tool failed:', error);
+    }finally {
+      shadowRemove();
     }
   };
   

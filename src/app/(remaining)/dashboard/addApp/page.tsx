@@ -69,8 +69,10 @@ const Page = () => {
   const [reserror, setReserror] = useState(false)
   const [report, setReport] = useState('')
 
-  const { state, dispatch, setBackdrop } = useBackdrop();
-
+  const { state, dispatch } = useBackdrop();
+  const setBackdrop = (value) => {
+    dispatch({ type: 'SET_BACKDROP', payload: value });
+  };
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files) as File[];
@@ -142,15 +144,15 @@ const Page = () => {
     }
   };
 
-  const shadowDrop = ()=>{
-    dispatch(setBackdrop(true))
-    setLoading(true)
-  }
+  const shadowDrop = () => {
+    setBackdrop(true);
+    setLoading(true);
+  };
 
-  const shadowRemove=()=>{
-    dispatch(setBackdrop(false))
-    setLoading(false)
-  }
+  const shadowRemove = () => {
+    setBackdrop(false);
+    setLoading(false);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -207,6 +209,8 @@ const Page = () => {
       setReserror(true)
       setReport('Failed, Try again please')
       console.error('create tool failed:', error);
+    } finally {
+      shadowRemove();
     }
   };
   
@@ -398,24 +402,22 @@ const Page = () => {
   };
 
 
-  const display=()=>{
-    if(res){
-      return report
-    }else if(reserror){
-      return report
-    }else{
-      return <span className="loading loading-dots loading-lg"></span>
+  const display = () => {
+    if (res) {
+      return report;
+    } else if (reserror) {
+      return report;
+    } else {
+      return <span className="loading loading-dots loading-lg"></span>;
     }
-  }
-
-
+  };
 
   return (
     <div className="bg-starsWhite py-10 w-full">
      { loading &&
       <div className='w-[20rem] bg-starsWhite rounded-md absolute self-center mt-[2rem] z-50 top-0 right-0 left-[40%] bottom-0'>
         <div className='self-right p-1 m-2 cursor-pointer' onClick={shadowRemove}><HiOutlineXCircle className='size-6' /></div>
-        <div class="container p-4 self-center text-center">
+        <div className="container p-4 self-center text-center">
           {display()}
         </div>
       </div> 
@@ -433,4 +435,3 @@ const Page = () => {
 };
 
 export default Page;
-
