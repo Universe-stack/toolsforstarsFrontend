@@ -30,7 +30,7 @@ function ProductdetailCarousel(props:any) {
 
   return (
     <Slider {...settings} className='gap-[1%]'>
-     {props.productImages.images?.map((image: string, index: number) => (
+     {props.productImages?.tool?.screenshots.map((image: string, index: number) => (
                 <div key={' '} className='w-[100%] px-[10px] py-[5px]'>
                     <Image src={`${image}`} width={500} height={400} alt="" className='rounded-md'/>
                 </div>

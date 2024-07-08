@@ -17,25 +17,21 @@ import ReactStars from '@/app/component/UI/StarsRating';
 import { Line } from 'rc-progress';
 import { useBackdrop } from '@/context/BackdropContext';
 import { FaCircleXmark } from "react-icons/fa6";
+import { useRouter } from 'next/navigation';
+
+
 
 const Page = () => {
-    const products = {
-        link: '',
-        name: 'alih',
-        description: 'Connect your WordPress forms with hundreds of popular tools using custom-built integrations',
-        images: [
-            'https://res.cloudinary.com/dck5v2kub/image/upload/v1710263377/toolsForstars/SAASPIC1_yv31md.webp',
-            'https://res.cloudinary.com/dck5v2kub/image/upload/v1710263377/toolsForstars/SAASPIC1_yv31md.webp'
-        ]
-    };
-
     const [fetchedData, setFetchedData] = useState<any>(null);
     const [modal, setModal] = useState<any>(null);
     const { state, dispatch, setBackdrops } = useBackdrop();
     const params = useParams();
     const [searchTerm, setSearchTerm] = useState('');
+    const [productComparison, setProductComparison] = useState<any[]>([]);
+    const [allProducts, setAllProducts] = useState<any[]>([]); // Ensure allProducts is initialized as an array
 
     useEffect(() => {
+        // Fetch main product data
         const fetchData = async () => {
             try {
                 const res = await fetch(`https://createcamp.onrender.com/tools/${params.slug}`, {
@@ -45,38 +41,49 @@ const Page = () => {
                     },
                 });
                 const data = await res.json();
+                console.log(data, "fetched data");
                 setFetchedData(data);
             } catch (error) {
                 console.error(error);
             }
         };
+
+        // Fetch all products data
+        const fetchAllProducts = async () => {
+            try {
+                const res = await fetch(`https://createcamp.onrender.com/tools/saas`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+                const data = await res.json();
+                console.log(data, "all products");
+
+                // Ensure data is an array
+                if (Array.isArray(data.tools)) {
+                    setAllProducts(data.tools);
+                } else {
+                    console.error('Expected data to be an array:', data);
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
         fetchData();
+        fetchAllProducts();
     }, [params.slug]);
 
-
-    const productComparison = [
-    {
-        id: 1,
-        name: 'Ledgar',
-        job: 'Quality Control Specialist',
-        favoriteColor: 'Blue',
-        image:''
-    },
-    {
-        id: 2,
-        name: 'Harty',
-        job: 'Desktop Support Technician',
-        favoriteColor: 'Purple',
-        image: ''
-    },
-    {
-        id: 3,
-        name: 'Lonely',
-        job: 'for dogs',
-        favoriteColor: 'Purple',
-        image: ''
-    },
-    ];
+    useEffect(() => {
+        if (fetchedData && Array.isArray(allProducts) && allProducts.length > 0) {
+            // Filter recommended products based on categories
+            const filteredResults = allProducts.filter((product: any) =>
+                product.categories.some((category: string) => fetchedData.tool.categories.includes(category))
+            );
+            setProductComparison(filteredResults);
+        }
+    }, [fetchedData, allProducts]);
 
     const filteredProducts = productComparison.filter(product => 
         product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -84,91 +91,134 @@ const Page = () => {
         product.favoriteColor.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-
-
-    const handleCompareAlternatives = ()=> {
-        dispatch({ type: 'SET_BACKDROP', payload: true })
-        setModal(true)
+    const handleCompareAlternatives = () => {
+        dispatch({ type: 'SET_BACKDROP', payload: true });
+        setModal(true);
     }
 
-    const removeCompareAlternatives = ()=> {
-        dispatch({ type: 'SET_BACKDROP', payload: false })
-        setModal(false)
+    const removeCompareAlternatives = () => {
+        dispatch({ type: 'SET_BACKDROP', payload: false });
+        setModal(false);
     }
+
+    const handleProductClick = (product: any) => {
+        setFetchedData({ tool: product });
+        removeCompareAlternatives();
+    };
 
     return (
         <div className='w-[100%] flex justify-center pb-[2rem] relative'>
-            
-
-
             {state.backdrop && 
-                <div
-                    className="absolute bg-starsBlack z-40 top-0 right-0 left-0 bottom-0 opacity-25 "
-                ></div>
+                <div className="absolute bg-starsBlack z-40 top-0 right-0 left-0 bottom-0 opacity-25"></div>
             }
 
             {modal && 
                 <div className='absolute bg-starsWhite z-50 py-[1.5rem] w-[70%] mt-[35vh] rounded-[1rem] p-4'>
-                    <div className="w-full flex justify-end mb-4 cursor-pointer ">
-                        <FaCircleXmark className='self-end size-6' onClick={removeCompareAlternatives}/>
+                    <div className="w-full flex justify-end mb-4 cursor-pointer">
+                        <FaCircleXmark className='self-end size-6 text-[#FF0000] hover:opacity-75' onClick={removeCompareAlternatives} />
                     </div>
-                    <div className="flex justify-between gap-[2%] ">
+                    <div className="flex justify-between gap-[2%]">
                         <div className='w-[30%] overflow-y-scroll p-4'>
-                        {filteredProducts.map(item => (
-                            <div key={item.id} className="flex gap-2 justify-between w-full p-4 mb-4 border border-opacity-60 border-starsGrey shadow-sm rounded-md cursor-pointer">
-                            <div className="object-cover w-[40%] flex items-center">
-                                <Image src={item.image} alt={item.name} className='self-center'/>
-                            </div>
-                            <div className='w-[60%]'>
-                                <h3 className='text-[16px] font-[700] text-starsBlack'>{item.name}</h3>
-                                <p className='text-[12px] font-[300] text-starsGrey'>{item.job}</p>
-                            </div>
-                            </div>
-                        ))}
+                            {filteredProducts.map(item => (
+                                <div key={item.id} className="flex gap-2 justify-between w-full p-4 mb-4 border border-opacity-60 border-starsGrey shadow-sm rounded-md cursor-pointer" onClick={() => handleProductClick(item)}>
+                                    <div className="object-cover w-[40%] flex items-center">
+                                        <Image src={item.image} alt={item.name} className='self-center' />
+                                    </div>
+                                    <div className='w-[60%]'>
+                                        <h3 className='text-[16px] font-[700] text-starsBlack'>{item.name}</h3>
+                                        <p className='text-[12px] font-[300] text-starsGrey'>{item.job}</p>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                 
                         <div className='w-[70%] overflow-y-scroll p-4'>
-                        <div className="mb-4">
-                            <input 
-                            type="text" 
-                            placeholder="Search..." 
-                            className="w-full p-2 border border-gray-300 rounded" 
-                            value={searchTerm}
-                            onChange={e => setSearchTerm(e.target.value)}
-                            />
-                        </div>
-                        <div className="overflow-x-auto">
-                            <table className="table table-zebra w-full">
-                            <thead className='text-starspurpleLight text-[20px] font-[700]'>
-                                <tr>
-                                <th></th>
-                                {filteredProducts.map(product => (
-                                    <th key={product.name}> {product.name}</th>
-                                ))}
-                                </tr>
-                            </thead>
-                            <tbody className='text-[12px]'>
-                                <tr>
-                                <th>Name</th>
-                                {filteredProducts.map(product => (
-                                    <td key={product.id}>{product.name}</td>
-                                ))}
-                                </tr>
-                                <tr>
-                                <th>Job</th>
-                                {filteredProducts.map(product => (
-                                    <td key={product.id}>{product.job}</td>
-                                ))}
-                                </tr>
-                                <tr>
-                                <th>Favorite Color</th>
-                                {filteredProducts.map(product => (
-                                    <td key={product.id}>{product.favoriteColor}</td>
-                                ))}
-                                </tr>
-                            </tbody>
-                            </table>
-                        </div>
+                            <div className="mb-4">
+                                <input 
+                                    type="text" 
+                                    placeholder="Search..." 
+                                    className="w-full p-2 border border-gray-300 rounded" 
+                                    value={searchTerm}
+                                    onChange={e => setSearchTerm(e.target.value)}
+                                />
+                            </div>
+                            <div className="overflow-x-auto">
+                                <table className="table table-zebra w-full">
+                                    <thead className='text-starspurpleLight text-[20px] font-[700]'>
+                                        <tr>
+                                            <th></th>
+                                            <th>{fetchedData?.tool?.name}</th>
+                                            {filteredProducts.map(product => (
+                                                <th key={product.name}> {product.name}</th>
+                                            ))}
+                                        </tr>
+                                    </thead>
+                                    <tbody className='text-[12px]'>
+                                        <tr>
+                                            <th>Name</th>
+                                            <td>{fetchedData?.tool?.name}</td>
+                                            {filteredProducts.map(product => (
+                                                <td key={product.id}>{product.name}</td>
+                                            ))}
+                                        </tr>
+                                        <tr>
+                                            <th>Features</th>
+                                            <td className='flex flex-col justify-center'>{fetchedData?.tool?.features.map((item: any, index: number) => (
+                                                <p key={index}>{item}</p>
+                                            ))}</td>
+                                            {filteredProducts.map(product => (
+                                                <td key={product.id}>{product.job}</td>
+                                            ))}
+                                        </tr>
+                                        <tr>
+                                            <th>Used for</th>
+                                            <td className='flex flex-col justify-center'>{fetchedData?.tool?.categories.map((item: any, index: number) => (
+                                                <p key={index}>{item}</p>
+                                            ))}</td>
+                                            {filteredProducts.map(product => (
+                                                <td key={product.id}>{product.job}</td>
+                                            ))}
+                                        </tr>
+                                        <tr>
+                                            <th>Made for</th>
+                                            <td className='flex flex-col justify-center'>{fetchedData?.tool?.targetAudience.map((item: any, index: number) => (
+                                                <p key={index}>{item}</p>
+                                            ))}</td>
+                                            {filteredProducts.map(product => (
+                                                <td key={product.id}>{product.job}</td>
+                                            ))}
+                                        </tr>
+                                        <tr>
+                                            <th>AI enabled?</th>
+                                            <td>{fetchedData?.tool?.aiEnabled}</td>
+                                            {filteredProducts.map(product => (
+                                                <td key={product.id}>{product.job}</td>
+                                            ))}
+                                        </tr>
+                                        <tr>
+                                            <th>Price</th>
+                                            <td>${fetchedData?.tool?.pricing}</td>
+                                            {filteredProducts.map(product => (
+                                                <td key={product.id}>{product.job}</td>
+                                            ))}
+                                        </tr>
+                                        <tr>
+                                            <th>Reviews</th>
+                                            <td>{fetchedData?.tool?.averageReview}</td>
+                                            {filteredProducts.map(product => (
+                                                <td key={product.id}>{product.job}</td>
+                                            ))}
+                                        </tr>
+                                        <tr>
+                                            <th>Product link</th>
+                                            <td>{fetchedData?.tool?.productLink}</td>
+                                            {filteredProducts.map(product => (
+                                                <td key={product.id}>{product.job}</td>
+                                            ))}
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -253,7 +303,7 @@ const Page = () => {
                 <div className='flex justify-between gap-[5%]'>
                     <main className="w-4/6">
                         <div className='w-[100%]'>
-                            <ProductdetailCarousel productImages={products} />
+                            <ProductdetailCarousel productImages={fetchedData} />
                         </div>
                         <div className="pt-[24px]">
                             <header className="pb-[20px]">
