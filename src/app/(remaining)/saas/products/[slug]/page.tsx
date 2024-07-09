@@ -28,7 +28,10 @@ const Page = () => {
     const params = useParams();
     const [searchTerm, setSearchTerm] = useState('');
     const [productComparison, setProductComparison] = useState<any[]>([]);
-    const [allProducts, setAllProducts] = useState<any[]>([]); // Ensure allProducts is initialized as an array
+    const [allProducts, setAllProducts] = useState<any[]>([]);
+    const [reviewContent, setReviewContent] = useState('');
+    const [reviewStars, setreviewStars] = useState(1);
+    const [userId, setUserId] = useState('')
 
     useEffect(() => {
         // Fetch main product data
@@ -73,6 +76,11 @@ const Page = () => {
 
         fetchData();
         fetchAllProducts();
+
+        const storedUser = JSON.parse(localStorage.getItem('user'));
+        if (storedUser) {
+            setUserId(storedUser._id);
+        }
     }, [params.slug]);
 
     useEffect(() => {
@@ -86,9 +94,7 @@ const Page = () => {
     }, [fetchedData, allProducts]);
 
     const filteredProducts = productComparison.filter(product => 
-        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        product.job.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        product.favoriteColor.toLowerCase().includes(searchTerm.toLowerCase())
+        product.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     const handleCompareAlternatives = () => {
@@ -104,6 +110,46 @@ const Page = () => {
     const handleProductClick = (product: any) => {
         setFetchedData({ tool: product });
         removeCompareAlternatives();
+    };
+
+
+    const handleReviewSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        const token = localStorage.getItem('token');
+        if (!token) {
+            console.error('No token found');
+            return;
+        }
+        const reviewData = {
+            reviewContent,
+            reviewStars,
+        };
+        
+        
+        try {
+            const response = await fetch(`https://createcamp.onrender.com/tools/${params.slug}/addreview`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(reviewData),
+            });
+            console.log(reviewData, "review data")
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Review submitted:', data);
+                setReviewContent('');
+                setreviewStars(1);
+                // Optionally update the state to reflect the new review
+            } else {
+                console.error('Failed to submit review');
+            }
+        } catch (error) {
+            console.error('Error submitting review:', error);
+        }
     };
 
     return (
@@ -132,7 +178,7 @@ const Page = () => {
                             ))}
                         </div>
                 
-                        <div className='w-[70%] overflow-y-scroll p-4'>
+                        <div className='w-[70%] overflow-y-scroll p-4 max-h-[90vh]'>
                             <div className="mb-4">
                                 <input 
                                     type="text" 
@@ -149,7 +195,7 @@ const Page = () => {
                                             <th></th>
                                             <th>{fetchedData?.tool?.name}</th>
                                             {filteredProducts.map(product => (
-                                                <th key={product.name}> {product.name}</th>
+                                                <th key={product.id}> {product.name}</th>
                                             ))}
                                         </tr>
                                     </thead>
@@ -164,56 +210,56 @@ const Page = () => {
                                         <tr>
                                             <th>Features</th>
                                             <td className='flex flex-col justify-center'>{fetchedData?.tool?.features.map((item: any, index: number) => (
-                                                <p key={index}>{item}</p>
+                                                <p className='my-[0.5rem] mt-1' key={index}>{item}</p>
                                             ))}</td>
                                             {filteredProducts.map(product => (
-                                                <td key={product.id}>{product.job}</td>
+                                                <td key={product.id}>{product.features.map((item: any, index: number) => (<p key={index} className='my-[0.5rem]'>{item}</p>))}</td>
                                             ))}
                                         </tr>
                                         <tr>
                                             <th>Used for</th>
                                             <td className='flex flex-col justify-center'>{fetchedData?.tool?.categories.map((item: any, index: number) => (
-                                                <p key={index}>{item}</p>
+                                                <p className='my-[0.5rem] mt-2' key={index}>{item}</p>
                                             ))}</td>
                                             {filteredProducts.map(product => (
-                                                <td key={product.id}>{product.job}</td>
+                                                <td key={product.id}>{product.categories.map((item: any, index: number) => (<p className='my-[0.5rem]' key={index}>{item}</p>))}</td>
                                             ))}
                                         </tr>
                                         <tr>
                                             <th>Made for</th>
                                             <td className='flex flex-col justify-center'>{fetchedData?.tool?.targetAudience.map((item: any, index: number) => (
-                                                <p key={index}>{item}</p>
+                                                <p className='my-[0.5rem] mt-2' key={index}>{item}</p>
                                             ))}</td>
                                             {filteredProducts.map(product => (
-                                                <td key={product.id}>{product.job}</td>
+                                                <td key={product.id}>{product.targetAudience.map((item: any, index: number) => (<p className='my-[0.5rem]' key={index}>{item}</p>))}</td>
                                             ))}
                                         </tr>
                                         <tr>
                                             <th>AI enabled?</th>
                                             <td>{fetchedData?.tool?.aiEnabled}</td>
                                             {filteredProducts.map(product => (
-                                                <td key={product.id}>{product.job}</td>
+                                                <td key={product.id}>{product.aiEnabled}</td>
                                             ))}
                                         </tr>
                                         <tr>
                                             <th>Price</th>
                                             <td>${fetchedData?.tool?.pricing}</td>
                                             {filteredProducts.map(product => (
-                                                <td key={product.id}>{product.job}</td>
+                                                <td key={product.id}>{product.pricing}</td>
                                             ))}
                                         </tr>
                                         <tr>
                                             <th>Reviews</th>
                                             <td>{fetchedData?.tool?.averageReview}</td>
                                             {filteredProducts.map(product => (
-                                                <td key={product.id}>{product.job}</td>
+                                                <td key={product.id}>{product.averageReview}</td>
                                             ))}
                                         </tr>
                                         <tr>
                                             <th>Product link</th>
                                             <td>{fetchedData?.tool?.productLink}</td>
                                             {filteredProducts.map(product => (
-                                                <td key={product.id}>{product.job}</td>
+                                                <td key={product.id}>{product.productLink}</td>
                                             ))}
                                         </tr>
                                     </tbody>
@@ -360,7 +406,7 @@ const Page = () => {
                         </div>
 
                         <div className="mt-[64px] w-[100%]">
-                            <div className=""><h2 className="text-[1.5rem] font-[800] text-starsBlack">Ratings & Reviews</h2></div>
+                            <div className=""><h2 className="text-[1.5rem] font-[800] text-starsBlack">Rating & Reviews</h2></div>
 
                             <div className="flex gap-[5%] mt-[32px] w-[100%] py-[12px]">
                                 <div className="">
@@ -407,10 +453,35 @@ const Page = () => {
                                         <p className='text-starsBlack mt-1'>February 23, 2024</p>
                                     </div>
                                     <p className='text-[#808080] mt-[16px] text-[16px]'>
-                                        I don't like some of the features of this app. First of all, it doesn't show new trends on FYP. If you try to add a particular effect like black and white or slow motion on a video you are recreating for a trend, it doesn't work. When I upload a video, the quality of the videos and pictures absolutely disappear. Very frustrating. You guys should do something about it or I will delete it soon.
+                                        I don't like some of the features of this app. First of all, it doesn't show new trends on FYP. If you try to add a particular effect like black and white or slow motion on a video you are recreating for a trend, it doesn't work. When I upload a video, the quality of the videos and pictures absolutely disappear. Very frustreviewStars. You guys should do something about it or I will delete it soon.
                                     </p>
                                 </div>
                             </div>
+
+                            <form className="mt-[36px] border-t border-[#d4d3d3] py-4" onSubmit={handleReviewSubmit}>
+                                <label htmlFor="" className='font-[800] text-[1.5rem]'>Add a rating</label>
+                                <textarea
+                                    className="textarea textarea-bordered w-[100%] mt-2"
+                                    placeholder="Add a review"
+                                    value={reviewContent}
+                                    onChange={(e) => setReviewContent(e.target.value)}
+                                ></textarea>
+                                <div className='flex items-center justify-between'>
+                                    <div className="rating">
+                                        {[1, 2, 3, 4, 5].map((star) => (
+                                            <input
+                                                key={star}
+                                                type="radio"
+                                                name="rating-1"
+                                                className="mask mask-star"
+                                                checked={reviewStars === star}
+                                                onChange={() => setreviewStars(star)}
+                                            />
+                                        ))}
+                                    </div>
+                                    <button type="submit" className='mt-1 rounded-md bg-starsBlack text-starsWhite px-4 py-2'>Submit</button>
+                                </div>
+                            </form>
                         </div>
                     </main>
 
