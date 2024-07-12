@@ -18,6 +18,7 @@ import { Line } from 'rc-progress';
 import { useBackdrop } from '@/context/BackdropContext';
 import { FaCircleXmark } from "react-icons/fa6";
 import { useRouter } from 'next/navigation';
+import { FaStar } from "react-icons/fa6";
 
 
 
@@ -32,6 +33,7 @@ const Page = () => {
     const [reviewContent, setReviewContent] = useState('');
     const [reviewStars, setreviewStars] = useState(1);
     const [userId, setUserId] = useState('')
+    const [reviews, setReviews] = useState([])
 
     useEffect(() => {
         // Fetch main product data
@@ -46,6 +48,22 @@ const Page = () => {
                 const data = await res.json();
                 console.log(data, "fetched data");
                 setFetchedData(data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        const fetchReviews = async () => {
+            try {
+                const res = await fetch(`https://createcamp.onrender.com/tools/${params.slug}/reviews`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+                const data = await res.json();
+                console.log(data, "review data");
+                setReviews(data);
             } catch (error) {
                 console.error(error);
             }
@@ -75,23 +93,26 @@ const Page = () => {
         };
 
         fetchData();
+        fetchReviews();
         fetchAllProducts();
-
-        const storedUser = JSON.parse(localStorage.getItem('user'));
-        if (storedUser) {
-            setUserId(storedUser._id);
-        }
     }, [params.slug]);
 
     useEffect(() => {
         if (fetchedData && Array.isArray(allProducts) && allProducts.length > 0) {
             // Filter recommended products based on categories
-            const filteredResults = allProducts.filter((product: any) =>
-                product.categories.some((category: string) => fetchedData.tool.categories.includes(category))
-            );
+            const filteredResults = allProducts.filter((product: any) => {
+                const categoriesToCheck = product.categories.slice(0, 5);
+                return categoriesToCheck.some((category: string) => 
+                    fetchedData.tool.categories.includes(category)
+                ) && product.targetAudience.some((audience: string) =>
+                    fetchedData.tool.targetAudience.includes(audience)
+                );
+            })
+    
+            // Set the filtered products for comparison
             setProductComparison(filteredResults);
         }
-    }, [fetchedData, allProducts]);
+    }, [fetchedData, allProducts]);    
 
     const filteredProducts = productComparison.filter(product => 
         product.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -115,8 +136,15 @@ const Page = () => {
 
     const handleReviewSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-
-        const token = localStorage.getItem('token');
+        
+        const token = localStorage.getItem('token'); // Retrieve the token from local storage
+  
+        if (!token) {
+          console.error('No token found');
+          return;
+        }
+        
+        console.log(token, 'token')
         if (!token) {
             console.error('No token found');
             return;
@@ -125,7 +153,8 @@ const Page = () => {
             reviewContent,
             reviewStars,
         };
-        
+
+        console.log(JSON.stringify(reviewData))
         
         try {
             const response = await fetch(`https://createcamp.onrender.com/tools/${params.slug}/addreview`, {
@@ -151,6 +180,32 @@ const Page = () => {
             console.error('Error submitting review:', error);
         }
     };
+
+
+    const starsCount = reviews?.reviews?.map(review => review.reviewStars);
+    console.log(starsCount, starsCount)
+
+    const starGroups = starsCount?.reduce((acc, star) => {
+        acc[star] = (acc[star] || 0) + 1;
+        return acc;
+    }, {});
+
+    const totalReviews = reviews?.reviews?.length;
+    const percentages = {};
+    for (const star in starGroups) {
+        percentages[star] = (starGroups[star] / totalReviews) * 100;
+    }
+
+    const options = { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric', 
+        hour: '2-digit', 
+        minute: '2-digit', 
+        second: '2-digit',
+        timeZoneName: 'short' // Optional: to include time zone information
+    };
+    
 
     return (
         <div className='w-[100%] flex justify-center pb-[2rem] relative'>
@@ -252,7 +307,7 @@ const Page = () => {
                                             <th>Reviews</th>
                                             <td>{fetchedData?.tool?.averageReview}</td>
                                             {filteredProducts.map(product => (
-                                                <td key={product.id}>{product.averageReview}</td>
+                                                <td key={product.id}>{product.averageReview?.toFixed(1)}</td>
                                             ))}
                                         </tr>
                                         <tr>
@@ -281,11 +336,11 @@ const Page = () => {
                         <div className='flex mt-[16px] mb-[24px] py-[12px]'>
                             <div className="flex flex-col items-center">
                                 <div className='flex text-center items-center'>
-                                    <p className='text-[14px] p-0 m-0 mt-[0.35rem]'>{fetchedData?.tool?.averageReview || ''}</p>
+                                    <p className='text-[14px] p-0 m-0 mt-[0.35rem]'>{fetchedData?.tool?.averageReview?.toFixed(1) || ''}</p>
                                     <MdStar className='text-[14px]' />
                                 </div>
                                 <span className="flex gap-[0.5rem]">
-                                    <p className='text-[14px] text-starsGrey p-0 m-0'>--M</p>
+                                    <p className='text-[14px] text-starsGrey p-0 m-0'>{reviews?.reviews?.length}</p>
                                     <p className='text-[14px] text-starsGrey p-0 m-0'>reviews</p>
                                 </span>
                             </div>
@@ -294,7 +349,7 @@ const Page = () => {
 
                             <div className='flex flex-col items-center'>
                                 <div className='self-center flex items-center'>
-                                    <div className='text-[14px] self-center text-center mt-[0.35rem]'>{fetchedData?.tool?.upvotes || ''}</div>
+                                    <div className='text-[14px] self-center text-center mt-[0.35rem]'>{fetchedData?.tool?.upvotes}</div>
                                     <HiArrowCircleUp className='self-center text-[14px] text-center' />
                                 </div>
                                 <div className=''><p className='text-[14px] text-starsGrey p-0 m-0'>Upvotes</p></div>
@@ -410,53 +465,43 @@ const Page = () => {
 
                             <div className="flex gap-[5%] mt-[32px] w-[100%] py-[12px]">
                                 <div className="">
-                                    <div className="text-[3.5rem] leading-[4rem] text-starsBlack">4.3</div>
-                                    <div className=""><ReactStars value={3} isEdit={false} className='' /></div>
-                                    <div className='mt-[.5rem]'>250 reviews</div>
+                                    <div className="text-[3.5rem] leading-[4rem] text-starsBlack">{fetchedData?.tool?.averageReview?.toFixed(1) || ''}</div>
+                                    <div className=""><ReactStars value={fetchedData?.tool?.averageReview?.toFixed(1)} isEdit={false} className='' /></div>
+                                    <div className='mt-[.5rem]'>{reviews?.reviews?.length} reviews</div>
                                 </div>
 
                                 <div className="w-[95%]">
-                                    <div className='flex gap-3 w-[100%] justify-start'>
-                                        <div className=''>5</div>
-                                        <div className='w-[95%] self-center'>
-                                            <Line percent={20} strokeWidth={1} strokeColor="#000000" className='w-[100%] self-center' />
+                                {[5, 4, 3, 2, 1].map(star => (
+                                    <div key={star} className="flex gap-3 w-[100%] justify-start">
+                                    <div>{star}</div>
+                                    <div className="w-[95%] self-center">
+                                        <Line percent={percentages[star] || 0} strokeWidth={1} strokeColor="#000000" className="w-[100%] self-center" />
+                                    </div>
+                                    </div>
+                                ))}
+                                </div>
+                            </div>
+
+                            {
+                                reviews?.reviews?.map(item=>(
+                                    <div className="mt-[36px]">
+                                        <div className="flex gap-[1rem]">
+                                            <div className="rounded-full w-[1.5rem] h-[1.5rem] bg-starspink self-center text-center text-starsWhite items-center">V</div>
+                                            <div className="self-center items-center mt-1 text-starsBlack">{item.userId}</div>
+                                        </div>
+        
+                                        <div className="pt-[16px]">
+                                            <div className='flex gap-3 items-center'>
+                                                <ReactStars value={item.reviewStars} isEdit={false} className='' />
+                                                <p className='text-starsBlack mt-1 text-[12px]'>{new Date(item.createdAt).toLocaleString('en-US', options)}</p>
+                                            </div>
+                                            <p className='text-[#808080] mt-[16px] text-[16px]'>
+                                                {item.reviewContent}
+                                            </p>
                                         </div>
                                     </div>
-                                    <div className='flex gap-3 w-[100%]'>
-                                        <div className=''>4</div>
-                                        <div className='w-[95%] self-center'><Line percent={25} strokeWidth={1} strokeColor="#000000" className='w-[100%] self-center' /></div>
-                                    </div>
-                                    <div className='flex gap-3 w-[100%]'>
-                                        <div className=''>3</div>
-                                        <div className='w-[95%] self-center'><Line percent={40} strokeWidth={1} strokeColor="#000000" className='w-[100%] self-center' /></div>
-                                    </div>
-                                    <div className='flex gap-3 w-[100%]'>
-                                        <div className=''>2</div>
-                                        <div className='w-[95%] self-center'><Line percent={20} strokeWidth={1} strokeColor="#000000" className='w-[100%] self-center' /></div>
-                                    </div>
-                                    <div className='flex gap-4 w-[100%]'>
-                                        <div className=''>1</div>
-                                        <div className='w-[95%] self-center'><Line percent={80} strokeWidth={1} strokeColor="#000000" className='w-[100%] self-center' /></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="mt-[36px]">
-                                <div className="flex gap-[1rem]">
-                                    <div className="rounded-full w-[1.5rem] h-[1.5rem] bg-starspink self-center text-center text-starsWhite items-center">V</div>
-                                    <div className="self-center items-center mt-1 text-starsBlack">Vivian Mia</div>
-                                </div>
-
-                                <div className="pt-[16px]">
-                                    <div className='flex gap-3 items-center'>
-                                        <ReactStars value={3} isEdit={false} className='' />
-                                        <p className='text-starsBlack mt-1'>February 23, 2024</p>
-                                    </div>
-                                    <p className='text-[#808080] mt-[16px] text-[16px]'>
-                                        I don't like some of the features of this app. First of all, it doesn't show new trends on FYP. If you try to add a particular effect like black and white or slow motion on a video you are recreating for a trend, it doesn't work. When I upload a video, the quality of the videos and pictures absolutely disappear. Very frustreviewStars. You guys should do something about it or I will delete it soon.
-                                    </p>
-                                </div>
-                            </div>
+                                ))
+                            }
 
                             <form className="mt-[36px] border-t border-[#d4d3d3] py-4" onSubmit={handleReviewSubmit}>
                                 <label htmlFor="" className='font-[800] text-[1.5rem]'>Add a rating</label>
@@ -492,59 +537,23 @@ const Page = () => {
                         </div>
 
                         <div className='mt-[2rem] flex flex-col gap-4'>
-                            <Link href={`/saas/products/id`}>
-                                <div className='flex w-full gap-4 h-[8rem] p-[1rem] rounded-lg shadow-md border border-starsBlack'>
-                                    <div className='h-[70%] w-[30%] bg-starsBlack self-center rounded-md'>
-                                        <Image
-                                            width={500}
-                                            height={500}
-                                            alt=''
-                                            className='h-[100%] w-full self-center'
-                                            src={'https://res.cloudinary.com/dck5v2kub/image/upload/v1708206223/jaeyLusson/pngegg_13_b6usfj.png'}
-                                        />
+                            {filteredProducts.map(item => (
+                                <Link href={`/saas/products/${item._id}`}>
+                                    <div key={item.id} className="flex gap-2 justify-between w-full p-4 mb-3 border border-opacity-30 border-starsGrey shadow-sm rounded-md cursor-pointer" onClick={() => handleProductClick(item)}>
+                                        <div className="object-cover w-[40%] flex items-center">
+                                            <Image src={item.image} alt={item.name} className='self-center' />
+                                        </div>
+                                        <div className='w-[60%]'>
+                                            <h3 className='text-[16px] font-[700] text-starsBlack'>{item.name}</h3>
+                                            <p className='text-[12px] font-[300] text-starsGrey'>{item.description}</p>
+                                            <span className ="flex gap-2 mt-1">
+                                                <FaStar className='text-starsGrey '/>
+                                                <p className='text-[12px] font-[300] text-starsGrey mt-[0.15rem]'>{item.averageReview}</p>
+                                            </span>
+                                        </div>
                                     </div>
-                                    <div className='flex flex-col justify-center w-[70%]'>
-                                        <h3 className='text-[20px] font-[800] text-starsBlack'>Name of app</h3>
-                                        <p className='text-[16px] text-[#797979] leading-4 mt-1'>Description of the app that helps people to sing</p>
-                                    </div>
-                                </div>
-                            </Link>
-
-                            <Link href={`/saas/products/id`}>
-                                <div className='flex w-full gap-4 h-[8rem] p-[1rem] rounded-lg shadow-md border border-starsBlack'>
-                                    <div className='h-[70%] w-[30%] bg-starsBlack self-center rounded-md'>
-                                        <Image
-                                            width={500}
-                                            height={500}
-                                            alt=''
-                                            className='h-[100%] w-full self-center'
-                                            src={'https://res.cloudinary.com/dck5v2kub/image/upload/v1708206223/jaeyLusson/pngegg_13_b6usfj.png'}
-                                        />
-                                    </div>
-                                    <div className='flex flex-col justify-center w-[70%]'>
-                                        <h3 className='text-[20px] font-[800] text-starsBlack'>Name of app</h3>
-                                        <p className='text-[16px] text-[#797979] leading-4 mt-1'>Description of the app that helps people to sing</p>
-                                    </div>
-                                </div>
-                            </Link>
-
-                            <Link href={`/saas/products/id`}>
-                                <div className='flex w-full gap-4 h-[8rem] p-[1rem] rounded-lg shadow-md border border-starsBlack'>
-                                    <div className='h-[70%] w-[30%] bg-starsBlack self-center rounded-md'>
-                                        <Image
-                                            width={500}
-                                            height={500}
-                                            alt=''
-                                            className='h-[100%] w-full self-center'
-                                            src={'https://res.cloudinary.com/dck5v2kub/image/upload/v1708206223/jaeyLusson/pngegg_13_b6usfj.png'}
-                                        />
-                                    </div>
-                                    <div className='flex flex-col justify-center w-[70%]'>
-                                        <h3 className='text-[20px] font-[800] text-starsBlack'>Name of app</h3>
-                                        <p className='text-[16px] text-[#797979] leading-4 mt-1'>Description of the app that helps people to sing</p>
-                                    </div>
-                                </div>
-                            </Link>
+                                </Link>
+                                ))}
                         </div>
                     </aside>
                 </div>
