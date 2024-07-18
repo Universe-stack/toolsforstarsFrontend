@@ -19,8 +19,15 @@ import { useBackdrop } from '@/context/BackdropContext';
 import { FaCircleXmark } from "react-icons/fa6";
 import { useRouter } from 'next/navigation';
 import { FaStar } from "react-icons/fa6";
-
-
+import { WhatsappShareButton, TwitterShareButton, RedditShareButton, LinkedinShareButton } from "react-share"
+import { FaSquareTwitter } from "react-icons/fa6";
+import { FaLinkedin } from "react-icons/fa6";
+import { FaReddit } from "react-icons/fa6";
+import { FaWhatsapp } from "react-icons/fa6";
+import { FaClipboard } from "react-icons/fa6";
+import { FaClipboardCheck } from "react-icons/fa6";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Page = () => {
     const [fetchedData, setFetchedData] = useState<any>(null);
@@ -31,9 +38,12 @@ const Page = () => {
     const [productComparison, setProductComparison] = useState<any[]>([]);
     const [allProducts, setAllProducts] = useState<any[]>([]);
     const [reviewContent, setReviewContent] = useState('');
-    const [reviewStars, setreviewStars] = useState(1);
+    const [reviewStars, setReviewStars] = useState(1);
     const [userId, setUserId] = useState('')
     const [reviews, setReviews] = useState([])
+    const [copied, setCopied] = useState(false);
+    const [upvotes, setUpvotes] = useState(false)
+    const [videoId, setVideoId] = useState('');
 
     useEffect(() => {
         // Fetch main product data
@@ -53,6 +63,23 @@ const Page = () => {
             }
         };
 
+        fetchData();
+    }, [params.slug]);
+
+    useEffect(() => {
+        const getYouTubeVideoId = (url) => {
+            const regex = /(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([^&]+)/;
+            const match = url.match(regex);
+            return match ? match[1] : null;
+        };
+
+        if (fetchedData?.tool?.youtubeLink) {
+            const id = getYouTubeVideoId(fetchedData.tool.youtubeLink);
+            setVideoId(id);
+        }
+    }, [fetchedData]);
+
+    useEffect(() => {
         const fetchReviews = async () => {
             try {
                 const res = await fetch(`https://createcamp.onrender.com/tools/${params.slug}/reviews`, {
@@ -69,7 +96,6 @@ const Page = () => {
             }
         };
 
-        // Fetch all products data
         const fetchAllProducts = async () => {
             try {
                 const res = await fetch(`https://createcamp.onrender.com/tools/saas`, {
@@ -92,7 +118,6 @@ const Page = () => {
             }
         };
 
-        fetchData();
         fetchReviews();
         fetchAllProducts();
     }, [params.slug]);
@@ -107,7 +132,7 @@ const Page = () => {
                 ) && product.targetAudience.some((audience: string) =>
                     fetchedData.tool.targetAudience.includes(audience)
                 );
-            })
+            });
     
             // Set the filtered products for comparison
             setProductComparison(filteredResults);
@@ -131,6 +156,44 @@ const Page = () => {
     const handleProductClick = (product: any) => {
         setFetchedData({ tool: product });
         removeCompareAlternatives();
+    };
+
+    const handleUpvotes = async () => {
+        const token = localStorage.getItem('token'); // Retrieve the token from local storage
+  
+        if (!token) {
+          console.error('No token found');
+          return;
+        }
+        
+        console.log(token, 'token')
+        if (!token) {
+            console.error('No token found');
+            return;
+        }
+
+        try {
+            const res = await fetch(`https://createcamp.onrender.com/tools/${params.slug}/upvote`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            const data = await res.json();
+            console.log(data,"data")
+            if (res.status === 200) {
+                setUpvotes(true);
+                toast.success("upvote successful.")
+            } else {
+                setUpvotes(false);
+                toast.error("upvote failed..")
+            }
+        } catch (error) {
+            toast.error(`${error}`)
+            console.error('Error upvoting tool:', error);
+        }
     };
 
 
@@ -205,10 +268,26 @@ const Page = () => {
         second: '2-digit',
         timeZoneName: 'short' // Optional: to include time zone information
     };
+
+    const handleCopy = async () => {
+        if (!navigator.clipboard) {
+            console.error('Clipboard API not available');
+            return;
+        }
+
+        try {
+          await navigator.clipboard.writeText(`http://localhost:3000/saas/products/${fetchedData?.tool?._id}`);
+          setCopied(true);
+          setTimeout(() => setCopied(false), 10000); // Reset after 2 seconds
+        } catch (err) {
+          console.error('Failed to copy: ', err);
+        }
+    };
     
 
     return (
         <div className='w-[100%] flex justify-center pb-[2rem] relative'>
+            <ToastContainer className="absolute bottom-0" />
             {state.backdrop && 
                 <div className="absolute bg-starsBlack z-40 top-0 right-0 left-0 bottom-0 opacity-25"></div>
             }
@@ -221,13 +300,13 @@ const Page = () => {
                     <div className="flex justify-between gap-[2%]">
                         <div className='w-[30%] overflow-y-scroll p-4'>
                             {filteredProducts.map(item => (
-                                <div key={item.id} className="flex gap-2 justify-between w-full p-4 mb-4 border border-opacity-60 border-starsGrey shadow-sm rounded-md cursor-pointer" onClick={() => handleProductClick(item)}>
-                                    <div className="object-cover w-[40%] flex items-center">
-                                        <Image src={item.image} alt={item.name} className='self-center' />
-                                    </div>
-                                    <div className='w-[60%]'>
+                                <div key={item.id} className="flex items-center gap-2 justify-between w-full p-4 mb-4 border border-opacity-60 border-starsGrey shadow-sm rounded-md cursor-pointer" onClick={() => handleProductClick(item)}>
+                                        <div className="object-cover rounded-full w-[40%] flex items-center">
+                                            <Image src={`${item.logo}`} alt={item.name} width={150} height={150} className='self-center rounded-full'  />
+                                        </div>
+                                    <div className='w-[60%] self-center'>
                                         <h3 className='text-[16px] font-[700] text-starsBlack'>{item.name}</h3>
-                                        <p className='text-[12px] font-[300] text-starsGrey'>{item.job}</p>
+                                        <p className='text-[12px] font-[300] text-starsGrey'>{item.description}</p>
                                     </div>
                                 </div>
                             ))}
@@ -366,14 +445,44 @@ const Page = () => {
 
                         <div className="flex gap-[16px]">
                             <button className="py-[10px] px-[16px] bg-starsBlack text-starsWhite rounded-md min-h-[44px] min-w-[200px] inline-flex items-center justify-center">
-                                <Link href={fetchedData?.tool?.link || ''}>Get now</Link>
+                                <a href={fetchedData?.tool?.productLink || ''}>Get now</a>
                             </button>
                             <div className="flex gap-[8px]">
                                 <div className="self-center text-[14px] text-starspurpleLight">
-                                    <Link href={''} className='flex gap-1'>
+                                    <div href={''} className='flex gap-1'>
                                         <BiShareAlt className='self-center' />
-                                        <span className="pt-1">Share</span>
-                                    </Link>
+                                        <button className="mt-1" onClick={()=>document.getElementById('my_modal_5').showModal()}>Share</button>
+                                        <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
+                                        <div className="modal-box">
+                                            <div className="modal-action mt-0">
+                                            <form method="dialog">
+                                                {/* if there is a button in form, it will close the modal */}
+                                                <button className="mt-1"><FaCircleXmark className='text-[1rem]' /></button>
+                                            </form>
+                                            </div>
+                                            <div className='text-center'>
+                                                <h3 className="font-bold text-lg text-starsBlack">Hi, Share this resource!</h3>
+                                                <p className="py-4 text-starsBlack">If you like this resource, share it with your friends</p>
+
+                                                <div className="flex gap-4 z-50 ">
+                                                    <TwitterShareButton url={`http://localhost:3000/saas/products/${fetchedData?.tool?._id}`} title={`Hey, check out this awesome resource called ${fetchedData?.tool?.name} that I found at Createcamp.com!`}>
+                                                        <button className="bg-starsBlack flex items-center text-starsWhite hover:text-cyan-300 py-4 px-6 rounded-lg"><FaSquareTwitter className='text-[2rem]'/></button>
+                                                    </TwitterShareButton>
+                                                    <LinkedinShareButton url={`http://localhost:3000/saas/products/${fetchedData?.tool?._id}`} source={`Createcamp.com`} title={`Hey, check out this awesome resource called ${fetchedData?.tool?.name} that I found at Createcamp.com!`} summary={`${fetchedData?.tool?.description}`}>
+                                                        <button className="bg-starsBlack flex items-center text-starsWhite hover:text-cyan-300 py-4 px-6 rounded-lg"><FaLinkedin className='text-[2rem]'/></button>
+                                                    </LinkedinShareButton>
+                                                    <RedditShareButton url={`http://localhost:3000/saas/products/${fetchedData?.tool?._id}`} title={`Hey, check out this awesome resource called ${fetchedData?.tool?.name} that I found at Createcamp.com!`}>
+                                                        <button className="bg-starsBlack flex items-center text-starsWhite hover:text-cyan-300 py-4 px-6 rounded-lg"><FaReddit className='text-[2rem]'/></button>
+                                                    </RedditShareButton>
+                                                    <WhatsappShareButton url={`http://localhost:3000/saas/products/${fetchedData?.tool?._id}`}title={`Hey, check out this awesome resource called ${fetchedData?.tool?.name} that I found at Createcamp.com!`} separator=''>
+                                                        <button className="bg-starsBlack flex items-center text-starsWhite hover:text-cyan-300 py-4 px-6 rounded-lg"><FaWhatsapp className='text-[2rem]'/></button>
+                                                    </WhatsappShareButton>
+                                                    <button className="bg-starsBlack flex items-center text-starsWhite hover:text-cyan-300 py-4 px-6 rounded-lg" onClick={handleCopy}>{copied ? <FaClipboardCheck className='text-[2rem]'/> : <FaClipboard className='text-[2rem]'/>}</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </dialog>
+                                    </div>
                                 </div>
                                 <div className="self-center text-[14px]">
                                     <Link href={''} className='flex gap-1'>
@@ -392,11 +501,11 @@ const Page = () => {
                     </div>
                     <div className='self-end rounded-lg w-[25rem] h-[25rem]'>
                         <Image
-                            src={'https://res.cloudinary.com/dck5v2kub/image/upload/v1708206223/jaeyLusson/pngegg_13_b6usfj.png'}
+                            src={`${fetchedData?.tool?.logo || ""}`}
                             width={500}
                             height={400}
                             alt={fetchedData?.tool?.name || ''}
-                            className='self-center w-[100%] h-[100%] rounded-lg object-contain'
+                            className='self-center w-[80%] h-[80%] rounded-lg object-contain'
                         />
                     </div>
                 </div>
@@ -441,8 +550,12 @@ const Page = () => {
                             <Link href={''}> entertainment </Link>
                         </button>
 
-                        <div className='mt-[48px]'>
-                            <YoutubeVideo videoId="NgkCgqIogcY" height="500" width="800" autoplay={0} />
+                        <div className="p-4">
+                            {videoId ? (
+                                <YoutubeVideo videoId={videoId} height="500" width="800" autoplay={0} />
+                            ) : (
+                                <p>No video found.</p>
+                            )}
                         </div>
 
                         <div className="mt-[32px]">
@@ -512,7 +625,7 @@ const Page = () => {
                                     onChange={(e) => setReviewContent(e.target.value)}
                                 ></textarea>
                                 <div className='flex items-center justify-between'>
-                                    <div className="rating">
+                                        <div className="rating">
                                         {[1, 2, 3, 4, 5].map((star) => (
                                             <input
                                                 key={star}
@@ -523,10 +636,17 @@ const Page = () => {
                                                 onChange={() => setreviewStars(star)}
                                             />
                                         ))}
-                                    </div>
+                                        </div>
                                     <button type="submit" className='mt-1 rounded-md bg-starsBlack text-starsWhite px-4 py-2'>Submit</button>
                                 </div>
                             </form>
+
+                            <div className='mt-[1rem] flex items-center gap-4'>
+                                <h3 className='mt-1'>Upvote this tool</h3>
+                                <div className="tooltip" data-tip="upvote this resource">
+                                        <button className="btn rounded-full bg-starsBlack text-starsWhite" onClick={handleUpvotes}><HiArrowCircleUp className='text-[1.5rem]'/></button>
+                                </div>
+                            </div>
                         </div>
                     </main>
 
@@ -539,11 +659,11 @@ const Page = () => {
                         <div className='mt-[2rem] flex flex-col gap-4'>
                             {filteredProducts.map(item => (
                                 <Link href={`/saas/products/${item._id}`}>
-                                    <div key={item.id} className="flex gap-2 justify-between w-full p-4 mb-3 border border-opacity-30 border-starsGrey shadow-sm rounded-md cursor-pointer" onClick={() => handleProductClick(item)}>
-                                        <div className="object-cover w-[40%] flex items-center">
-                                            <Image src={item.image} alt={item.name} className='self-center' />
+                                    <div key={item.id} className="flex gap-2 justify-between items-center w-full p-4 mb-3 border border-opacity-30 border-starsGrey shadow-sm rounded-md cursor-pointer" onClick={() => handleProductClick(item)}>
+                                        <div className="object-cover rounded-full w-[40%] flex items-center">
+                                            <Image src={`${item.logo}`} alt={item.name} width={150} height={150} className='self-center rounded-full'  />
                                         </div>
-                                        <div className='w-[60%]'>
+                                        <div className='w-[60%] self-center'>
                                             <h3 className='text-[16px] font-[700] text-starsBlack'>{item.name}</h3>
                                             <p className='text-[12px] font-[300] text-starsGrey'>{item.description}</p>
                                             <span className ="flex gap-2 mt-1">
