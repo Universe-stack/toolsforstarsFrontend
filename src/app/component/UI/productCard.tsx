@@ -6,7 +6,7 @@ interface ProductCardProps {
   
 
   
-  const ProductCard: React.FC<ProductCardProps> = ({ name, description }) => {
+  const ProductCard: React.FC<ProductCardProps> = ({ name, description, productType }) => {
   
     return (
       <div className="card w-[22rem] bg-base-100 shadow-xl">
@@ -14,8 +14,9 @@ interface ProductCardProps {
         <div className="card-body">
           <h2 className="card-title">{name}</h2>
           <p>{description}</p>
-          <div className="card-actions justify-end">
-            <button className="btn btn-primary">Buy Now</button>
+          <div className="card-actions ">
+            <button className="btn btn-primary bg-[#121212] border-[#121212] hover:bg-starsGrey hover:border-starsGrey justify-end">Learn More</button>
+            <span className="self-center justify-start text-starsPink">{productType}</span>
           </div>
         </div>
       </div>

@@ -98,7 +98,7 @@ const Page = () => {
 
         const fetchAllProducts = async () => {
             try {
-                const res = await fetch(`https://createcamp.onrender.com/tools/saas`, {
+                const res = await fetch(`https://createcamp.onrender.com/tools/apps`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -276,7 +276,7 @@ const Page = () => {
         }
 
         try {
-          await navigator.clipboard.writeText(`http://localhost:3000/saas/products/${fetchedData?.tool?._id}`);
+          await navigator.clipboard.writeText(`http://localhost:3000/apps/products/${fetchedData?.tool?._id}`);
           setCopied(true);
           setTimeout(() => setCopied(false), 10000); // Reset after 2 seconds
         } catch (err) {
@@ -465,16 +465,16 @@ const Page = () => {
                                                 <p className="py-4 text-starsBlack">If you like this resource, share it with your friends</p>
 
                                                 <div className="flex gap-4 z-50 ">
-                                                    <TwitterShareButton url={`http://localhost:3000/saas/products/${fetchedData?.tool?._id}`} title={`Hey, check out this awesome resource called ${fetchedData?.tool?.name} that I found at Createcamp.com!`}>
+                                                    <TwitterShareButton url={`http://localhost:3000/apps/products/${fetchedData?.tool?._id}`} title={`Hey, check out this awesome resource called ${fetchedData?.tool?.name} that I found at Createcamp.com!`}>
                                                         <button className="bg-starsBlack flex items-center text-starsWhite hover:text-cyan-300 py-4 px-6 rounded-lg"><FaSquareTwitter className='text-[2rem]'/></button>
                                                     </TwitterShareButton>
-                                                    <LinkedinShareButton url={`http://localhost:3000/saas/products/${fetchedData?.tool?._id}`} source={`Createcamp.com`} title={`Hey, check out this awesome resource called ${fetchedData?.tool?.name} that I found at Createcamp.com!`} summary={`${fetchedData?.tool?.description}`}>
+                                                    <LinkedinShareButton url={`http://localhost:3000/apps/products/${fetchedData?.tool?._id}`} source={`Createcamp.com`} title={`Hey, check out this awesome resource called ${fetchedData?.tool?.name} that I found at Createcamp.com!`} summary={`${fetchedData?.tool?.description}`}>
                                                         <button className="bg-starsBlack flex items-center text-starsWhite hover:text-cyan-300 py-4 px-6 rounded-lg"><FaLinkedin className='text-[2rem]'/></button>
                                                     </LinkedinShareButton>
-                                                    <RedditShareButton url={`http://localhost:3000/saas/products/${fetchedData?.tool?._id}`} title={`Hey, check out this awesome resource called ${fetchedData?.tool?.name} that I found at Createcamp.com!`}>
+                                                    <RedditShareButton url={`http://localhost:3000/apps/products/${fetchedData?.tool?._id}`} title={`Hey, check out this awesome resource called ${fetchedData?.tool?.name} that I found at Createcamp.com!`}>
                                                         <button className="bg-starsBlack flex items-center text-starsWhite hover:text-cyan-300 py-4 px-6 rounded-lg"><FaReddit className='text-[2rem]'/></button>
                                                     </RedditShareButton>
-                                                    <WhatsappShareButton url={`http://localhost:3000/saas/products/${fetchedData?.tool?._id}`}title={`Hey, check out this awesome resource called ${fetchedData?.tool?.name} that I found at Createcamp.com!`} separator=''>
+                                                    <WhatsappShareButton url={`http://localhost:3000/apps/products/${fetchedData?.tool?._id}`}title={`Hey, check out this awesome resource called ${fetchedData?.tool?.name} that I found at Createcamp.com!`} separator=''>
                                                         <button className="bg-starsBlack flex items-center text-starsWhite hover:text-cyan-300 py-4 px-6 rounded-lg"><FaWhatsapp className='text-[2rem]'/></button>
                                                     </WhatsappShareButton>
                                                     <button className="bg-starsBlack flex items-center text-starsWhite hover:text-cyan-300 py-4 px-6 rounded-lg" onClick={handleCopy}>{copied ? <FaClipboardCheck className='text-[2rem]'/> : <FaClipboard className='text-[2rem]'/>}</button>
@@ -658,7 +658,7 @@ const Page = () => {
 
                         <div className='mt-[2rem] flex flex-col gap-4'>
                             {filteredProducts.map(item => (
-                                <Link href={`/saas/products/${item._id}`}>
+                                <Link href={`/apps/products/${item._id}`}>
                                     <div key={item.id} className="flex gap-2 justify-between items-center w-full p-4 mb-3 border border-opacity-30 border-starsGrey shadow-sm rounded-md cursor-pointer" onClick={() => handleProductClick(item)}>
                                         <div className="object-cover rounded-full w-[40%] flex items-center">
                                             <Image src={`${item.logo}`} alt={item.name} width={150} height={150} className='self-center rounded-full'  />

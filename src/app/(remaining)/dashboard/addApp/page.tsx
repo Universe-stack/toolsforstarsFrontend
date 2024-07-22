@@ -13,8 +13,11 @@ interface FormData {
   description: string;
   features: string[];
   screenshots: File[];
+  logo: File;
   pricing: number;
   productType: string;
+  productLink: string;
+  youtubeLink: string;
   categories: { id: string; name: string }[];
   targetAudience: { id: string; name: string }[];
   aiEnabled: boolean;
@@ -53,6 +56,7 @@ const Page = () => {
   const [formData, setFormData] = useState<FormData>({
     name: '',
     productLink:'',
+    youtubeLink:'',
     description: '',
     features: [],
     pricing: 0,
@@ -61,7 +65,8 @@ const Page = () => {
     targetAudience: [],
     aiEnabled: false,
     isActive: true,
-    screenshots: []
+    screenshots: [],
+    logo: null
   });
 
   const [loading, setLoading] = useState(false)
@@ -74,10 +79,16 @@ const Page = () => {
     dispatch({ type: 'SET_BACKDROP', payload: value });
   };
 
-  const handleFileChange = (e) => {
+  const handleScreenshotsChange = (e) => {
     const files = Array.from(e.target.files) as File[];
     setFormData({ ...formData, screenshots: [...formData.screenshots, ...files] });
   };
+  
+  const handleLogoChange = (e) => {
+    const file = e.target.files[0] as File;
+    setFormData({ ...formData, logo: file });
+  };
+  
 
   const handleFeatureChange = (index, value) => {
     const newFeatures = [...formData.features];
@@ -138,19 +149,23 @@ const Page = () => {
     if (type === 'textarea') {
       setFormData({ ...formData, [name]: value.split('\n').map((feature) => feature.trim()) });
     } else if (type === 'file') {
-      handleFileChange(e);
+      if (name === 'screenshots') {
+        handleScreenshotsChange(e);
+      } else if (name === 'logo') {
+        handleLogoChange(e);
+      }
     } else {
       setFormData({ ...formData, [name]: value });
     }
   };
 
   const shadowDrop = () => {
-    setBackdrop(true);
+    dispatch({ type: 'SET_BACKDROP', payload: true});
     setLoading(true);
   };
 
   const shadowRemove = () => {
-    setBackdrop(false);
+     dispatch({ type: 'SET_BACKDROP', payload: false});
     setLoading(false);
   };
 
@@ -173,6 +188,7 @@ const Page = () => {
       const formDataToSend = new FormData();
       formDataToSend.append('name', formData.name);
       formDataToSend.append('productLink', formData.productLink);
+      formDataToSend.append('youtubeLink', formData.youtubeLink);
       formDataToSend.append('description', formData.description);
       formDataToSend.append('pricing', formData.pricing.toString());
       formDataToSend.append('productType', formData.productType);
@@ -185,6 +201,10 @@ const Page = () => {
       formData.screenshots.forEach((file, index) => {
         formDataToSend.append(`screenshots`, file);
       });
+      
+      if (formData.logo) {
+      formDataToSend.append('logo', formData.logo);  // Append the logo file
+    }
   
       const res = await fetch('https://createcamp.onrender.com/tools/createtool', {
         method: 'POST',
@@ -209,7 +229,7 @@ const Page = () => {
       setReserror(true)
       setReport('Failed, Try again please')
       console.error('create tool failed:', error);
-    } finally {
+    }finally {
       shadowRemove();
     }
   };
@@ -266,6 +286,16 @@ const Page = () => {
               className="block w-full py-2 px-4 mb-4 text-gray-700 bg-gray-200 border border-gray-200 rounded"
             />
 
+            <h2 className="mt-6 text-[12px] font-bold leading-tight text-starsBlack sm:text-[16px] lg:text-[16px] text-left mb-2">Youtube Video Link</h2>
+            <input
+              type="text"
+              name="youtubeLink"
+              value={formData.youtubeLink}
+              onChange={handleInputChange}
+              placeholder="Add the link to your promotional video here"
+              className="block w-full py-2 px-4 mb-4 text-gray-700 bg-gray-200 border border-gray-200 rounded"
+            />
+
             <h2 className="mt-6 text-[12px] font-bold leading-tight text-starsBlack sm:text-[16px] lg:text-[16px] text-left mb-2">Description</h2>
             <input
               type="text"
@@ -306,6 +336,18 @@ const Page = () => {
                 </button>
               )}
             </div>
+            
+            <h2 className="mt-6 text-[12px] font-bold leading-tight text-starsBlack sm:text-[16px] lg:text-[16px] text-left mb-2">
+              Upload Logo
+            </h2>
+            <input
+              type="file"
+              id="imageUpload"
+              name="logo"
+              accept="image/*" // Only accept image files
+              onChange={handleInputChange}
+              className="py-2 block w-full rounded-md bg-gray-100 border-gray-300 focus:border-starsBlack focus:ring focus:ring-starsBlack focus:ring-opacity-80 cursor-pointer mb-4"
+            />
 
             <h2 className="mt-6 text-[12px] font-bold leading-tight text-starsBlack sm:text-[16px] lg:text-[16px] text-left mb-2">
               Upload screenshots
@@ -314,8 +356,8 @@ const Page = () => {
               type="file"
               id="imageUpload"
               name="screenshots"
-              accept="image/*"
-              multiple
+              accept="image/*" // Only accept image files
+              multiple // Allow multiple file selection
               onChange={handleInputChange}
               className="py-2 block w-full rounded-md bg-gray-100 border-gray-300 focus:border-starsBlack focus:ring focus:ring-starsBlack focus:ring-opacity-80 cursor-pointer mb-4"
             />
@@ -342,7 +384,7 @@ const Page = () => {
                 name="productType"
                 value={formData.productType}
                 onChange={handleInputChange}
-                placeholder="e.g. saas"
+                placeholder="e.g. app"
                 className="block w-full py-2 px-4 mb-4 text-gray-700 bg-gray-200 border border-gray-200 rounded"
               />
             </div>

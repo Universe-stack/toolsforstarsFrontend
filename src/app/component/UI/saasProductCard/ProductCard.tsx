@@ -19,7 +19,7 @@ interface ProductCardProps {
         <div className="flex flex-col gap-[0.85rem] py-[0.5rem]">          
           <div className='flex gap-3 justify-between'>
             <h2 className="card-title">{data.name}</h2>
-            <ReactStarsRating value={2} className="flex self-center" count={5} isEdit={false} size={15} primaryColor="#e49a2d" secondaryColor="#000000" />                       
+            <ReactStarsRating value={data.averageReview} className="flex self-center" count={5} isEdit={false} size={15} primaryColor="#e49a2d" secondaryColor="#000000" />                       
           </div>
           <p className='text-[15px]'>{data.description}</p>
           <div className="card-actions justify-between flex items-baseline">
