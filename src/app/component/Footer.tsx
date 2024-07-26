@@ -1,10 +1,11 @@
 import React from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 const Footer = () => {
   return (
-    <section className='w-[100%] flex flex-col bg-starsBlack'>
-        <div className="py-10 pt-[3rem] sm:pt-16 lg:pt-24 self-center">
+    <section className='w-full flex flex-col bg-starsBlack justify-center'>
+        <div className="py-10 pt-[3rem] sm:pt-16 lg:pt-24 self-center w-[60vw]">
             <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl self-center">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-y-12 gap-x-12 text-starsWhite opacity-95">
                     <div className=''>
@@ -32,28 +33,6 @@ const Footer = () => {
                     </div>
 
                     <div>
-                        <p className="text-lg font-semibold text-white text-[#e49a2d]">Help</p>
-
-                        <ul className="mt-8 space-y-4">
-                            <li>
-                                <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white text-[14px]"> Customer Support </a>
-                            </li>
-
-                            <li>
-                                <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white text-[14px]"> Delivery Details </a>
-                            </li>
-
-                            <li>
-                                <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white text-[14px]"> Terms & Conditions </a>
-                            </li>
-
-                            <li>
-                                <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white text-[14px]"> Privacy Policy </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div>
                         <p className="text-lg font-semibold text-white text-[#e49a2d]">Resources</p>
 
                         <ul className="mt-8 space-y-4">
@@ -62,7 +41,7 @@ const Footer = () => {
                             </li>
 
                             <li>
-                                <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white text-[14px]"> Development Tutorial </a>
+                                <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white text-[14px]"> Fame wall </a>
                             </li>
 
                             <li>
@@ -70,21 +49,17 @@ const Footer = () => {
                             </li>
 
                             <li>
-                                <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white text-[14px]"> YouTube Playlist </a>
+                                <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white text-[14px]"> Careers </a>
                             </li>
                         </ul>
                     </div>
 
                     <div>
-                        <p className="text-lg font-semibold text-white text-[#e49a2d]">Extra Links</p>
+                        <p className="text-lg font-semibold text-white text-[#e49a2d]">Help</p>
 
                         <ul className="mt-8 space-y-4">
                             <li>
                                 <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white text-[14px]"> Customer Support </a>
-                            </li>
-
-                            <li>
-                                <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white text-[14px]"> Delivery Details </a>
                             </li>
 
                             <li>
@@ -93,6 +68,17 @@ const Footer = () => {
 
                             <li>
                                 <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white text-[14px]"> Privacy Policy </a>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                    <div>
+                        <p className="text-lg font-semibold text-white text-[#e49a2d]">Extra Links</p>
+
+                        <ul className="mt-8 space-y-4">
+                            <li>
+                                <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white text-[14px]"> Developers </a>
                             </li>
                         </ul>
                     </div>
@@ -133,7 +119,7 @@ const Footer = () => {
                                 </li>
 
                                 <li>
-                                    <a href="#" title="" className="block text-white transition-all duration-200 hover:text-opacity-80 focus:text-opacity-80">
+                                    <a href="#" title="" className="block text-white transition-all duration-200 hover:text-opacity-80 focus:text-opacity-80 cursor-not-allowed">
                                         <svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                                             <path
                                                 fill-rule="evenodd"
@@ -145,22 +131,10 @@ const Footer = () => {
                                 </li>
                             </ul>
 
-                            <ul className="flex flex-wrap items-center justify-start mt-5 gap-x-8 sm:mt-0 gap-y-3">
-                                <li>
-                                    <a href="#" title="" className="text-sm text-blue-200 transition-all duration-200 hover:text-white focus:text-white"> Privacy Policy </a>
-                                </li>
-
-                                <li>
-                                    <a href="#" title="" className="text-sm text-blue-200 transition-all duration-200 hover:text-white focus:text-white"> Terms & Conditions </a>
-                                </li>
-
-                                <li>
-                                    <a href="#" title="" className="text-sm text-blue-200 transition-all duration-200 hover:text-white focus:text-white"> Support </a>
-                                </li>
-                            </ul>
+                            
                         </div>
 
-                        <p className="mt-6 text-sm text-blue-200 lg:mt-0">© Copyright 2021, All Rights Reserved by Createcamp</p>
+                        <p className="mt-6 text-sm text-blue-200 lg:mt-0">© Copyright 2024, All Rights Reserved by Createcamp</p>
                     </div>
                 </div>
             </div>

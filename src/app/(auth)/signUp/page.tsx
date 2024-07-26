@@ -6,6 +6,7 @@ import { useAuth } from '@/context/AuthContext';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link'
 
 const Page = () => {
   const { state, dispatch, handleSignup } = useAuth();
@@ -181,11 +182,10 @@ const Page = () => {
                                             name="role"
                                             value={form.role}
                                             onChange={handleInputChange}
-                                            className="block w-full py-4 pl-3 pr-10 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600"
+                                            className="block w-full py-4 pl-3 pr-10 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600  cursor-pointer"
                                         >
-                                            <option value="">Select role</option>
-                                            <option value="visitor">Creator</option>
-                                            <option value="publisher">Publisher</option>
+                                            <option value="visitor">Creator - You wish to use our platform</option>
+                                            <option value="publisher">Publisher - You wish to publish a tool</option>
                                         </select>
                             </div>
 
@@ -216,7 +216,7 @@ const Page = () => {
                                     </div>
 
                             <div className="text-center">
-                                <p className="text-base text-gray-600">Already have an account? <a href="#" title="" className="font-medium text-orange-500 transition-all duration-200 hover:text-orange-600 hover:underline">Login here</a></p>
+                                <p className="text-base text-gray-600">Already have an account? <Link href="/signIn" title="" className="font-medium text-orange-500 transition-all duration-200 hover:text-orange-600 hover:underline">Login here</Link></p>
                             </div>
                         </div>
                     </form>

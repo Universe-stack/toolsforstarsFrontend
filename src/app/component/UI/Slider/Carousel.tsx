@@ -4,7 +4,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import ProductCard from '../productCard';
 
-function Carousel() {
+function Carousel({ads}:any) {
   const products = [
     { name: 'alih', description: 'Connect your WordPress forms with hundreds of popular tools using custom-built integrations' },
     { name: 'Beingo', description: 'Connect your WordPress forms with hundreds of popular tools using custom-built integrations' },
@@ -36,9 +36,9 @@ function Carousel() {
 
   return (
     <Slider {...settings}>
-      {products.map((product, index) => (
+      {ads.map((product:any, index:any) => (
         <div key={index}>
-          <ProductCard name={product.name} description={product.description} />
+          <ProductCard name={product.title} description={product.description} productLink={product.purchaseLink} price={product.price}  />
         </div>
       ))}
     </Slider>
