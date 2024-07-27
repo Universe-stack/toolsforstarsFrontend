@@ -49,7 +49,7 @@ const Page = () => {
   const token = localStorage.getItem('token');
   console.log(token)
   if (!token) {
-    throw new Error('No token found, please log in first');
+    throw new Error('Access denied, Please log in first');
   }
 
   const [stage, setStage] = useState(1); // Current stage of the form

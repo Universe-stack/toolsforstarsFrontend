@@ -20,17 +20,17 @@ export default function NavLinks() {
         icon: <FaHouseUser className="w-6"/>
     },
     {
-        name: "Create app",
+        name: "Submit app",
         href:"/dashboard/addApp",
         icon: <FaAndroid className="w-6"/>
     },
     {
-        name: "Create saas",
+        name: "Submit saas",
         href:"/dashboard/addSaas",
         icon:<FaComputer className="w-6"/>
     },
     {
-        name: "Create course",
+        name: "Submit course",
         href:"/dashboard/addCourse",
         icon:<FaBook className="w-6"/>
     },

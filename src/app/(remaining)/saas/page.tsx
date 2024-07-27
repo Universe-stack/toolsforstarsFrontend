@@ -1,5 +1,6 @@
 //@ts-nocheck
-"use client";
+"use client"
+
 import React, { useContext, useState, useEffect } from 'react';
 import SaasCarousel from '../../component/UI/Slider/SaasCarousel';
 import AdsCarousel from '@/app/component/UI/Slider/AdsCarousel';

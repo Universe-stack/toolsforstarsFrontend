@@ -10,16 +10,15 @@ import { HiOutlineUserCircle } from "react-icons/hi";
 
 
 const Navbar = () => {
-
-//   const [IsDropdownOpen, setIsDropdownOpen] = useState(true);
-
-//   const toggleDropdown = () => {
-//     console.log(`${IsDropdownOpen}`,"entered");
-//     setIsDropdownOpen(prevState => !prevState);
-//   };  
   
     const storedUser = JSON.parse(localStorage.getItem('user'));
     console.log(storedUser);
+
+    function handleLogOut() {
+      localStorage.removeItem('user');
+      localStorage.removeItem('token');
+      window.location.href = '/signIn';
+    }
  
 
   return (
@@ -53,18 +52,18 @@ const Navbar = () => {
                       </li>
                       <li><a>Dashboard</a></li>
                       <li><a>Help center</a></li>
-                      <li><a>Logout</a></li>
+                      <li><button onClick={handleLogOut}>Logout</button></li>
                     </ul>
                   </div>
                 )
                 :
-                                (<button className="self-center bg-[#000000] text-[#FFFFFF] rounded-md p-[0.825rem] flex gap-[0.625rem] justify-center align-middle text-[1rem] font-[500] md:w-[6.875rem] md:p-[0.5rem] xsm: w-[6.6rem] xsm:gap-[0.1rem] xsm:text-[0.8rem] xsm:p-[0.5rem] xsm:hidden lg:flex xl:flex md:flex">Sign up
+                                (<Link href={"/signIn"} className="self-center bg-[#000000] text-[#FFFFFF] rounded-md p-[0.825rem] flex gap-[0.625rem] justify-center align-middle text-[1rem] font-[500] md:w-[6.875rem] md:p-[0.5rem] xsm: w-[6.6rem] xsm:gap-[0.1rem] xsm:text-[0.8rem] xsm:p-[0.5rem] xsm:hidden lg:flex xl:flex md:flex">Sign up
                                 <span className="self-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.964} stroke="currentColor" className="w-[0.85938rem] h-[0.85938rem] self-center">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
                                     </svg>
                                 </span>
-                                </button>)
+                                </Link>)
                 }
 
                 <button className='rounded-full bg-[#000000] text-[#FFFFFF] p-[0.325rem] xl:hidden lg:hidden md:hidden'>
