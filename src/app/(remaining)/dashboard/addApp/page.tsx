@@ -194,7 +194,7 @@ const Page = () => {
       formDataToSend.append('productType', formData.productType);
       formDataToSend.append('aiEnabled', formData.aiEnabled.toString());
       formDataToSend.append('isActive', formData.isActive.toString());
-      formDataToSend.append('features', formData.features.join(','));
+      formDataToSend.append('features', JSON.stringify(formData.features))
       formDataToSend.append('categories', formData.categories.map(cat => cat.name).join(','));
       formDataToSend.append('targetAudience', formData.targetAudience.map(aud => aud.name).join(','));
   

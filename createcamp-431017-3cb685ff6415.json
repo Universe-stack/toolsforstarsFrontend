@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "createcamp-431017",
+  "private_key_id": "3cb685ff6415c734936de65d674e9e6d7eddaa1d",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDK+q+V8sokF7wC\ndqzKtq3uYWHL+5mYIiLjw3tqn3XJSDRg/VbGtTkSE38d6ZRcTfIJd1FDfAshXVlP\nOb9I8OaEXe0TjTKHI8ugG805K6ju+evVyQJHvfcQ7Y0y/VkQP3IkZ1qoT/BvCrj6\n7BJQH5XPd06BRp1QC9fhXozO/jADovliSW78nU498NknhMSvrlRwnO7JazG93eg9\nPcs/h/ZlxxNM6eRNpbYAVNTaJwE+qHUNKOHWD40BkBVOmY6GMIVNaWTLpOaHak9x\nnxg1p80KLpyC/R/AKjNvhZnQBHS4a2A5FscvEkRJBbwaAt+Bie4on20SM9qdtsMU\nxjJSlm8zAgMBAAECggEAVazrmUjSPtrPzmBmPehO0RxEqdOIuNjLzkSQXuhw0KWM\nClZUnuoWbUVSdf9GUpHJ9GnrIKeGkS40SMcQsQqR2lRFAegq6DTZObsSbCu8Eibm\nfyXpsvuBgiEq5NdgFQYauTfw4bNgQpaNjsg/UJeMZfYvakyykPt2w1dj6ukKvjV2\nXB+QvEHLGLPkbiiaJfYKQd6AloBrDCgz7o49H4VfbV7F3JyWj6c1AZWF0622biv1\nkMe7ssh6Pt4aPOIdp8HEfGi3mThpLpfy79ifm039lmf3rEgzyCwoUR2tt5xjq/SA\nRa21LWMrkZze3Y9g6IurGxUfjRfqn7H2CZ0GOsaqMQKBgQD7jg+FDslca0Uv9b+M\nMhvNIP9LYhoITKcXRNbb3q3mFaUSFa0rKzpxFRexEySWlQ6BGG3dCLk214J39rhJ\nf5XRfi64J8sWuODZjYqmcuoYdpiA0qEiKxUIL25+w0j79wFjJEt/xDPif1KvIsf4\n7mXpP1jUs4381pgSoaKs8VCO8QKBgQDOkOMhxGG8w0kDKSBg247x8OwbVzR+88cQ\nWyGSV2TTI581yCgzLxcnicCtlmZ6mYN8VgA20m9PMBkD2+2EeaWDj1zXcTcbN11y\nPyD3TW05thrTKhj6k2mvVgE2FqNe4IQ31fYiAXGjdFxIEwOhCIJNOjsu6xthojB7\nuzmyLrGoYwKBgF796kZoqwlHSL0vo8GhOnZfu4gP55yytXZH/IrSsAButAL8RIRE\nsrD5MhUgEXT7nJqLSxFotehLwWzjsfuvPjf52lKYVEykS+RbWrw4MMZEIpqi704j\nzrFkl+kufWUIhXGWxxvcT2t8gRC5paIPBFTsIvNPSpLrxkli2DdOeQlBAoGBAKMu\nGf/G31769makyos5ZwcBx8MhdLsFYTAujarJl0CkV1VpNTiZ7rSxQaDfuz0GoLRM\nTAcC3iO0X06JIm0QnAv96N3Y9itt5UgnTqeOZsa8cRx3mRv57/cu/e34nD6LJmfl\ngncCpP73IR9exfMkgar4YWCDIjJSqfJUyRNVh8r5AoGAdqUZdyhQ4xtLvhafNpOb\nAuTOWIyXPkJhGBj2keWOT67q5VrAzEq4BLrPIp6DKnVUJLf93YoWLmJGCuaw1zeI\nboPd3gcpRaCjyNu4JLfnrTmvha5pKaaMOzaYREkryIoM5gNyi7DKh5q8MX/59h6B\nB6e6Zi/gSbKD8RGiJm97gu0=\n-----END PRIVATE KEY-----\n",
+  "client_email": "email-258@createcamp-431017.iam.gserviceaccount.com",
+  "client_id": "116778414554892491382",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/email-258%40createcamp-431017.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

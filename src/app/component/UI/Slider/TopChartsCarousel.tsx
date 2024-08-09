@@ -29,18 +29,31 @@ function TopChartsCarousel({ fetchedData }) {
     ],
   };
 
+
   return (
     <Slider {...settings} className='shadow-none'>
-      {products.map((product) => (
-        <div key={product._id}>
-          <ProductCardII
-            name={product.name}
-            description={product.description}
-            logo={product.logo}
-            productType={product.productType}
-          />
-        </div>
-      ))}
+    {products.map((product) => (
+      <div key={product._id}>
+        <ProductCardII
+          name={product.name}
+          description={product.description}
+          logo={product.logo}
+          productType={product.productType}
+          url={(() => {
+            switch(product.productType) {
+              case 'saas':
+                return `/saas/products/${product._id}`;
+              case 'app':
+                return `/apps/products/${product._id}`;
+              case 'course':
+                return `/course/products/${product._id}`;
+              default:
+                return null;
+            }
+          })()}
+        />
+      </div>
+    ))}
     </Slider>
   );
 }

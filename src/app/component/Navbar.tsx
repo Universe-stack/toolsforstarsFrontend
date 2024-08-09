@@ -25,9 +25,9 @@ const Navbar = () => {
     <nav className="flex flex-col justify-center w-full xl:py-[1.5rem] xsm:py-[1rem] relative shadow">
         <div className=" flex align-middle justify-between w-[95%] self-center ">
             <div className="flex lg:gap-[3.3rem] xsm:gap-[5rem] xl:gap-[5rem] md:gap-[2rem]  align-middle text-center  md:w-[80%] md:justify-start xsm:w-[55%] xsm:justify-between lg:w-[90%]">
-                <div className=''>
-                  <Image src={"https://res.cloudinary.com/dck5v2kub/image/upload/v1714846214/jaeyLusson/createcampOne_3b467f.png"} alt="Logo" width={400} height={500} className='h-[3rem] w-[4rem]' />
-                </div>
+                <Link href={'/'} className=''>
+                  <Image src={"https://res.cloudinary.com/dck5v2kub/image/upload/v1714846214/jaeyLusson/createcampOne_3b467f.png"} alt="Logo" width={400} height={500} className='h-[3rem] w-[4rem] cursor-pointer' />
+                </Link>
                 <div className="md:flex self-center xsm:hidden">
                     <ul className="flex xl:gap-[2.5rem] md:gap-[1.6rem]">
                         <li className="font-[500] leading-normal text-[16px] hover:text-starspurpleLight"><Link href={"/saas"}>Saas</Link></li>
@@ -50,8 +50,8 @@ const Navbar = () => {
                             <div className="text-[18px] font-[700] text-starsBlack self-center">{storedUser.username}</div>
                           </div>
                       </li>
-                      <li><a>Dashboard</a></li>
-                      <li><a>Help center</a></li>
+                      <li><Link href={'/dashboard'}>Dashboard</Link></li>
+                      <li><Link href={'/help'}>Help Center</Link></li>
                       <li><button onClick={handleLogOut}>Logout</button></li>
                     </ul>
                   </div>

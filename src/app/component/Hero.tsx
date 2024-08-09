@@ -31,6 +31,9 @@ const Hero = () => {
   const [designData, setDesignData] = useState([]);
   const [ads, setAds] = useState([])
   const [adsPro, setAdsPro] = useState([])
+  const [emailState, setEmailState] = useState({email:''})
+  const [emailStateResponse, setEmailStateResponse] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchAllProducts = async (retries = 3, delay = 8000) => {
@@ -240,6 +243,44 @@ const Hero = () => {
   };
 
 
+  const subscribeUser = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    try {
+        const formData = emailState;
+
+
+        const response = await fetch('/api/submit', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
+        
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const content = await response.json();
+        setEmailStateResponse(true)
+        setEmailState({ email: '' });
+    } catch (error) {
+        console.error('Error submitting form:', error);
+        setEmailStateResponse(false)
+    } finally {
+      setIsLoading(false);
+  }
+};
+
+    
+  
+  const emailHandler = (e) => {
+    setEmailState({ ...emailState, email: e.target.value });
+  };
+
   return (
     <section className='flex flex-col justify-center w-[100vw] pb-[3rem]'>
       <div className='self-center w-[100%] flex gap-[5%] h-[100%] herbg h-[80vh]'>
@@ -253,12 +294,23 @@ const Hero = () => {
             <div className='mt-[5rem] w-[100%]'>
               <p className='font-[600] text-starsWhite'>Join our newsletter to get updates on new tools weekly</p>
 
-              <div className='flex w-[100%] gap-3 mt-[1rem]'>
-                <input type="text" placeholder="Enter your email" className="input input-bordered w-[100%] max-w-xs" />
-                <button className='bg-[#e49a2d] text-starsWhite w-[30%] rounded-md hover:bg-starsGrey hover:text-starsWhite inline-flex items-center justify-center'>
-                  Join in
+              <form onSubmit={subscribeUser} className='flex w-[100%] gap-3 mt-[1rem] mb-4'>
+                <input type="email" name="email" aria-label='Enter email address' aria-describedby='newsletter-btn' value={emailState.email} autoCapitalize='off' autoCorrect='off' onChange={emailHandler} placeholder="Enter your email" className="input input-bordered w-[100%] max-w-xs" />
+                <button type="submit" name='subscribe' value="" className='bg-[#e49a2d] text-starsWhite w-[30%] rounded-md hover:bg-starsBlack hover:text-starsWhite inline-flex items-center justify-center pt-1'>
+                {isLoading ? 'Submitting...' : 'Get free updates'}
                 </button>
-              </div>
+              </form>
+              {emailStateResponse === true &&
+                  <p className='text-left text-sm mt-3 alert alert-warning'>
+                    Thanks for subscribing.
+                  </p>
+              }
+
+              {emailStateResponse === false &&
+                  <p className='text-left text-sm mt-3 alert alert-error'>
+                    Subscription failed. Please try again.
+                  </p>
+              }
             </div>
           </div>
         </div>
@@ -314,7 +366,7 @@ const Hero = () => {
         
           <div class="relative overflow-hidden bg-starsBlack my-[4rem] rounded-2xl">
             <div class="absolute inset-0">
-                <img class="object-cover w-full h-full md:object-left md:scale-150 md:origin-top-left" src="https://cdn.rareblocks.xyz/collection/celebration/images/cta/5/girl-working-on-laptop.jpg" alt="" />
+                <img class="object-cover w-full h-full md:object-left md:scale-150 md:origin-top-left" src="https://res.cloudinary.com/dck5v2kub/image/upload/v1722888783/toolsForstars/hero_ads_background_hqwjwu.jpg" alt="" />
             </div>
             <div class="absolute inset-0 hidden bg-gradient-to-r md:block from-starsBlack to-starsBlack/60"></div>
             <div class="absolute inset-0 block bg-starsBlack/80 md:hidden"></div>
