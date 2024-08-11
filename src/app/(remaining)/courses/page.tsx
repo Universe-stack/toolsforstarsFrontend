@@ -222,7 +222,7 @@ export default function Page() {
             </button>
           </div>
 
-          <div className='grid grid-cols-4 gap-10 mt-[5rem] w-[100%] justify-center items-center relative'>
+          <div className='grid grid-cols-4 gap-5 mt-[5rem] w-[100%] justify-center items-center relative'>
             {submitted ? subMit : content}
           </div>
         </div>

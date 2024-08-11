@@ -21,7 +21,7 @@ interface ProductCardProps {
             <h2 className="card-title">{data.name}</h2>
             <ReactStarsRating value={data.averageReview} className="flex self-center" count={5} isEdit={false} size={15} primaryColor="#e49a2d" secondaryColor="#000000" />                       
           </div>
-          <p className='text-[15px]'>{data.description}</p>
+          <p className='text-[15px] text-[#121212]'>{data.description}</p>
           <div className="card-actions justify-between flex items-baseline">
             <div className="self-center text-[#e49a2d] font-[600]">${data.pricing}</div>
             <Link href={`/saas/products/${data._id}`} className="p-[0.6rem] bg-starsBlack text-starsWhite rounded-md text-[0.75rem]">Get it</Link>

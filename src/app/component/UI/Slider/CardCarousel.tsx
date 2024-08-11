@@ -31,15 +31,24 @@ console.log(data,'images')
 
   return (
   <Slider {...settings}>
-      {data && data.screenshots ? (
-        data.screenshots.map((image: any, index: number) => (
-          <div className='w-[100%] h-[150px] bg-contain'>
-            <Image key={index} src={`${image}`} alt={''} width={400} height={400} className='w-[100%] h-[100%]' />
-          </div>
-        ))
-      ) : (
-        "no images found"
-      )}
+    {data && data.screenshots ? (
+      data.screenshots.map((image: any, index: number) => (
+        <div className='w-full h-[200px] bg-contain' key={index}>
+          <Image
+            key={index}
+            src={`${image}`}
+            alt={'Screenshot'}
+            layout='responsive'
+            width={100}
+            height={100}
+            className='w-full h-auto object-contain'
+          />
+        </div>
+      ))
+    ) : (
+      "no images found"
+    )}
+
     </Slider>
   );
 }

@@ -6,6 +6,7 @@ import Link from "next/link"
 import logo from "../../../public/logo1.png";
 import { ButtonHTMLAttributes } from "react";
 import { HiOutlineUserCircle } from "react-icons/hi";
+import SearchComponent from './UI/Slider/SearchComponent';
 
 
 
@@ -40,37 +41,40 @@ const Navbar = () => {
                     </ul>
                 </div>
             </div>
-            <div className='flex flex-col justify-center'>
-                {storedUser ? 
-                (<div className="dropdown dropdown-end">
-                    <div tabIndex={0} role="button" className="btn m-1"><HiOutlineUserCircle className='text-[24px] font-[600]'/></div>
-                    <ul tabIndex={0} className="dropdown-content z-[1] menu p-2  bg-base-100 rounded-box w-52 shadow-md">
-                      <li><div className="my-[1rem] flex flex-col justify-center">
-                            <div className="text-[12px] text-starsGrey mb-[1px] self-center">Welcome back</div>
-                            <div className="text-[18px] font-[700] text-starsBlack self-center">{storedUser.username}</div>
-                          </div>
-                      </li>
-                      <li><Link href={'/dashboard'}>Dashboard</Link></li>
-                      <li><Link href={'/help'}>Help Center</Link></li>
-                      <li><button onClick={handleLogOut}>Logout</button></li>
-                    </ul>
-                  </div>
-                )
-                :
-                                (<Link href={"/signIn"} className="self-center bg-[#000000] text-[#FFFFFF] rounded-md p-[0.825rem] flex gap-[0.625rem] justify-center align-middle text-[1rem] font-[500] md:w-[6.875rem] md:p-[0.5rem] xsm: w-[6.6rem] xsm:gap-[0.1rem] xsm:text-[0.8rem] xsm:p-[0.5rem] xsm:hidden lg:flex xl:flex md:flex">Sign up
-                                <span className="self-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.964} stroke="currentColor" className="w-[0.85938rem] h-[0.85938rem] self-center">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
-                                    </svg>
-                                </span>
-                                </Link>)
-                }
+            <div className="flex gap-[2rem] items-center">
+              <SearchComponent />
+              <div className='flex flex-col justify-center'>
+                  {storedUser ? 
+                  (<div className="dropdown dropdown-end">
+                      <div tabIndex={0} role="button" className="btn m-1"><HiOutlineUserCircle className='text-[24px] font-[600]'/></div>
+                      <ul tabIndex={0} className="dropdown-content z-[1] menu p-2  bg-base-100 rounded-box w-52 shadow-md">
+                        <li><div className="my-[1rem] flex flex-col justify-center">
+                              <div className="text-[12px] text-starsGrey mb-[1px] self-center">Welcome back</div>
+                              <div className="text-[18px] font-[700] text-starsBlack self-center">{storedUser.username}</div>
+                            </div>
+                        </li>
+                        <li><Link href={'/dashboard'}>Dashboard</Link></li>
+                        <li><Link href={'/help'}>Help Center</Link></li>
+                        <li><button onClick={handleLogOut}>Logout</button></li>
+                      </ul>
+                    </div>
+                  )
+                  :
+                                  (<Link href={"/signIn"} className="self-center bg-[#000000] text-[#FFFFFF] rounded-md p-[0.825rem] flex gap-[0.625rem] justify-center align-middle text-[1rem] font-[500] md:w-[6.875rem] md:p-[0.5rem] xsm: w-[6.6rem] xsm:gap-[0.1rem] xsm:text-[0.8rem] xsm:p-[0.5rem] xsm:hidden lg:flex xl:flex md:flex">Sign up
+                                  <span className="self-center">
+                                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.964} stroke="currentColor" className="w-[0.85938rem] h-[0.85938rem] self-center">
+                                      <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                                      </svg>
+                                  </span>
+                                  </Link>)
+                  }
 
-                <button className='rounded-full bg-[#000000] text-[#FFFFFF] p-[0.325rem] xl:hidden lg:hidden md:hidden'>
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                  </svg>
-                </button>
+                  <button className='rounded-full bg-[#000000] text-[#FFFFFF] p-[0.325rem] xl:hidden lg:hidden md:hidden'>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
+                  </button>
+              </div>
             </div>
                   
         </div>
