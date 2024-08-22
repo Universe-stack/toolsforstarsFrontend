@@ -175,7 +175,11 @@ const Page = () => {
 
     console.log(formData);
   
-    const token = localStorage.getItem('token'); // Retrieve the token from local storage
+    let token = null;
+    if (typeof window !== "undefined") {
+      token = localStorage.getItem('token');
+    }
+
   
     if (!token) {
       console.error('No token found');
