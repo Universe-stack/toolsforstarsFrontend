@@ -389,7 +389,7 @@ const Hero = () => {
             ))}
           </div>
           <div className='mt-[2rem]'>
-            {writingData.length ? <TopChartsCarousel fetchedData={writingData} /> : <span className="loading loading-bars loading-lg"></span>}
+            {/* {writingData.length ? <TopChartsCarousel fetchedData={writingData} /> : <span className="loading loading-bars loading-lg"></span>} */}
           </div>
         </div>
 
