@@ -5,7 +5,7 @@ import Link from 'next/link'
 const Footer = () => {
   return (
     <section className='w-full flex flex-col bg-starsBlack justify-center'>
-        <div className="py-10 pt-[3rem] sm:pt-16 lg:pt-24 self-center w-[60vw]">
+        <div className="py-10 pt-[3rem] sm:pt-16 lg:pt-24 self-center w-[80vw]">
             <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl self-center">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-y-12 gap-x-12 text-starsWhite opacity-95">
                     <div className=''>

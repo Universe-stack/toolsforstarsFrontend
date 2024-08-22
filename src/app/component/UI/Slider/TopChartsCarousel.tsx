@@ -26,12 +26,26 @@ function TopChartsCarousel({ fetchedData }) {
           slidesToScroll: 1,
         },
       },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+        },
+      },
     ],
   };
 
 
   return (
-    <Slider {...settings} className='shadow-none'>
+    <Slider {...settings} className='shadow-none flex justify-center items-center'>
     {products.map((product) => (
       <div key={product._id}>
         <ProductCardII

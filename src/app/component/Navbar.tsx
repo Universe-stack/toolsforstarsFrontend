@@ -29,8 +29,8 @@ const Navbar = () => {
                 <Link href={'/'} className=''>
                   <Image src={"https://res.cloudinary.com/dck5v2kub/image/upload/v1714846214/jaeyLusson/createcampOne_3b467f.png"} alt="Logo" width={400} height={500} className='h-[3rem] w-[4rem] cursor-pointer' />
                 </Link>
-                <div className="md:flex self-center xsm:hidden">
-                    <ul className="flex xl:gap-[2.5rem] md:gap-[1.6rem]">
+                <div className="flex self-center ">
+                    <ul className="flex xl:gap-[2.5rem] md:gap-[1.6rem] 2xl:flex xl:flex lg:block sm:hidden xsm:hidden">
                         <li className="font-[500] leading-normal text-[16px] hover:text-starspurpleLight"><Link href={"/saas"}>Saas</Link></li>
                         <li className="text-[16px] font-[500] leading-normal flex justify-center hover:text-starspurpleLight">
                           <Link href={"/apps"} className="flex gap-1 self-center">Apps </Link>
@@ -42,10 +42,13 @@ const Navbar = () => {
                 </div>
             </div>
             <div className="flex gap-[2rem] items-center">
-              <SearchComponent />
-              <div className='flex flex-col justify-center'>
+              <div className="2xl:block xl:block lg:block md:block sm:hidden xsm:hidden">
+                <SearchComponent />
+              </div>
+             
+              <div className='flex  justify-center'>
                   {storedUser ? 
-                  (<div className="dropdown dropdown-end">
+                  (<div className="dropdown dropdown-end ">
                       <div tabIndex={0} role="button" className="btn m-1"><HiOutlineUserCircle className='text-[24px] font-[600]'/></div>
                       <ul tabIndex={0} className="dropdown-content z-[1] menu p-2  bg-base-100 rounded-box w-52 shadow-md">
                         <li><div className="my-[1rem] flex flex-col justify-center">
@@ -69,7 +72,7 @@ const Navbar = () => {
                                   </Link>)
                   }
 
-                  <button className='rounded-full bg-[#000000] text-[#FFFFFF] p-[0.325rem] xl:hidden lg:hidden md:hidden'>
+                  <button className='rounded-md bg-[#000000] text-[#FFFFFF] p-[0.825rem]  xl:hidden lg:hidden md:block sm:block self-center'>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                     </svg>

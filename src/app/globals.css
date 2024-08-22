@@ -17,6 +17,26 @@
   }
 }
 
+.scroll-container {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+}
+
+.scroll-container::-webkit-scrollbar {
+  height: 12px; /* Adjust the height of the scrollbar */
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+  background-color: #FFF; /* Color of the scrollbar thumb */
+  border-radius: 6px; /* Round the corners of the scrollbar thumb */
+}
+
+.scroll-container::-webkit-scrollbar-track {
+  background-color: #FFF; /* Color of the scrollbar track */
+  border-radius: 6px; /* Round the corners of the scrollbar track */
+}
 
 .backdrop {
   position: fixed;

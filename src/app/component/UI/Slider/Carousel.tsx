@@ -27,7 +27,7 @@ function Carousel({ads}:any) {
       {
         breakpoint: 640, // Breakpoint for laptop devices
         settings: {
-          slidesToShow: 1, // Show three slides on laptop devices
+          slidesToShow: 1, 
           slidesToScroll: 1
         }
       }

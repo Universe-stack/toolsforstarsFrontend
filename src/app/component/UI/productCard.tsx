@@ -14,7 +14,7 @@ interface ProductCardProps {
   const ProductCard: React.FC<ProductCardProps> = ({ name, description, price, productLink }) => {
   
     return (
-      <div className="card w-[22rem] bg-base-100 shadow-xl">
+      <div className="card 2xl:w-[22rem] xl:w-[22rem] lg:w-[22rem] md:w-[22rem] sm:w-[100%] xsm:w-[100%] bg-base-100 shadow-xl self-center border  border-[#f0f0f0]">
         <figure><img src="https://res.cloudinary.com/dck5v2kub/image/upload/v1710263377/toolsForstars/SAASPIC1_yv31md.webp" alt="Shoes" /></figure>
         <div className="card-body">
           <div className="flex items-center justify-between">

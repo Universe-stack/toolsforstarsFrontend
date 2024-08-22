@@ -108,6 +108,10 @@ const Hero = () => {
           .sort((a, b) => (b.averageReview + b.upvotes) - (a.averageReview + a.upvotes))
       );
     }
+
+    console.log(videoData, "video data");
+    console.log(writingData, "writing data");
+    
   }, [fetchedData]);
 
   const handleWritingFilter = (param) => {
@@ -283,10 +287,10 @@ const Hero = () => {
 
   return (
     <section className='flex flex-col justify-center w-[100vw] pb-[3rem]'>
-      <div className='self-center w-[100%] flex gap-[5%] h-[100%] herbg h-[80vh]'>
-        <div className='w-[50%] flex self-center '>
-          <div className='w-[72%] ml-auto'>
-            <h1 className='text-[48px] font-[700] text-starsWhite '> You've got the skills already -  Let us kit you up</h1>
+      <div className='self-center 2xl:w-[100%] xl:w-[100%] lg:w-[100%] md:w-[100%] xsm:w-[100%] flex gap-[5%] h-[100%] herbg 2xl:h-[80vh] md:h-[100%] xsm:h-[100%] sm:flex-col xsm:flex-col 2xl:flex-row md:pb-[3rem] sm:pb-[3rem] xsm:pb-[3rem]'>
+        <div className='2xl:w-[50%] md:w-[80%] sm:w-[90%] xsm:w-[90%] flex self-center md:mt-[5rem] xsm:mt-[5rem]'>
+          <div className='2xl:w-[72%] md:w-[100%] 2xl:ml-auto md:ml-0 md:self-center'>
+            <h1 className='text-[48px] font-[700] text-starsWhite '> You&apos;ve got the skills already -  Let us kit you up</h1>
             <p className='mt-[1rem] text-[1rem] text-starsWhite'>
               This collection contains a variety of Tailwind hero components that can be used in your next project
             </p>
@@ -294,9 +298,9 @@ const Hero = () => {
             <div className='mt-[5rem] w-[100%]'>
               <p className='font-[600] text-starsWhite'>Join our newsletter to get updates on new tools weekly</p>
 
-              <form onSubmit={subscribeUser} className='flex w-[100%] gap-3 mt-[1rem] mb-4'>
-                <input type="email" name="email" aria-label='Enter email address' aria-describedby='newsletter-btn' value={emailState.email} autoCapitalize='off' autoCorrect='off' onChange={emailHandler} placeholder="Enter your email" className="input input-bordered w-[100%] max-w-xs" />
-                <button type="submit" name='subscribe' value="" className='bg-[#e49a2d] text-starsWhite w-[30%] rounded-md hover:bg-starsBlack hover:text-starsWhite inline-flex items-center justify-center pt-1'>
+              <form onSubmit={subscribeUser} className='flex 2xl:flex-row xl:flex-row lg:flex-row md:flex-row sm:flex-col xsm:flex-col w-[100%] gap-3 mt-[1rem] mb-4'>
+                <input type="email" name="email" aria-label='Enter email address' aria-describedby='newsletter-btn' value={emailState.email} autoCapitalize='off' autoCorrect='off' onChange={emailHandler} placeholder="Enter your email" className="input input-bordered w-[100%] 2xl:max-w-xs xl:max-w-xs md:max-w-xs" />
+                <button type="submit" name='subscribe' value="" className='bg-[#e49a2d] text-starsWhite 2xl:w-[30%] xl:w-[30%] lg:w-[30%] md:w-[30%] sm:w-[100%] xsm:w-[100%] rounded-md hover:bg-starsBlack hover:text-starsWhite inline-flex items-center justify-center pt- xsm:p-[1rem] 2xl:px-[0.35rem]  xl:px-[0.35rem]  '>
                 {isLoading ? 'Submitting...' : 'Get free updates'}
                 </button>
               </form>
@@ -314,17 +318,17 @@ const Hero = () => {
             </div>
           </div>
         </div>
-        <div className='w-[50%] self-center'>
+        <div className='2xl:w-[50%] xl:w-[50%] lg:w-[50%] md:w-[90%] sm:w-[90%] xsm:w-[80%] xsm:mt-[1rem] md:mt-[1rem] sm:mt-[1rem] self-center'>
           <Carousel ads={adsPro} />
         </div>
       </div>
 
-      <div className="w-[75%] self-center ">
+      <div className="2xl:w-[75%] xl:w-[75%] md:w-[90%] sm:w-[90%] xsm:w-[90%] self-center ">
         <div className="mt-[3rem]">
           <h2 className='font-[600] text-[1.5rem]'> Top Charts</h2>
-          <div className='flex gap-[1rem] mt-[1rem]'>
+          <div className='xl:grid xl:grid-cols-10 lg:grid-cols-7  mt-4justify-center gap-4 xsm:flex xsm:align-center xsm:overflow-x-auto xsm:justify-start scroll-container'>
             {buttonOptions.map((item, id) => (
-              <button key={id} className={`inline-flex items-center justify-center px-[12px] py-[6px] rounded-full border hover:bg-[#e49a2d] hover:text-starsWhite hover:border-none ${clickedButton === id ? 'bg-starspink' : ''}`}>
+              <button key={id} className={`xl:w-full py-2 px-2  xsm:flex-shrink-0 xsm:w-40 rounded-full border hover:bg-[#e49a2d] hover:text-starsWhite hover:border-none ${clickedButton === id ? 'bg-starspink' : ''}`}>
                 <span className="mt-1 text-[14px]">{item.title}</span>
               </button>
             ))}
@@ -335,10 +339,10 @@ const Hero = () => {
         </div>
 
         <div className="mt-[3rem]">
-          <h2 className='font-[600] text-[1.5rem]'> Video Editing Tools</h2>
-          <div className='flex gap-[1rem] mt-[1rem]'>
+          <h2 className='font-[600] text-[1.5rem] mb-1'> Video Editing Tools</h2>
+          <div className='xl:grid xl:grid-cols-10 lg:grid-cols-7 justify-center gap-4 xsm:flex xsm:align-center mt-2 xsm:overflow-x-auto xsm:justify-start scroll-container'>
             {buttonOptions.map((item, id) => (
-              <button key={id} onClick={() => handleVideoFilter(item.title)} className={`inline-flex items-center justify-center px-[12px] py-[6px] rounded-full border hover:bg-[#e49a2d] hover:text-starsWhite hover:border-none ${clickedButton === id ? 'bg-starspink' : ''}`}>
+              <button key={id} onClick={() => handleVideoFilter(item.title)} className={`xl:w-full py-2 px-2 rounded-full xsm:flex-shrink-0 xsm:w-40 rounded-full border hover:bg-[#e49a2d] hover:text-starsWhite hover:border-none ${clickedButton === id ? 'bg-starspink' : ''}`}>
                 <span className="mt-1 text-[14px]">{item.title}</span>
               </button>
             ))}
@@ -349,10 +353,10 @@ const Hero = () => {
         </div>
 
         <div className="mt-[3rem]">
-          <h2 className='font-[600] text-[1.5rem]'> Audio Tools</h2>
-          <div className='flex gap-[1rem] mt-[1rem]'>
+          <h2 className='font-[600] text-[1.5rem] mb-1'> Audio Tools</h2>
+          <div className='xl:grid xl:grid-cols-10 lg:grid-cols-7 justify-center gap-4 xsm:flex xsm:align-center mt-2 xsm:overflow-x-auto xsm:justify-start scroll-container'>
             {buttonOptions.map((item, id) => (
-              <button key={id} onClick={() => handleAudioFilter(item.title)} className={`inline-flex items-center justify-center px-[12px] py-[6px] rounded-full border hover:bg-[#e49a2d] hover:text-starsWhite hover:border-none ${clickedButton === id ? 'bg-starspink' : ''}`}>
+              <button key={id} onClick={() => handleAudioFilter(item.title)} className={`xl:w-full py-2 px-2 rounded-full xsm:flex-shrink-0 xsm:w-40 rounded-full border hover:bg-[#e49a2d] hover:text-starsWhite hover:border-none ${clickedButton === id ? 'bg-starspink' : ''}`}>
                 <span className="mt-1 text-[14px]">{item.title}</span>
               </button>
             ))}
@@ -376,10 +380,10 @@ const Hero = () => {
         
 
         <div className="mt-[3rem]">
-          <h2 className='font-[600] text-[1.5rem]'> Writing Tools</h2>
-          <div className='flex gap-[1rem] mt-[1rem]'>
+          <h2 className='font-[600] text-[1.5rem] mb-1'> Writing Tools</h2>
+          <div className='xl:grid xl:grid-cols-10 lg:grid-cols-7 justify-center gap-4 xsm:flex xsm:align-center mt-2 xsm:overflow-x-auto xsm:justify-start scroll-container'>
             {buttonOptions.map((item, id) => (
-              <button key={id} onClick={() => handleWritingFilter(item.title)} className={`inline-flex items-center justify-center px-[12px] py-[6px] rounded-full border hover:bg-[#e49a2d] hover:text-starsWhite hover:border-none ${clickedButton === id ? 'bg-starspink' : ''}`}>
+              <button key={id} onClick={() => handleWritingFilter(item.title)} className={`xl:w-full py-2 px-2 rounded-full xsm:flex-shrink-0 xsm:w-40 rounded-full border hover:bg-[#e49a2d] hover:text-starsWhite hover:border-none ${clickedButton === id ? 'bg-starspink' : ''}`}>
                 <span className="mt-1 text-[14px]">{item.title}</span>
               </button>
             ))}
@@ -390,10 +394,10 @@ const Hero = () => {
         </div>
 
         <div className="mt-[3rem]">
-          <h2 className='font-[600] text-[1.5rem]'> Design Tools</h2>
-          <div className='flex gap-[1rem] mt-[1rem]'>
+          <h2 className='font-[600] text-[1.5rem] mb-1'> Design Tools</h2>
+          <div className='xl:grid xl:grid-cols-10 lg:grid-cols-7 justify-center gap-4 xsm:flex xsm:align-center  mt-2 xsm:overflow-x-auto xsm:justify-start scroll-container'>
             {buttonOptions.map((item, id) => (
-              <button key={id} onClick={() => handleDesignFilter(item.title)} className={`inline-flex items-center justify-center px-[12px] py-[6px] rounded-full border hover:bg-[#e49a2d] hover:text-starsWhite hover:border-none ${clickedButton === id ? 'bg-starspink' : ''}`}>
+              <button key={id} onClick={() => handleDesignFilter(item.title)} className={`xl:w-full py-2 px-2 rounded-full xsm:flex-shrink-0 xsm:w-40 rounded-full border hover:bg-[#e49a2d] hover:text-starsWhite hover:border-none ${clickedButton === id ? 'bg-starspink' : ''}`}>
                 <span className="mt-1 text-[14px]">{item.title}</span>
               </button>
             ))}

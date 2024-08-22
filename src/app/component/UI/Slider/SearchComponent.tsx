@@ -66,7 +66,7 @@ const SearchComponent = () => {
           value={query}
           onChange={handleInputChange}
           placeholder="Search tools..."
-          className='border border-[#ccc] py-2 px-2'
+          className='border border-[#ccc] py-2 px-2 rounded-lg'
           ref={inputRef}
         />
         <button
