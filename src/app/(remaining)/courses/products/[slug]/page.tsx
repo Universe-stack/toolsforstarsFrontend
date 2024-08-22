@@ -439,7 +439,7 @@ const Page = () => {
                                 <span className='self-center flex items-center mb-[0.35rem]'>
                                     <AiFillCarryOut className='self-center text-[14px] text-center' />
                                 </span>
-                                <div className='self-end'><p className='text-[14px] text-starsGrey p-0 m-0'>Editor's choice</p></div>
+                                <div className='self-end'><p className='text-[14px] text-starsGrey p-0 m-0'>Editor&apos;s choice</p></div>
                             </div>
                         </div>
 
@@ -597,7 +597,7 @@ const Page = () => {
 
                             {
                                 reviews?.reviews?.map(item=>(
-                                    <div className="mt-[36px]">
+                                    <div className="mt-[36px]" key={item?.id}>
                                         <div className="flex gap-[1rem]">
                                             <div className="rounded-full w-[1.5rem] h-[1.5rem] bg-starspink self-center text-center text-starsWhite items-center">V</div>
                                             <div className="self-center items-center mt-1 text-starsBlack">{item.userId}</div>
@@ -658,8 +658,8 @@ const Page = () => {
 
                         <div className='mt-[2rem] flex flex-col gap-4'>
                             {filteredProducts.map(item => (
-                                <Link href={`/courses/products/${item._id}`}>
-                                    <div key={item.id} className="flex gap-2 justify-between items-center w-full p-4 mb-3 border border-opacity-30 border-starsGrey shadow-sm rounded-md cursor-pointer" onClick={() => handleProductClick(item)}>
+                                <Link href={`/courses/products/${item._id}`} key={item?.id}>
+                                    <div className="flex gap-2 justify-between items-center w-full p-4 mb-3 border border-opacity-30 border-starsGrey shadow-sm rounded-md cursor-pointer" onClick={() => handleProductClick(item)}>
                                         <div className="object-cover rounded-full w-[40%] flex items-center">
                                             <Image src={`${item.logo}`} alt={item.name} width={150} height={150} className='self-center rounded-full'  />
                                         </div>
