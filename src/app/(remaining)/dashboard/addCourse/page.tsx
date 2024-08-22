@@ -1,6 +1,6 @@
 //@ts-nocheck
 "use client"
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { HiArrowSmRight } from "react-icons/hi";
 import { WithContext as ReactTags } from "react-tag-input";
 import { FaPlus } from "react-icons/fa6";
@@ -46,11 +46,6 @@ const audienceSuggestions = [
 ];
 
 const Page = () => {
-  const token = localStorage.getItem('token');
-  console.log(token)
-  if (!token) {
-    throw new Error('Access denied. Please log in first');
-  }
 
   const [stage, setStage] = useState(1); // Current stage of the form
   const [formData, setFormData] = useState<FormData>({
@@ -73,8 +68,20 @@ const Page = () => {
   const [res, setRes]=useState(false)
   const [reserror, setReserror] = useState(false)
   const [report, setReport] = useState('')
+  const [token, setToken] = useState<string | null>(null);
 
   const { state, dispatch } = useBackdrop();
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedToken = localStorage.getItem("token");
+      setToken(storedToken);
+      if (!storedToken) {
+        throw new Error("Access denied. Please log in first");
+      }
+    }
+  }, []);
+
 
   const setBackdrop = (value) => {
     dispatch({ type: 'SET_BACKDROP', payload: value });
