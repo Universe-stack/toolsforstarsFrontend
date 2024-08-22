@@ -8,7 +8,7 @@ const Page = () => {
       <div className="max-w-2xl mx-auto text-center w-full justify-center items-center flex flex-col py-4">
         <Image className='' width={300} height={400} src={'https://res.cloudinary.com/dck5v2kub/image/upload/v1721060489/toolsForstars/Feeling_sorry-pana_pmfirm.png'} alt='sorry, we are working on it'/>
       </div>
-      <p className="text-center">Sorry, we're working on your analytics dashboard.</p>
+      <p className="text-center">Sorry, we&apos;re working on your analytics dashboard.</p>
     </div>
   )
 }

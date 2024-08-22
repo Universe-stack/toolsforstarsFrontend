@@ -597,7 +597,7 @@ const Page = () => {
 
                             {
                                 reviews?.reviews?.map(item=>(
-                                    <div className="mt-[36px]" key={item._id}>
+                                    <div className="mt-[36px]" key={item?._id}>
                                         <div className="flex gap-[1rem]">
                                             <div className="rounded-full w-[1.5rem] h-[1.5rem] bg-starspink self-center text-center text-starsWhite items-center">V</div>
                                             <div className="self-center items-center mt-1 text-starsBlack">{item.userId}</div>
@@ -658,7 +658,7 @@ const Page = () => {
 
                         <div className='mt-[2rem] flex flex-col gap-4'>
                             {filteredProducts.map(item => (
-                                <Link href={`/saas/products/${item._id}`} key={item._id}>
+                                <Link href={`/saas/products/${item._id}`} key={item?._id}>
                                     <div key={item.id} className="flex gap-2 justify-between items-center w-full p-4 mb-3 border border-opacity-30 border-starsGrey shadow-sm rounded-md cursor-pointer" onClick={() => handleProductClick(item)}>
                                         <div className="object-cover rounded-full w-[40%] flex items-center">
                                             <Image src={`${item.logo}`} alt={item.name} width={150} height={150} className='self-center rounded-full'  />
