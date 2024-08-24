@@ -1,4 +1,6 @@
 //@ts-nocheck
+'use client'
+
 import React from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -43,6 +45,13 @@ function TopChartsCarousel({ fetchedData }) {
     ],
   };
 
+  function truncateText(text, maxLength) {
+    if (text.length > maxLength) {
+      return text.substring(0, maxLength) + '...';
+    }
+    return text;
+  }
+
 
   return (
     <Slider {...settings} className='shadow-none flex justify-center items-center'>
@@ -50,7 +59,7 @@ function TopChartsCarousel({ fetchedData }) {
       <div key={product._id}>
         <ProductCardII
           name={product.name}
-          description={product.description}
+          description={truncateText(product.description,78)}
           logo={product.logo}
           productType={product.productType}
           url={(() => {

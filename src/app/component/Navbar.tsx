@@ -22,7 +22,7 @@ const Navbar = () => {
   }
 
   return (
-    <nav className="flex flex-col justify-center w-full xl:py-[1.5rem] xsm:py-[1rem] relative shadow">
+    <nav className="flex flex-col justify-center w-full xl:py-[1.5rem] xsm:py-[1rem] relative shadow bg-starsWhite">
       <div className="flex align-middle justify-between w-[95%] self-center">
         <div className="flex lg:gap-[3.3rem] xsm:gap-[5rem] xl:gap-[5rem] md:gap-[2rem] align-middle text-center md:w-[80%] md:justify-start xsm:w-[55%] xsm:justify-between lg:w-[90%]">
           <Link href={'/'}>
@@ -69,7 +69,7 @@ const Navbar = () => {
                 </ul>
               </div>
             ) : (
-              <Link href={"/signIn"} className="self-center bg-[#000000] text-[#FFFFFF] rounded-md p-[0.825rem] flex gap-[0.625rem] justify-center align-middle text-[1rem] font-[500] md:w-[6.875rem] md:p-[0.5rem] xsm:w-[6.6rem] xsm:gap-[0.1rem] xsm:text-[0.8rem] xsm:p-[0.5rem] xsm:hidden lg:flex xl:flex md:flex">
+              <Link href={"/signIn"} className="self-center bg-[#000000] text-[#FFFFFF] rounded-md p-[0.825rem] flex gap-[0.625rem] justify-center align-middle 2xl:text-[1rem] 2xl:py-2 font-[500] md:w-[6.875rem] md:p-[0.5rem] xsm:w-[6.6rem] xsm:gap-[0.1rem] xsm:text-[0.8rem] xsm:p-[0.5rem] xsm:hidden lg:flex xl:flex md:flex">
                 Sign up
                 <span className="self-center">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.964} stroke="currentColor" className="w-[0.85938rem] h-[0.85938rem] self-center">
