@@ -69,7 +69,7 @@ const Navbar = () => {
                 </ul>
               </div>
             ) : (
-              <Link href={"/signIn"} className="self-center bg-[#000000] text-[#FFFFFF] rounded-md p-[0.825rem] flex gap-[0.625rem] justify-center align-middle 2xl:text-[1rem] 2xl:py-2 font-[500] md:w-[6.875rem] md:p-[0.5rem] xsm:w-[6.6rem] xsm:gap-[0.1rem] xsm:text-[0.8rem] xsm:p-[0.5rem] xsm:hidden lg:flex xl:flex md:flex">
+              <Link href={"/signIn"} className="self-center bg-[#000000] text-[#FFFFFF] rounded-md  flex gap-[0.625rem] justify-center align-middle 2xl:text-[1rem] 2xl:py-2 font-[500] md:w-[6.875rem] md:px-[0.5rem] md:py-[0.635rem] xsm:w-[6.6rem] xsm:gap-[0.1rem] xsm:text-[0.8rem] xsm:p-[0.5rem] xsm:hidden lg:flex xl:flex md:flex">
                 Sign up
                 <span className="self-center">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.964} stroke="currentColor" className="w-[0.85938rem] h-[0.85938rem] self-center">
@@ -78,7 +78,7 @@ const Navbar = () => {
                 </span>
               </Link>
             )}
-            <button className='rounded-md bg-[#000000] text-[#FFFFFF] p-[0.825rem] xl:hidden lg:hidden md:block sm:block self-center'>
+            <button className='rounded-md bg-[#000000] text-[#FFFFFF] p-[0.525rem] mx-2 xl:hidden lg:hidden md:block sm:block self-center'>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
               </svg>

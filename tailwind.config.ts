@@ -32,8 +32,8 @@ const config: Config = {
       'starspurpleLight': '#6A0F8E',
       'starspink':'#fc538d',
       'starspurpleDark':'#8d62f4',
-      'starsBlack': '#000000',
-      'starsWhite': '#FFFFFF'
+      'starsBlack': '#121212',
+      'starsWhite': '#FFF4E3'
     },
     extend: {
       fontFamily: {

@@ -69,7 +69,7 @@ const ClientFilters = ({ data, buttonOptions,category }: Props) => {
                     <button
                         key={id}
                         onClick={() => handleFilter(item.title)}  // Use item.title as filter parameter
-                        className='xl:w-full py-2 px-2 rounded-full xsm:flex-shrink-0 xsm:w-40 border hover:bg-[#e49a2d] hover:text-starsWhite hover:border-none'
+                        className='xl:w-full rounded-full xsm:flex-shrink-0 xsm:w-35 xsm:px-4 xsm:py-2 sm:py-2 sm:px-4  md:py-2 md:px-4 lg:py-2 lg:px-4  2xl:py-2 2xl:px-2 xl:py-2 xl:px-2 border hover:bg-[#e49a2d] hover:text-starsWhite hover:border-none'
                     >
                         <span className="mt-1 text-[14px]">{item.title}</span>
                     </button>
