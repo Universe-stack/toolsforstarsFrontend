@@ -14,7 +14,7 @@ const HeroForm = (props: Props) => {
         e.preventDefault();
         try {
             const formData = emailState;
-    
+            console.log(formData, "form data")
     
             const response = await fetch('/api/submit', {
                 method: 'POST',
@@ -27,7 +27,7 @@ const HeroForm = (props: Props) => {
             
     
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                throw new Error(`HTTP error! status: ${response.message}`);
             }
     
             const content = await response.json();
@@ -37,7 +37,7 @@ const HeroForm = (props: Props) => {
             console.error('Error submitting form:', error);
             setEmailStateResponse(false)
         } finally {
-          console.log("finally")
+          console.log(error, "error")
       }
     };
     

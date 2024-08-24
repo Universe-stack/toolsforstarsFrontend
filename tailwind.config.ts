@@ -33,7 +33,7 @@ const config: Config = {
       'starspink':'#fc538d',
       'starspurpleDark':'#8d62f4',
       'starsBlack': '#121212',
-      'starsWhite': '#FFF4E3'
+      'starsWhite': '#FFFFFF'
     },
     extend: {
       fontFamily: {

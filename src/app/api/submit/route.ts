@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { google } from 'googleapis';
 
 export async function POST(req: NextRequest) {
+    console.log(req, "request")
     if (req.method !== 'POST') {
         return NextResponse.json({ message: 'Only POST requests are allowed' }, { status: 405 });
     }
