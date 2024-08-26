@@ -59,7 +59,7 @@ function TopChartsCarousel({ fetchedData }) {
       <div key={product._id}>
         <ProductCardII
           name={product.name}
-          description={truncateText(product.description,78)}
+          description={truncateText(product.description,70)}
           logo={product.logo}
           productType={product.productType}
           url={(() => {

@@ -6,6 +6,7 @@ import TopChartsCarousel from './UI/Slider/TopChartsCarousel';
 import AdsCarousel from './UI/Slider/AdsCarousel';
 import HeroForm from './HeroForm';
 import ClientFilters from './ClientFilters'; // New client component
+import HeroVideo from '../component/HeroVideo'
 
 const buttonOptions = [
   { title: "Top Free" },
@@ -55,15 +56,17 @@ const Hero = async () => {
 
   return (
     <section className='flex flex-col justify-center w-[100vw] pb-[3rem] bg-starsWhite'>
-      <div className='self-center 2xl:w-[100%] xl:w-[100%] lg:w-[100%] md:w-[100%] xsm:w-[100%] flex gap-[5%] h-[100%] herbg 2xl:h-[80vh] md:h-[100%] xsm:h-[100%] sm:flex-col xsm:flex-col 2xl:flex-row md:pb-[3rem] sm:pb-[3rem] xsm:pb-[3rem]'>
-        <div className='2xl:w-[50%] md:w-[80%] sm:w-[80%] xsm:w-[80%] flex self-center md:mt-[5rem] xsm:mt-[5rem]'>
+      <div className='self-center 2xl:w-[100%] xl:w-[100%] lg:w-[100%] md:w-[100%] xsm:w-[100%] flex gap-[5%] h-[100%] 2xl:h-[80vh] md:h-[100%] xsm:h-[100%] sm:flex-col xsm:flex-col 2xl:flex-row md:pb-[3rem] sm:pb-[3rem] xsm:pb-[3rem] relative'>
+          <HeroVideo />
+        <div className='2xl:w-[50%] md:w-[80%] sm:w-[80%] xsm:w-[80%] flex self-center md:mt-[5rem] xsm:mt-[5rem] z-30'>
           <div className='2xl:w-[72%] md:w-[100%] 2xl:ml-auto md:ml-0 md:self-center'>
+            
             <h1 className='text-4xl sm:text-5xl md:text-4xl lg:text-5xl xl:text-5xl font-[700] text-starsWhite text-center xl:text-left 2xl:text-left xsm:leading-[3rem] sm:leading-[3rem] md:leading-[3.5rem] lg:leading-[3.5rem] xl:leading-[3.5rem] 2xl:leading-[3.5rem]'> You&apos;ve got the skills already -  Let us kit you up</h1>
             <p className='mt-[1rem] text-[1rem] text-starsWhite text-center xl:text-left 2xl:text-left text-2xl xsm:text-[1.05rem] sm:text-[1.05rem] md:text-[1.25rem] lg:text-[1.25rem] xl:text-[1.25rem] '>
               This collection contains a variety of Tailwind hero components that can be used in your next project
             </p>
 
-            <div className='2xl:mt-[5rem] w-[100%] xl:mt-[5rem] lg:mt-[4rem] md:mt-[4rem] sm:mt-[4rem] xsm:mt-[4rem]'>
+            <div className='2xl:mt-[5rem] w-[100%] xl:mt-[5rem] lg:mt-[4rem] md:mt-[4rem] sm:mt-[4rem] xsm:mt-[4rem] z-30'>
                 <HeroForm />
             </div>
           </div>

@@ -52,7 +52,7 @@
 }
 
 .herbg {
-  background: linear-gradient(to right, #9F00FF, #F0C27D);
+  background: linear-gradient(90deg,#fc538d,#6A0F8E);
   background-repeat: no-repeat;  
   background-size: cover;               
   margin: 0;                     

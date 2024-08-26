@@ -17,7 +17,7 @@ export interface Metadata {
 }
 
 const maison= localFont({
-  src: '../centra.otf',
+  src: '../EuclidCircularARegular.ttf',
 });
 
 export const metadata = {

@@ -36,9 +36,9 @@ function Carousel({ads}:any) {
   };
 
   return (
-    <Slider {...settings}>
+    <Slider {...settings} className='z-30'>
       {ads.map((product:any, index:any) => (
-        <div key={index}>
+        <div key={index} >
           <ProductCard name={product.title} description={product.description} productLink={product.purchaseLink} price={product.price}  />
         </div>
       ))}
