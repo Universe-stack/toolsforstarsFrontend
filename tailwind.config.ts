@@ -15,9 +15,6 @@ const config: Config = {
 
       'md': '768px',
 
-      'xmd': '880px',
-      // => @media (min-width: 768px) { ... }
-
       'lg': '1024px',
       // => @media (min-width: 1024px) { ... }
 

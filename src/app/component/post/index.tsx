@@ -13,7 +13,7 @@ export function Post(props: PostProps) {
     props;
 
   return (
-    <article className="w-[100%] mb-10 flex flex-col items-center pt-20">
+    <article className="w-[100%] pb-10 flex flex-col items-center pt-20 bg-starsWhite text-starsBlack h-full">
       <h1 className="text-4xl font-black text-white mb-8">{title}</h1>
       <Image
         alt="Blog Image"

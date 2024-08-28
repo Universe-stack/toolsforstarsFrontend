@@ -22,7 +22,7 @@ const Navbar = () => {
   }
 
   return (
-    <nav className="flex flex-col justify-center w-full xl:py-[1.5rem] xsm:py-[1rem] relative shadow bg-starsWhite">
+    <nav className="flex flex-col justify-center w-full xl:py-[1.5rem] xsm:py-[1rem] relative shadow border-b border-[#ccc] bg-starsWhite">
       <div className="flex align-middle justify-between w-[95%] self-center">
         <div className="flex lg:gap-[3.3rem] xsm:gap-[5rem] xl:gap-[5rem] md:gap-[2rem] align-middle text-center md:w-[80%] md:justify-start xsm:w-[55%] xsm:justify-between lg:w-[90%]">
           <Link href={'/'}>
@@ -35,14 +35,14 @@ const Navbar = () => {
             />
           </Link>
           <div className="flex self-center">
-            <ul className="flex xl:gap-[2.5rem] md:gap-[1.6rem] 2xl:flex xl:flex lg:block sm:hidden xsm:hidden">
-              <li className="font-[500] leading-normal text-[16px] hover:text-starspurpleLight"><Link href={"/saas"}>Saas</Link></li>
-              <li className="text-[16px] font-[500] leading-normal flex justify-center hover:text-starspurpleLight">
+            <ul className="flex xl:gap-[2.5rem] md:gap-[1.6rem] 2xl:flex xl:flex lg:flex md:flex-row sm:hidden xsm:hidden">
+              <li className="font-[500] leading-normal text-[16px] hover:text-starspurpleLight text-starsBlack"><Link href={"/saas"}>Saas</Link></li>
+              <li className="text-[16px] font-[500] leading-normal flex justify-center hover:text-starspurpleLight text-starsBlack">
                 <Link href={"/apps"} className="flex gap-1 self-center">Apps</Link>
               </li>
-              <li className="text-[16px] font-[500] leading-normal hover:text-starspurpleLight"><Link href={"/blog"}>Blog</Link></li>
-              <li className="text-[16px] font-[500] leading-normal hover:text-starspurpleLight"><Link href={"/courses"}>Courses</Link></li>
-              <li className="text-[16px] font-[500] leading-normal hover:text-starspurpleLight"><Link href={"/dashboard"}>List your product</Link></li>
+              <li className="text-[16px] font-[500] leading-normal hover:text-starspurpleLight text-starsBlack"><Link href={"/blog"}>Blog</Link></li>
+              <li className="text-[16px] font-[500] leading-normal hover:text-starspurpleLight text-starsBlack"><Link href={"/courses"}>Courses</Link></li>
+              <li className="text-[16px] font-[500] leading-normal hover:text-starspurpleLight text-starsBlack"><Link href={"/dashboard"}>List your product</Link></li>
             </ul>
           </div>
         </div>

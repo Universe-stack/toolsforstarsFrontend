@@ -28,7 +28,7 @@ interface ProductCardProps {
 
         <div className="py-[1rem]">
           <h2 className="card-title text-[1.1rem] font-[700] text-[#121212]">{name}</h2>
-          <p className="pt-[0.5rem] pb-[0.6rem] text-[#717171] text-[0.837rem] ">{description}</p>
+          <p className="pt-[0.5rem] pb-[0.6rem] text-starsBlack text-[0.837rem] ">{description}</p>
           <div className="card-actions justify-between items-center">
           <span className="text-[#e49a2d] text-[16px] font-[700]">{productType}</span>
             <Link href={url || '#'} className=" hover:bg-starsGrey py-[0.8rem] px-[0.8rem] bg-[#121212] text-starsWhite rounded-md border-none text-[12px] ">Get it</Link>

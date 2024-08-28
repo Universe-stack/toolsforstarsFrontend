@@ -56,13 +56,13 @@ const Hero = async () => {
 
   return (
     <section className='flex flex-col justify-center w-[100vw] pb-[3rem] bg-starsWhite'>
-      <div className='self-center 2xl:w-[100%] xl:w-[100%] lg:w-[100%] md:w-[100%] xsm:w-[100%] flex gap-[5%] h-[100%] 2xl:h-[80vh] md:h-[100%] xsm:h-[100%] sm:flex-col xsm:flex-col 2xl:flex-row md:pb-[3rem] sm:pb-[3rem] xsm:pb-[3rem] relative'>
+      <div className='self-center 2xl:w-[100%] xl:w-[100%] lg:w-[100%] md:w-[100%] xsm:w-[100%] flex gap-[5%] h-[100%] 2xl:h-[80vh] xl:h-[80vh] lg:h-[80%] md:h-[100%] xsm:h-[100%] sm:flex-col xsm:flex-col 2xl:flex-row xl:flex-row lg:flex-row md:flex-col md:pb-[3rem] sm:pb-[3rem] xsm:pb-[3rem] relative'>
           <HeroVideo />
-        <div className='2xl:w-[50%] md:w-[80%] sm:w-[80%] xsm:w-[80%] flex self-center md:mt-[5rem] xsm:mt-[5rem] z-30'>
-          <div className='2xl:w-[72%] md:w-[100%] 2xl:ml-auto md:ml-0 md:self-center'>
+        <div className='2xl:w-[50%] xl:w-[50%] lg:w-[50%] md:w-[80%] sm:w-[80%] xsm:w-[80%] flex xl:justify-center lg:justify-center md:justify-center self-center md:mt-[5rem] xsm:mt-[5rem] z-30'>
+          <div className='2xl:w-[72%] xl:w-[80%] lg:w-[80%]  md:w-[100%] 2xl:ml-auto md:ml-0 md:self-center xl:self-center lg:self-center'>
             
-            <h1 className='text-4xl sm:text-5xl md:text-4xl lg:text-5xl xl:text-5xl font-[700] text-starsWhite text-center xl:text-left 2xl:text-left xsm:leading-[3rem] sm:leading-[3rem] md:leading-[3.5rem] lg:leading-[3.5rem] xl:leading-[3.5rem] 2xl:leading-[3.5rem]'> You&apos;ve got the skills already -  Let us kit you up</h1>
-            <p className='mt-[1rem] text-[1rem] text-starsWhite text-center xl:text-left 2xl:text-left text-2xl xsm:text-[1.05rem] sm:text-[1.05rem] md:text-[1.25rem] lg:text-[1.25rem] xl:text-[1.25rem] '>
+            <h1 className='text-4xl sm:text-5xl md:text-4xl lg:text-5xl xl:text-5xl font-[700] text-starsWhite text-center xl:text-left 2xl:text-left lg:text-left xsm:leading-[3rem] sm:leading-[3rem] md:leading-[3.5rem] lg:leading-[3.5rem] xl:leading-[3.5rem] 2xl:leading-[3.5rem]'> You&apos;ve got the skills already -  Let us kit you up</h1>
+            <p className='mt-[1rem] text-[1rem] text-starsWhite text-center xl:text-left 2xl:text-left text-2xl xsm:text-[1.05rem] sm:text-[1.05rem] lg:text-left md:text-[1.25rem] lg:text-[1.25rem] xl:text-[1.25rem] '>
               This collection contains a variety of Tailwind hero components that can be used in your next project
             </p>
 
@@ -78,7 +78,7 @@ const Hero = async () => {
 
       <div className="2xl:w-[75%] xl:w-[75%] md:w-[80%] sm:w-[80%] xsm:w-[80%] self-center ">
         <div className="mt-[3rem]">
-          <h2 className='font-[600] text-[1.5rem]'> Top Charts</h2>
+          <h2 className='font-[600] text-[1.5rem] text-starsBlack'> Top Charts</h2>
           <ClientFilters
             data={topChartData} // Example, you can pass different data here
             buttonOptions={buttonOptions}
@@ -87,7 +87,7 @@ const Hero = async () => {
         </div>
 
         <div className="mt-[3rem]">
-          <h2 className='font-[600] text-[1.5rem] mb-1'> Video Editing Tools</h2>
+          <h2 className='font-[600] text-[1.5rem] text-starsBlack mb-1'> Video Editing Tools</h2>
           <ClientFilters
             data={videoData} // Example, you can pass different data here
             buttonOptions={buttonOptions}
@@ -96,7 +96,7 @@ const Hero = async () => {
         </div>
 
         <div className="mt-[3rem]">
-          <h2 className='font-[600] text-[1.5rem] mb-1'> Audio Tools</h2>
+          <h2 className='font-[600] text-[1.5rem] text-starsBlack mb-1'> Audio Tools</h2>
           <ClientFilters
             data={audioData} // Example, you can pass different data here
             buttonOptions={buttonOptions}
@@ -118,7 +118,7 @@ const Hero = async () => {
         
 
         <div className="mt-[3rem]">
-          <h2 className='font-[600] text-[1.5rem] mb-1'> Writing Tools</h2>
+          <h2 className='font-[600] text-[1.5rem] text-starsBlack mb-1'> Writing Tools</h2>
           <ClientFilters
             data={writingData} // Example, you can pass different data here
             buttonOptions={buttonOptions}
@@ -127,7 +127,7 @@ const Hero = async () => {
         </div>
 
         <div className="mt-[3rem]">
-          <h2 className='font-[600] text-[1.5rem] mb-1'> Design Tools</h2>
+          <h2 className='font-[600] text-[1.5rem] text-starsBlack mb-1'> Design Tools</h2>
           <ClientFilters
             data={designData} // Example, you can pass different data here
             buttonOptions={buttonOptions}

@@ -173,7 +173,7 @@ const handleFilteredNextPage = ()=>  {
   );
 
   return (
-    <section className='w-[100%] flex flex-col justify-center relative pb-[2rem]'>
+    <section className='w-[100%] flex flex-col justify-center relative pb-[2rem] bg-starsWhite text-starsBlack'>
       <ToastContainer className="absolute" />
       {state.isLoading && (
           <div className="absolute bg-starsBlack z-40 top-0 right-0 left-0 bottom-0 opacity-25" onClick={() => setBackdrop(false)}></div>

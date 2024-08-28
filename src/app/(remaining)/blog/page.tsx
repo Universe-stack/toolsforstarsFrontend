@@ -27,7 +27,7 @@ export default async function Page() {
   };
  
   return (
-    <section className="w-full flex justify-center py-[5rem]">
+    <section className="w-full flex justify-center py-[5rem] bg-starsWhite">
         <div className="w-[75%] self-center">
         <h1 className="my-6 text-[1.5rem] text-starspurpleDark font-[700] underline underline-offset-4">Featured</h1>
         <ul className="grid grid-cols-4 gap-6 justify-center">
@@ -41,7 +41,7 @@ export default async function Page() {
             return (
                 <li key={post.id} className="">
                 <Link href={`/blog/${slug}`}>
-                    <div className="card w-[100%] bg-base-100 rounded-none">
+                    <div className="card w-[100%] rounded-none bg-starsWhite text-starsBlack">
                     <figure><img src={imgSrc} alt="Blog Image" /></figure>
                     <div className="card-body py-[1rem] px-0">
                         <h3 className="card-title hover:underline text-[1.35rem]">{title}</h3>

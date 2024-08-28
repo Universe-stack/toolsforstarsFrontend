@@ -66,7 +66,7 @@ const SearchComponent = () => {
           value={query}
           onChange={handleInputChange}
           placeholder="Search tools..."
-          className='border border-[#ccc] py-2 px-2 rounded-lg'
+          className='border border-[#ccc] py-2 px-2 rounded-lg bg-starsWhite text-starsBlack'
           ref={inputRef}
         />
         <button
@@ -74,7 +74,11 @@ const SearchComponent = () => {
           onClick={handleSearch}
           className='bg-starsBlack text-starsWhite py-2 px-4 rounded-lg'
         >
-          Search
+          <span className='text-starsWhite'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <circle cx="11" cy="11" r="7" stroke-width="2"></circle>
+            <line x1="17" y1="17" x2="21" y2="21" stroke-width="2" stroke-linecap="round"></line>
+          </svg>
+          </span>
         </button>
       </div>
       {showDropdown && (

@@ -53,7 +53,7 @@ const HeroForm = (props: Props) => {
 
     <form onSubmit={subscribeUser} className='flex 2xl:flex-row xl:flex-row lg:flex-row md:flex-row sm:flex-col xsm:flex-col w-[100%] gap-3 mt-[1rem] mb-4'>
       <input type="email" name="email" aria-label='Enter email address' aria-describedby='newsletter-btn' value={emailState.email} autoCapitalize='off' autoCorrect='off' onChange={emailHandler} placeholder="Enter your email" className="input input-bordered w-[100%] 2xl:max-w-xs xl:max-w-xs bg-starsWhite text-starsBlack" />
-      <button type="submit" name='subscribe' value="" className='bg-starsWhite text-starsBlack font-[700]  border-2 2xl:w-[30%] xl:w-[30%] lg:w-[30%] md:w-[30%] sm:w-[100%] xsm:w-[100%] rounded-md hover:bg-starsBlack hover:text-starsWhite inline-flex items-center justify-center   2xl:px-[0.35rem]  xl:px-[0.35rem] xsm:py-[10px] sm:py-[10px]  '>
+      <button type="submit" name='subscribe' value="" className='bg-starsWhite text-starsBlack font-[700]  border 2xl:w-[30%] xl:w-[30%] lg:w-[30%] md:w-[30%] sm:w-[100%] xsm:w-[100%] rounded-md hover:bg-starsBlack hover:text-starsWhite inline-flex items-center justify-center   2xl:px-[0.35rem]  xl:px-[0.35rem] xsm:py-[10px] sm:py-[10px]  '>
       {isLoading ? 'Submitting...' : 'Get free updates'}
       </button>
     </form>

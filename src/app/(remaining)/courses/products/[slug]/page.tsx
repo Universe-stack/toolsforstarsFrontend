@@ -286,7 +286,7 @@ const Page = () => {
     
 
     return (
-        <div className='w-[100%] flex justify-center pb-[2rem] relative'>
+        <div className='w-[100%] flex justify-center pb-[2rem] relative bg-starsWhite text-starsBlack'>
             <ToastContainer className="absolute bottom-0" />
             {state.backdrop && 
                 <div className="absolute bg-starsBlack z-40 top-0 right-0 left-0 bottom-0 opacity-25"></div>

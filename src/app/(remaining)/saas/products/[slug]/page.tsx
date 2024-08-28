@@ -286,7 +286,7 @@ const Page = () => {
     
 
     return (
-        <div className='w-[100%] flex justify-center pb-[2rem] relative'>
+        <div className='w-[100%] flex justify-center pb-[2rem] relative bg-starsWhite text-starsBlack'>
             <ToastContainer className="absolute bottom-0" />
             {state.backdrop && 
                 <div className="absolute bg-starsBlack z-40 top-0 right-0 left-0 bottom-0 opacity-25"></div>
@@ -453,14 +453,14 @@ const Page = () => {
                                         <BiShareAlt className='self-center' />
                                         <button className="mt-1" onClick={()=>document.getElementById('my_modal_5').showModal()}>Share</button>
                                         <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
-                                        <div className="modal-box">
+                                        <div className="modal-box bg-starsWhite">
                                             <div className="modal-action mt-0">
                                             <form method="dialog">
                                                 {/* if there is a button in form, it will close the modal */}
                                                 <button className="mt-1"><FaCircleXmark className='text-[1rem]' /></button>
                                             </form>
                                             </div>
-                                            <div className='text-center'>
+                                            <div className='text-center bg-starsWhite text-starsBlack'>
                                                 <h3 className="font-bold text-lg text-starsBlack">Hi, Share this resource!</h3>
                                                 <p className="py-4 text-starsBlack">If you like this resource, share it with your friends</p>
 
@@ -616,22 +616,22 @@ const Page = () => {
                                 ))
                             }
 
-                            <form className="mt-[36px] border-t border-[#d4d3d3] py-4" onSubmit={handleReviewSubmit}>
+                            <form className="mt-[36px] border-t border-[#d4d3d3] py-4 " onSubmit={handleReviewSubmit}>
                                 <label htmlFor="" className='font-[800] text-[1.5rem]'>Add a rating</label>
                                 <textarea
-                                    className="textarea textarea-bordered w-[100%] mt-2"
+                                    className="bg-starsWhite text-starsBlack textarea textarea-bordered w-[100%] mt-2 border "
                                     placeholder="Add a review"
                                     value={reviewContent}
                                     onChange={(e) => setReviewContent(e.target.value)}
                                 ></textarea>
                                 <div className='flex items-center justify-between'>
-                                        <div className="rating">
+                                        <div className="rating text-starsBlack">
                                         {[1, 2, 3, 4, 5].map((star) => (
                                             <input
                                                 key={star}
                                                 type="radio"
                                                 name="rating-1"
-                                                className="mask mask-star"
+                                                className="mask mask-star bg-starsBlack"
                                                 checked={reviewStars === star}
                                                 onChange={() => setReviewStars(star)}
                                             />

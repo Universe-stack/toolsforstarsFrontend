@@ -7,12 +7,19 @@ import { useParams } from 'next/navigation'
 interface ProductCardProps {
   data:any
 }
+
+function truncateText(text, maxLength) {
+  if (text.length > maxLength) {
+    return text.substring(0, maxLength) + '...';
+  }
+  return text;
+}
   
   const ProductCard: React.FC<ProductCardProps> = ({data}) => {
     const params = useParams()
     console.log(params, "product param")
     return (
-      <div className="card w-[100%] bg-base-100 shadow-md p-2 rounded-lg ">
+      <div className="card w-[100%] bg-starsWhite shadow-md p-2 rounded-lg ">
         <div className="">
          {data ? <CardCarousel data={data}/> : "no images yet" }
         </div>
@@ -21,7 +28,7 @@ interface ProductCardProps {
             <h2 className="card-title">{data.name}</h2>
             <ReactStarsRating value={data.averageReview} className="flex self-center" count={5} isEdit={false} size={15} primaryColor="#e49a2d" secondaryColor="#000000" />                       
           </div>
-          <p className='text-[15px] text-[#121212]'>{data.description}</p>
+          <p className='text-[14px] text-[#121212]'>{truncateText(data.description,70)}</p>
           <div className="card-actions justify-between flex items-baseline">
             <div className="self-center text-[#e49a2d] font-[600]">${data.pricing}</div>
             <Link href={`/saas/products/${data._id}`} className="p-[0.6rem] bg-starsBlack text-starsWhite rounded-md text-[0.75rem]">Get it</Link>
