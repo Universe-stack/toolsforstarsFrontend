@@ -15,9 +15,9 @@ export default function Error({
   }, [error])
  
   return (
-    <div className='h-[85vh] flex justify-center items-center'>
+    <div className='h-[85vh] flex justify-center items-center bg-starsWhite text-starsBlack'>
       <div className='text-center'>
-        <h2>{`${error}`}</h2>
+        <h2 className='text-[#FF0000]'>{`${error}`}</h2>
         <button
           onClick={
             // Attempt to recover by trying to re-render the segment

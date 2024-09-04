@@ -28,6 +28,8 @@ import { FaClipboard } from "react-icons/fa6";
 import { FaClipboardCheck } from "react-icons/fa6";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { BiCheckCircle } from "react-icons/bi";
+
 
 const Page = () => {
     const [fetchedData, setFetchedData] = useState<any>(null);
@@ -283,6 +285,13 @@ const Page = () => {
           console.error('Failed to copy: ', err);
         }
     };
+
+    function truncateText(text, maxLength) {
+        if (text.length > maxLength) {
+          return text.substring(0, maxLength) + '...';
+        }
+        return text;
+      }
     
 
     return (
@@ -293,7 +302,7 @@ const Page = () => {
             }
 
             {modal && 
-                <div className='absolute bg-starsWhite z-50 py-[1.5rem] w-[70%] mt-[35vh] rounded-[1rem] p-4'>
+                <div className='absolute bg-starsWhite z-50 py-[1.5rem] w-[80%] mt-[35vh] rounded-[1rem] p-4'>
                     <div className="w-full flex justify-end mb-4 cursor-pointer">
                         <FaCircleXmark className='self-end size-6 text-[#FF0000] hover:opacity-75' onClick={removeCompareAlternatives} />
                     </div>
@@ -317,13 +326,13 @@ const Page = () => {
                                 <input 
                                     type="text" 
                                     placeholder="Search..." 
-                                    className="w-full p-2 border border-gray-300 rounded" 
+                                    className="w-full p-2 border border-gray-300 rounded bg-starsWhite text-starsBlack" 
                                     value={searchTerm}
                                     onChange={e => setSearchTerm(e.target.value)}
                                 />
                             </div>
                             <div className="overflow-x-auto">
-                                <table className="table table-zebra w-full">
+                                <table className="bg-starsWhite table  w-full ">
                                     <thead className='text-starspurpleLight text-[20px] font-[700]'>
                                         <tr>
                                             <th></th>
@@ -333,12 +342,12 @@ const Page = () => {
                                             ))}
                                         </tr>
                                     </thead>
-                                    <tbody className='text-[12px]'>
+                                    <tbody className='text-[12px] bg-starsWhite'>
                                         <tr>
                                             <th>Name</th>
                                             <td>{fetchedData?.tool?.name}</td>
                                             {filteredProducts.map(product => (
-                                                <td key={product.id}>{product.name}</td>
+                                                <td key={product.id}><p className='flex justify-start items-center'><span className='pr-4'><BiCheckCircle/></span>{product.name}</p></td>
                                             ))}
                                         </tr>
                                         <tr>
@@ -347,7 +356,7 @@ const Page = () => {
                                                 <p className='my-[0.5rem] mt-1' key={index}>{item}</p>
                                             ))}</td>
                                             {filteredProducts.map(product => (
-                                                <td key={product.id}>{product.features.map((item: any, index: number) => (<p key={index} className='my-[0.5rem]'>{item}</p>))}</td>
+                                                <td key={product.id} className=''>{product.features.map((item: any, index: number) => (<p key={index} className='my-[0.5rem] flex justify-start items-start'><span className='pr-4 pt-3'><BiCheckCircle/></span>{item}</p>))}</td>
                                             ))}
                                         </tr>
                                         <tr>
@@ -356,7 +365,7 @@ const Page = () => {
                                                 <p className='my-[0.5rem] mt-2' key={index}>{item}</p>
                                             ))}</td>
                                             {filteredProducts.map(product => (
-                                                <td key={product.id}>{product.categories.map((item: any, index: number) => (<p className='my-[0.5rem]' key={index}>{item}</p>))}</td>
+                                                <td key={product.id} className=''>{product.categories.map((item: any, index: number) => (<p className='my-[0.5rem] flex justify-start items-center' key={index}><span className='pr-4'><BiCheckCircle/></span>{item}</p>))}</td>
                                             ))}
                                         </tr>
                                         <tr>
@@ -365,7 +374,7 @@ const Page = () => {
                                                 <p className='my-[0.5rem] mt-2' key={index}>{item}</p>
                                             ))}</td>
                                             {filteredProducts.map(product => (
-                                                <td key={product.id}>{product.targetAudience.map((item: any, index: number) => (<p className='my-[0.5rem]' key={index}>{item}</p>))}</td>
+                                                <td key={product.id} className=''>{product.targetAudience.map((item: any, index: number) => (<p className='my-[0.5rem] flex justify-start items-center' key={index}><span className='pr-4 '><BiCheckCircle/></span>{item}</p>))}</td>
                                             ))}
                                         </tr>
                                         <tr>
@@ -379,21 +388,21 @@ const Page = () => {
                                             <th>Price</th>
                                             <td>${fetchedData?.tool?.pricing}</td>
                                             {filteredProducts.map(product => (
-                                                <td key={product.id}>{product.pricing}</td>
+                                                <td key={product.id} className=''><p className='flex justify-start items-center'><span className='pr-4'><BiCheckCircle/></span>{product.pricing}</p></td>
                                             ))}
                                         </tr>
                                         <tr>
                                             <th>Reviews</th>
                                             <td>{fetchedData?.tool?.averageReview}</td>
                                             {filteredProducts.map(product => (
-                                                <td key={product.id}>{product.averageReview?.toFixed(1)}</td>
+                                                <td key={product.id} className=''><p className='flex justify-start items-center'><span className='pr-4'><BiCheckCircle/></span>{product.averageReview?.toFixed(1)}</p></td>
                                             ))}
                                         </tr>
                                         <tr>
                                             <th>Product link</th>
                                             <td>{fetchedData?.tool?.productLink}</td>
                                             {filteredProducts.map(product => (
-                                                <td key={product.id}>{product.productLink}</td>
+                                                <td key={product.id} className=''><p className='flex justify-start items-center'><span className='pr-4'><BiCheckCircle/></span>{product.productLink}</p></td>
                                             ))}
                                         </tr>
                                     </tbody>
@@ -665,7 +674,7 @@ const Page = () => {
                                         </div>
                                         <div className='w-[60%] self-center'>
                                             <h3 className='text-[16px] font-[700] text-starsBlack'>{item.name}</h3>
-                                            <p className='text-[12px] font-[300] text-starsGrey'>{item.description}</p>
+                                            <p className='text-[12px] font-[300] text-starsGrey'>{truncateText(item.description,50)}</p>
                                             <span className ="flex gap-2 mt-1">
                                                 <FaStar className='text-starsGrey '/>
                                                 <p className='text-[12px] font-[300] text-starsGrey mt-[0.15rem]'>{item.averageReview}</p>

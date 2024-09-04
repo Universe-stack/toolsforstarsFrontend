@@ -284,6 +284,12 @@ const Page = () => {
         }
     };
     
+    function truncateText(text, maxLength) {
+        if (text.length > maxLength) {
+          return text.substring(0, maxLength) + '...';
+        }
+        return text;
+      }
 
     return (
         <div className='w-[100%] flex justify-center pb-[2rem] relative'>
@@ -665,7 +671,7 @@ const Page = () => {
                                         </div>
                                         <div className='w-[60%] self-center'>
                                             <h3 className='text-[16px] font-[700] text-starsBlack'>{item.name}</h3>
-                                            <p className='text-[12px] font-[300] text-starsGrey'>{item.description}</p>
+                                            <p className='text-[12px] font-[300] text-starsGrey'>{truncateText(item.description,50)}</p>
                                             <span className ="flex gap-2 mt-1">
                                                 <FaStar className='text-starsGrey '/>
                                                 <p className='text-[12px] font-[300] text-starsGrey mt-[0.15rem]'>{item.averageReview}</p>
