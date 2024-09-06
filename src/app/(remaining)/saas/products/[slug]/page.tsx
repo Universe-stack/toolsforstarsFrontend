@@ -31,6 +31,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { BiCheckCircle } from "react-icons/bi";
 
 
+
 const Page = () => {
     const [fetchedData, setFetchedData] = useState<any>(null);
     const [modal, setModal] = useState<any>(null);
@@ -412,11 +413,11 @@ const Page = () => {
                     </div>
                 </div>
             }
-            <div className='w-[75%] self-center mt-[3rem]'>
-                <div className='flex justify-between items-center'>
-                    <div className=''>
-                        <h1 className='text-[3.5rem] leading-[4rem] font-[700]'>{fetchedData?.tool?.name || ''}</h1>
-                        <div className='mt-[16px] flex flex-col'>
+            <div className='2xl:w-[75%] xl:w-[75%] lg:w-[75%] md:w-[85%] sm:w-[85%] xsm:w-[85%] self-center mt-[3rem]'>
+                <div className='flex 2xl:flex-row xl:flex-row lg:flex-row md:flex-row sm:flex-col xsm:flex-col justify-between items-center w-[100%]'>
+                    <div className='w-[100%]'>
+                        <h1 className='2xl:text-[3.5rem] xl:text-[3.5rem] lg:text-[3.5rem] md:text-[3rem] sm:text-[3rem] xsm:text-[3rem] leading-[4rem] font-[700]'>{fetchedData?.tool?.name || ''}</h1>
+                        <div className='2xl:mt-[16px] xl:mt-[16px] lg:mt-[16px] md:mt-[12px] sm-[8px] xsm:mt-[8px]  flex flex-col'>
                             <span className='text-[14px] text-starspurpleLight'>
                                 <Link href={fetchedData?.tool?.link || ''}>{fetchedData?.tool?.name || ''}</Link>
                             </span>
@@ -453,7 +454,7 @@ const Page = () => {
                         </div>
 
                         <div className="flex gap-[16px]">
-                            <button className="py-[10px] px-[16px] bg-starsBlack text-starsWhite rounded-md min-h-[44px] min-w-[200px] inline-flex items-center justify-center">
+                            <button className="py-[10px] px-[16px] bg-starsBlack text-starsWhite rounded-md min-h-[44px] 2xl:min-w-[200px] xl:min-w-[200px] lg:min-w-[200px] md:min-w-[150px] sm:min-w-[100px] xsm:min-w-[100px]  inline-flex items-center justify-center">
                                 <a href={fetchedData?.tool?.productLink || ''}>Get now</a>
                             </button>
                             <div className="flex gap-[8px]">
@@ -499,7 +500,7 @@ const Page = () => {
                                         <span className="text-starsGrey pt-1 hover:text-starspurpleDark">Add to wishlist</span>
                                     </Link>
                                 </div>
-                                <div className="self-center text-[14px]">
+                                <div className="self-center text-[14px] 2xl:block xl:block lg:block md:hidden sm:hidden xsm:hidden">
                                     <button href={''} className='flex gap-1' onClick={handleCompareAlternatives}>
                                         <FaScaleBalanced className='self-center' />
                                         <span className="text-starsGrey pt-1 hover:text-starspurpleDark">Compare alternatives</span>
@@ -508,7 +509,7 @@ const Page = () => {
                             </div>
                         </div>
                     </div>
-                    <div className='self-end rounded-lg w-[25rem] h-[25rem]'>
+                    <div className='flex 2xl:justify-end xl:justify-end lg:justify-end md:justify-end sm:justify-center xsm:justify-center self-end rounded-lg 2xl:w-[25rem] xl:w-[25rem] lg:w-[25rem] md:w-[25rem] sm:w-[100%] xsm:w-[100%]  2xl:h-[25rem] xl:h-[25rem] lg:h-[25rem] md:h-[25rem] sm:h-auto xsm:h-auto 2xl:my-0 xl:my-0 lg:my-0 md:my-0 sm:my-8 xsm:my-8'>
                         <Image
                             src={`${fetchedData?.tool?.logo || ""}`}
                             width={500}
@@ -519,8 +520,8 @@ const Page = () => {
                     </div>
                 </div>
 
-                <div className='flex justify-between gap-[5%]'>
-                    <main className="w-4/6">
+                <div className='flex 2xl:flex-row xl:flex-row lg:flex-row md:flex-row sm:flex-col xsm:flex-col justify-between gap-[5%]'>
+                    <main className="2xl:w-4/6 xl:w-4/6 lg:w-4/6 md:w-4/6 sm:w-6/6 xsm:6/6">
                         <div className='w-[100%]'>
                             <ProductdetailCarousel productImages={fetchedData} />
                         </div>
@@ -559,12 +560,12 @@ const Page = () => {
                             <Link href={''}> entertainment </Link>
                         </button>
 
-                        <div className="p-4">
-                            {videoId ? (
-                                <YoutubeVideo videoId={videoId} height="500" width="800" autoplay={0} />
-                            ) : (
-                                <p>No video found.</p>
-                            )}
+                        <div className="p-4 w-full" style={{ aspectRatio: '16/9' }}>
+                        {videoId ? (
+                            <YoutubeVideo videoId={videoId} autoplay={0} />
+                        ) : (
+                            <p>No video found.</p>
+                        )}
                         </div>
 
                         <div className="mt-[32px]">
@@ -659,13 +660,13 @@ const Page = () => {
                         </div>
                     </main>
 
-                    <aside className='w-2/6 sticky'>
+                    <aside className='2xl:w-2/6 xl:w-2/6 lg:w-2/6 md:w-2/6 sm:w-6/6 xsm:w-6/6 2xl:mt-0 xl:mt-0 lg:mt-0 md:mt-0 sm:mt-8 xsm:mt-8 sticky'>
                         <div className="flex gap-[1rem]">
-                            <h2 className="text-[24px]">Similar Apps</h2>
+                            <h2 className="text-[1.5rem] font-[700]">Similar Apps</h2>
                             <FaArrowRight className='self-center' />
                         </div>
 
-                        <div className='mt-[2rem] flex flex-col gap-4'>
+                        <div className='2xl:mt-[2rem] xl:mt-[2rem] lg:mt-[2rem] md:mt-[2rem] sm:mt-[1rem] xsm:mt-[1rem] flex flex-col gap-4'>
                             {filteredProducts.map(item => (
                                 <Link href={`/saas/products/${item._id}`} key={item?._id}>
                                     <div key={item.id} className="flex gap-2 justify-between items-center w-full p-4 mb-3 border border-opacity-30 border-starsGrey shadow-sm rounded-md cursor-pointer" onClick={() => handleProductClick(item)}>

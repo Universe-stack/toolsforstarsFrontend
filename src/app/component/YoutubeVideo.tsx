@@ -1,34 +1,31 @@
 import React from "react";
 import YouTube from "react-youtube";
 
-
 interface YoutubeVideoProps {
-  videoId: any; // Add props for videoId
-  height?: any; // Optional height prop
-  width?: any; // Optional width prop
-  autoplay?: any; // Optional autoplay prop
+  videoId: string;
+  height?: string | number;
+  width?: string | number;
+  autoplay?: 0 | 1;
 }
 
-export default class YoutubeVideo extends React.Component<YoutubeVideoProps> {
-  private _onReady(event: any) {
+const YoutubeVideo: React.FC<YoutubeVideoProps> = ({ videoId, height = "100%", width = "100%", autoplay = 1 }) => {
+  const _onReady = (event: { target: { pauseVideo: () => void } }) => {
     event.target.pauseVideo();
-  }
+  };
 
-  render() {
-    const { videoId, height = "600", width = "900", autoplay = 1 } = this.props;
+  const opts = {
+    height,
+    width,
+    playerVars: {
+      autoplay,
+    },
+  };
 
-    const opts = {
-      height,
-      width,
-      playerVars: {
-        autoplay,
-      },
-    };
+  return (
+    <div style={{ width: '100%', height: '100%' }}>
+      <YouTube videoId={videoId} opts={opts} onReady={_onReady} className={"w-full h-full"} />
+    </div>
+  );
+};
 
-    return (
-      <div>
-        <YouTube videoId={videoId} opts={opts} onReady={this._onReady} />
-      </div>
-    );
-  }
-}
+export default YoutubeVideo;

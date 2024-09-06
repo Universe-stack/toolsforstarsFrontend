@@ -33,15 +33,15 @@ console.log(data,'images')
   <Slider {...settings}>
     {data && data.screenshots ? (
       data.screenshots.map((image: any, index: number) => (
-        <div className='w-full h-[200px] bg-contain' key={index}>
+        <div className='w-full 2xl:h-[200px] xl:h-[200px] md:h-[200px] lg:h-[200px] sm:h-[100%] xsm:h-[100%] bg-contain' key={index}>
           <Image
             key={index}
             src={`${image}`}
             alt={'Screenshot'}
             layout='responsive'
-            width={100}
-            height={100}
-            className='w-full h-auto object-contain'
+            width={400}
+            height={400}
+            className='w-full h-full object-contain'
           />
         </div>
       ))

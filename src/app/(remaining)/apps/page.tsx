@@ -206,7 +206,7 @@ const handleFilteredNextPage = ()=>  {
         </>
       )}
 
-      <div className='w-[75%] self-center'>
+      <div className='2xl:w-[75%] xl:w-[75%] lg:w-[85%] md:w-[85%] sm:w-[85%] xsm:w-[85%] self-center'>
         <div className='w-full mt-[3rem] bg-starsBlack rounded-[1.5rem] text-starsWhite text-center relative '>
           <AdsCarousel ads={ads} />
         </div>
@@ -215,16 +215,16 @@ const handleFilteredNextPage = ()=>  {
 
         <div className='w-[100%]'>
           <div className='flex gap-3 mt-[2rem] justify-between'>
-            <div className='w-[88%] mt-[0.83rem]'>
+            <div className='2xl:w-[88%] xl:w-[80%] lg:w-[75%] md:w-[80%] sm:w-[76%] xsm:w-[76%] mt-[0.83rem]'>
               <SaasCarousel onIconChange={handleIconChange} />
             </div>
             <button className='self-center flex justify-center items-center border border-starsGrey rounded-md px-3 gap-2 h-[2.5rem] ml-2' onClick={backdropSet}>
               <div className='self-center'><FaSliders className='text-[16px] self-center text-starsBlack' /> </div>
-              <div className='self-center'>Filter</div>
+              <div className='self-center 2xl:block xl:block lg:block md:block  sm:hidden xsm:hidden '>Filter</div>
             </button>
           </div>
 
-          <div className='grid grid-cols-4 gap-5 mt-[5rem] w-[100%] justify-center items-center relative'>
+          <div className='grid 2xl:grid-cols-4 xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 xsm:grid-cols-2 gap-5 mt-[5rem] w-[100%] justify-center items-center relativee'>
             {submitted ? subMit : content}
           </div>
         </div>

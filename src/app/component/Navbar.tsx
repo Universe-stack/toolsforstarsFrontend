@@ -52,11 +52,11 @@ const Navbar = () => {
           </div>
           <div className='flex justify-center'>
             {storedUser ? (
-              <div className="dropdown dropdown-end">
+              <div className="dropdown dropdown-end bg-starsWhite text-starsBlack">
                 <div tabIndex={0} role="button" className="btn m-1">
-                  <HiOutlineUserCircle className='text-[24px] font-[600]' />
+                  <HiOutlineUserCircle className='text-[24px] font-[600] text-starsWhite' />
                 </div>
-                <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 bg-base-100 rounded-box w-52 shadow-md">
+                <ul tabIndex={0} className="dropdown-content z-50 menu p-2 rounded-box w-52 shadow-md bg-starsWhite text-starsBlack border border-starsBlack">
                   <li>
                     <div className="my-[1rem] flex flex-col justify-center">
                       <div className="text-[12px] text-starsGrey mb-[1px] self-center">Welcome back</div>

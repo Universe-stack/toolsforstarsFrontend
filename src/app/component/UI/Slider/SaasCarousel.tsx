@@ -62,15 +62,30 @@ function SaasCarousel({onIconChange}) {
     swipeToSlide: true,
     responsive: [
       {
-        breakpoint: 640, // Breakpoint for laptop devices
+        breakpoint: 1024, // Large screens, desktops
         settings: {
-          slidesToShow: 1, // Show three slides on laptop devices
-          slidesToScroll: 1
-        }
-      }
-    ]
+          slidesToShow: 6,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 768, // Tablets
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 480, // Mobile
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
-
+  
+//1024
   return (
     <Slider {...settings}>
       <div className="grid justify-center align-center w-[100%] ">

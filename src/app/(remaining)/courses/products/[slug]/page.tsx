@@ -28,6 +28,9 @@ import { FaClipboard } from "react-icons/fa6";
 import { FaClipboardCheck } from "react-icons/fa6";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { BiCheckCircle } from "react-icons/bi";
+
+
 
 const Page = () => {
     const [fetchedData, setFetchedData] = useState<any>(null);
@@ -300,7 +303,7 @@ const Page = () => {
             }
 
             {modal && 
-                <div className='absolute bg-starsWhite z-50 py-[1.5rem] w-[70%] mt-[35vh] rounded-[1rem] p-4'>
+                <div className='absolute bg-starsWhite z-50 py-[1.5rem] w-[80%] mt-[35vh] rounded-[1rem] p-4'>
                     <div className="w-full flex justify-end mb-4 cursor-pointer">
                         <FaCircleXmark className='self-end size-6 text-[#FF0000] hover:opacity-75' onClick={removeCompareAlternatives} />
                     </div>
@@ -324,13 +327,13 @@ const Page = () => {
                                 <input 
                                     type="text" 
                                     placeholder="Search..." 
-                                    className="w-full p-2 border border-gray-300 rounded" 
+                                    className="w-full p-2 border border-gray-300 rounded bg-starsWhite text-starsBlack" 
                                     value={searchTerm}
                                     onChange={e => setSearchTerm(e.target.value)}
                                 />
                             </div>
                             <div className="overflow-x-auto">
-                                <table className="table table-zebra w-full">
+                                <table className="bg-starsWhite table  w-full ">
                                     <thead className='text-starspurpleLight text-[20px] font-[700]'>
                                         <tr>
                                             <th></th>
@@ -340,12 +343,12 @@ const Page = () => {
                                             ))}
                                         </tr>
                                     </thead>
-                                    <tbody className='text-[12px]'>
+                                    <tbody className='text-[12px] bg-starsWhite'>
                                         <tr>
                                             <th>Name</th>
                                             <td>{fetchedData?.tool?.name}</td>
                                             {filteredProducts.map(product => (
-                                                <td key={product.id}>{product.name}</td>
+                                                <td key={product.id}><p className='flex justify-start items-center'><span className='pr-4'><BiCheckCircle/></span>{product.name}</p></td>
                                             ))}
                                         </tr>
                                         <tr>
@@ -354,7 +357,7 @@ const Page = () => {
                                                 <p className='my-[0.5rem] mt-1' key={index}>{item}</p>
                                             ))}</td>
                                             {filteredProducts.map(product => (
-                                                <td key={product.id}>{product.features.map((item: any, index: number) => (<p key={index} className='my-[0.5rem]'>{item}</p>))}</td>
+                                                <td key={product.id} className=''>{product.features.map((item: any, index: number) => (<p key={index} className='my-[0.5rem] flex justify-start items-start'><span className='pr-4 pt-3'><BiCheckCircle/></span>{item}</p>))}</td>
                                             ))}
                                         </tr>
                                         <tr>
@@ -363,7 +366,7 @@ const Page = () => {
                                                 <p className='my-[0.5rem] mt-2' key={index}>{item}</p>
                                             ))}</td>
                                             {filteredProducts.map(product => (
-                                                <td key={product.id}>{product.categories.map((item: any, index: number) => (<p className='my-[0.5rem]' key={index}>{item}</p>))}</td>
+                                                <td key={product.id} className=''>{product.categories.map((item: any, index: number) => (<p className='my-[0.5rem] flex justify-start items-center' key={index}><span className='pr-4'><BiCheckCircle/></span>{item}</p>))}</td>
                                             ))}
                                         </tr>
                                         <tr>
@@ -372,7 +375,7 @@ const Page = () => {
                                                 <p className='my-[0.5rem] mt-2' key={index}>{item}</p>
                                             ))}</td>
                                             {filteredProducts.map(product => (
-                                                <td key={product.id}>{product.targetAudience.map((item: any, index: number) => (<p className='my-[0.5rem]' key={index}>{item}</p>))}</td>
+                                                <td key={product.id} className=''>{product.targetAudience.map((item: any, index: number) => (<p className='my-[0.5rem] flex justify-start items-center' key={index}><span className='pr-4 '><BiCheckCircle/></span>{item}</p>))}</td>
                                             ))}
                                         </tr>
                                         <tr>
@@ -386,21 +389,21 @@ const Page = () => {
                                             <th>Price</th>
                                             <td>${fetchedData?.tool?.pricing}</td>
                                             {filteredProducts.map(product => (
-                                                <td key={product.id}>{product.pricing}</td>
+                                                <td key={product.id} className=''><p className='flex justify-start items-center'><span className='pr-4'><BiCheckCircle/></span>{product.pricing}</p></td>
                                             ))}
                                         </tr>
                                         <tr>
                                             <th>Reviews</th>
                                             <td>{fetchedData?.tool?.averageReview}</td>
                                             {filteredProducts.map(product => (
-                                                <td key={product.id}>{product.averageReview?.toFixed(1)}</td>
+                                                <td key={product.id} className=''><p className='flex justify-start items-center'><span className='pr-4'><BiCheckCircle/></span>{product.averageReview?.toFixed(1)}</p></td>
                                             ))}
                                         </tr>
                                         <tr>
                                             <th>Product link</th>
                                             <td>{fetchedData?.tool?.productLink}</td>
                                             {filteredProducts.map(product => (
-                                                <td key={product.id}>{product.productLink}</td>
+                                                <td key={product.id} className=''><p className='flex justify-start items-center'><span className='pr-4'><BiCheckCircle/></span>{product.productLink}</p></td>
                                             ))}
                                         </tr>
                                     </tbody>
@@ -410,11 +413,11 @@ const Page = () => {
                     </div>
                 </div>
             }
-            <div className='w-[75%] self-center mt-[3rem]'>
-                <div className='flex justify-between items-center'>
-                    <div className=''>
-                        <h1 className='text-[3.5rem] leading-[4rem] font-[700]'>{fetchedData?.tool?.name || ''}</h1>
-                        <div className='mt-[16px] flex flex-col'>
+            <div className='2xl:w-[75%] xl:w-[75%] lg:w-[75%] md:w-[85%] sm:w-[85%] xsm:w-[85%] self-center mt-[3rem]'>
+                <div className='flex 2xl:flex-row xl:flex-row lg:flex-row md:flex-row sm:flex-col xsm:flex-col justify-between items-center w-[100%]'>
+                    <div className='w-[100%]'>
+                        <h1 className='2xl:text-[3.5rem] xl:text-[3.5rem] lg:text-[3.5rem] md:text-[3rem] sm:text-[3rem] xsm:text-[3rem] leading-[4rem] font-[700]'>{fetchedData?.tool?.name || ''}</h1>
+                        <div className='2xl:mt-[16px] xl:mt-[16px] lg:mt-[16px] md:mt-[12px] sm-[8px] xsm:mt-[8px]  flex flex-col'>
                             <span className='text-[14px] text-starspurpleLight'>
                                 <Link href={fetchedData?.tool?.link || ''}>{fetchedData?.tool?.name || ''}</Link>
                             </span>
@@ -451,7 +454,7 @@ const Page = () => {
                         </div>
 
                         <div className="flex gap-[16px]">
-                            <button className="py-[10px] px-[16px] bg-starsBlack text-starsWhite rounded-md min-h-[44px] min-w-[200px] inline-flex items-center justify-center">
+                            <button className="py-[10px] px-[16px] bg-starsBlack text-starsWhite rounded-md min-h-[44px] 2xl:min-w-[200px] xl:min-w-[200px] lg:min-w-[200px] md:min-w-[150px] sm:min-w-[100px] xsm:min-w-[100px]  inline-flex items-center justify-center">
                                 <a href={fetchedData?.tool?.productLink || ''}>Get now</a>
                             </button>
                             <div className="flex gap-[8px]">
@@ -460,14 +463,14 @@ const Page = () => {
                                         <BiShareAlt className='self-center' />
                                         <button className="mt-1" onClick={()=>document.getElementById('my_modal_5').showModal()}>Share</button>
                                         <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
-                                        <div className="modal-box">
+                                        <div className="modal-box bg-starsWhite">
                                             <div className="modal-action mt-0">
                                             <form method="dialog">
                                                 {/* if there is a button in form, it will close the modal */}
                                                 <button className="mt-1"><FaCircleXmark className='text-[1rem]' /></button>
                                             </form>
                                             </div>
-                                            <div className='text-center'>
+                                            <div className='text-center bg-starsWhite text-starsBlack'>
                                                 <h3 className="font-bold text-lg text-starsBlack">Hi, Share this resource!</h3>
                                                 <p className="py-4 text-starsBlack">If you like this resource, share it with your friends</p>
 
@@ -497,7 +500,7 @@ const Page = () => {
                                         <span className="text-starsGrey pt-1 hover:text-starspurpleDark">Add to wishlist</span>
                                     </Link>
                                 </div>
-                                <div className="self-center text-[14px]">
+                                <div className="self-center text-[14px] 2xl:block xl:block lg:block md:hidden sm:hidden xsm:hidden">
                                     <button href={''} className='flex gap-1' onClick={handleCompareAlternatives}>
                                         <FaScaleBalanced className='self-center' />
                                         <span className="text-starsGrey pt-1 hover:text-starspurpleDark">Compare alternatives</span>
@@ -506,7 +509,7 @@ const Page = () => {
                             </div>
                         </div>
                     </div>
-                    <div className='self-end rounded-lg w-[25rem] h-[25rem]'>
+                    <div className='flex 2xl:justify-end xl:justify-end lg:justify-end md:justify-end sm:justify-center xsm:justify-center self-end rounded-lg 2xl:w-[25rem] xl:w-[25rem] lg:w-[25rem] md:w-[25rem] sm:w-[100%] xsm:w-[100%]  2xl:h-[25rem] xl:h-[25rem] lg:h-[25rem] md:h-[25rem] sm:h-auto xsm:h-auto 2xl:my-0 xl:my-0 lg:my-0 md:my-0 sm:my-8 xsm:my-8'>
                         <Image
                             src={`${fetchedData?.tool?.logo || ""}`}
                             width={500}
@@ -517,8 +520,8 @@ const Page = () => {
                     </div>
                 </div>
 
-                <div className='flex justify-between gap-[5%]'>
-                    <main className="w-4/6">
+                <div className='flex 2xl:flex-row xl:flex-row lg:flex-row md:flex-row sm:flex-col xsm:flex-col justify-between gap-[5%]'>
+                    <main className="2xl:w-4/6 xl:w-4/6 lg:w-4/6 md:w-4/6 sm:w-6/6 xsm:6/6">
                         <div className='w-[100%]'>
                             <ProductdetailCarousel productImages={fetchedData} />
                         </div>
@@ -557,12 +560,12 @@ const Page = () => {
                             <Link href={''}> entertainment </Link>
                         </button>
 
-                        <div className="p-4">
-                            {videoId ? (
-                                <YoutubeVideo videoId={videoId} height="500" width="800" autoplay={0} />
-                            ) : (
-                                <p>No video found.</p>
-                            )}
+                        <div className="p-4 w-full" style={{ aspectRatio: '16/9' }}>
+                        {videoId ? (
+                            <YoutubeVideo videoId={videoId} autoplay={0} />
+                        ) : (
+                            <p>No video found.</p>
+                        )}
                         </div>
 
                         <div className="mt-[32px]">
@@ -571,7 +574,7 @@ const Page = () => {
                             <div className="pt-[12px]">
                                 <ul className="">
                                     {fetchedData?.tool?.features.map((item: any) => (
-                                        <li key={item} className="flex gap-[0.5rem] text-[.875rem] font-[400] leading-[1.25rem]">
+                                        <li key={item._id} className="flex gap-[0.5rem] text-[.875rem] font-[400] leading-[1.25rem] my-[1rem]">
                                             <FaCheckCircle className="self-center" />
                                             <p className='pt-1'>{item}</p>
                                         </li>
@@ -604,7 +607,7 @@ const Page = () => {
 
                             {
                                 reviews?.reviews?.map(item=>(
-                                    <div className="mt-[36px]" key={item?.id}>
+                                    <div className="mt-[36px]" key={item?._id}>
                                         <div className="flex gap-[1rem]">
                                             <div className="rounded-full w-[1.5rem] h-[1.5rem] bg-starspink self-center text-center text-starsWhite items-center">V</div>
                                             <div className="self-center items-center mt-1 text-starsBlack">{item.userId}</div>
@@ -623,22 +626,22 @@ const Page = () => {
                                 ))
                             }
 
-                            <form className="mt-[36px] border-t border-[#d4d3d3] py-4" onSubmit={handleReviewSubmit}>
+                            <form className="mt-[36px] border-t border-[#d4d3d3] py-4 " onSubmit={handleReviewSubmit}>
                                 <label htmlFor="" className='font-[800] text-[1.5rem]'>Add a rating</label>
                                 <textarea
-                                    className="textarea textarea-bordered w-[100%] mt-2"
+                                    className="bg-starsWhite text-starsBlack textarea textarea-bordered w-[100%] mt-2 border "
                                     placeholder="Add a review"
                                     value={reviewContent}
                                     onChange={(e) => setReviewContent(e.target.value)}
                                 ></textarea>
                                 <div className='flex items-center justify-between'>
-                                        <div className="rating">
+                                        <div className="rating text-starsBlack">
                                         {[1, 2, 3, 4, 5].map((star) => (
                                             <input
                                                 key={star}
                                                 type="radio"
                                                 name="rating-1"
-                                                className="mask mask-star"
+                                                className="mask mask-star bg-starsBlack"
                                                 checked={reviewStars === star}
                                                 onChange={() => setReviewStars(star)}
                                             />
@@ -657,16 +660,16 @@ const Page = () => {
                         </div>
                     </main>
 
-                    <aside className='w-2/6 sticky'>
+                    <aside className='2xl:w-2/6 xl:w-2/6 lg:w-2/6 md:w-2/6 sm:w-6/6 xsm:w-6/6 2xl:mt-0 xl:mt-0 lg:mt-0 md:mt-0 sm:mt-8 xsm:mt-8 sticky'>
                         <div className="flex gap-[1rem]">
-                            <h2 className="text-[24px]">Similar Apps</h2>
+                            <h2 className="text-[1.5rem] font-[700]">Similar Apps</h2>
                             <FaArrowRight className='self-center' />
                         </div>
 
-                        <div className='mt-[2rem] flex flex-col gap-4'>
+                        <div className='2xl:mt-[2rem] xl:mt-[2rem] lg:mt-[2rem] md:mt-[2rem] sm:mt-[1rem] xsm:mt-[1rem] flex flex-col gap-4'>
                             {filteredProducts.map(item => (
-                                <Link href={`/courses/products/${item._id}`} key={item?.id}>
-                                    <div className="flex gap-2 justify-between items-center w-full p-4 mb-3 border border-opacity-30 border-starsGrey shadow-sm rounded-md cursor-pointer" onClick={() => handleProductClick(item)}>
+                                <Link href={`/courses/products/${item._id}`} key={item?._id}>
+                                    <div key={item.id} className="flex gap-2 justify-between items-center w-full p-4 mb-3 border border-opacity-30 border-starsGrey shadow-sm rounded-md cursor-pointer" onClick={() => handleProductClick(item)}>
                                         <div className="object-cover rounded-full w-[40%] flex items-center">
                                             <Image src={`${item.logo}`} alt={item.name} width={150} height={150} className='self-center rounded-full'  />
                                         </div>

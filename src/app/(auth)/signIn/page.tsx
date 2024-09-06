@@ -68,7 +68,7 @@ const Page = () => {
                       name='username'
                       value={form.username}
                       placeholder="Enter username to log in"
-                      className="block w-full p-4 text-starsBlack placeholder-gray-500 transition-all duration-200 border border-gray-200 rounded-md bg-gray-50 focus:outline-none focus:border-blue-600 focus:bg-white caret-blue-600"
+                      className="block w-full p-4 text-starsBlack bg-starsWhite placeholder-gray-500 transition-all duration-200 border border-gray-200 rounded-md bg-gray-50 focus:outline-none focus:border-blue-600 focus:bg-white caret-blue-600"
                     />
                   </div>
                 </div>
@@ -85,7 +85,7 @@ const Page = () => {
                       name='password'
                       value={form.password}
                       placeholder="Enter your password"
-                      className="block w-full p-4 text-starsBlack placeholder-gray-500 transition-all duration-200 border border-gray-200 rounded-md bg-gray-50 focus:outline-none focus:border-blue-600 focus:bg-white caret-blue-600"
+                      className="block w-full p-4 bg-starsWhite text-starsBlack placeholder-gray-500 transition-all duration-200 border border-gray-200 rounded-md bg-gray-50 focus:outline-none focus:border-blue-600 focus:bg-white caret-blue-600"
                     />
                   </div>
                 </div>
