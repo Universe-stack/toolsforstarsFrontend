@@ -1,4 +1,5 @@
 //@ts-nocheck
+'use client'
 import CardCarousel from "../Slider/CardCarousel";
 import ReactStarsRating from 'react-awesome-stars-rating';
 import Link from 'next/link'

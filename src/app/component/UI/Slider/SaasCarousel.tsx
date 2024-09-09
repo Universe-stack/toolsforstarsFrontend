@@ -1,23 +1,25 @@
 //@ts-nocheck
 'use client'
 
-import React, {useContext, useState} from 'react';
+import Link from 'next/link';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { IoBrush } from "react-icons/io5";
-import { IoMicSharp } from "react-icons/io5";
-import { IoVideocam } from "react-icons/io5";
-import { IoFolderOpen } from "react-icons/io5";
-import { FaPenToSquare } from "react-icons/fa6";
-import { FaVolumeHigh } from "react-icons/fa6";
-import { FaGlobe } from "react-icons/fa6";
-import { MdAlarm } from "react-icons/md";
-import { MdPhotoLibrary } from "react-icons/md";
-import { IconsContext } from '@/context/IconsContext';
+import { IoBrush, IoMicSharp, IoVideocam, IoFolderOpen } from "react-icons/io5";
+import { FaPenToSquare, FaVolumeHigh, FaGlobe } from "react-icons/fa6";
+import { MdAlarm, MdPhotoLibrary } from "react-icons/md";
 
-
-
+const categories = [
+  { name: 'Design', icon: IoBrush, slug: 'design' },
+  { name: 'Podcast', icon: IoMicSharp, slug: 'podcast' },
+  { name: 'Video', icon: IoVideocam, slug: 'video' },
+  { name: 'Team mgt', icon: IoFolderOpen, slug: 'team' },
+  { name: 'Writing', icon: FaPenToSquare, slug: 'writing' },
+  { name: 'Audio', icon: FaVolumeHigh, slug: 'audio' },
+  { name: 'Websites', icon: FaGlobe, slug: 'website' },
+  { name: 'Productivity', icon: MdAlarm, slug: 'productivity' },
+  { name: 'Images', icon: MdPhotoLibrary, slug: 'image' },
+];
 function SampleNextArrow(props:any) {
   const { className, style, onClick } = props;
   return (
@@ -42,14 +44,8 @@ function SamplePrevArrow(props:any) {
 
 
 
-function SaasCarousel({onIconChange}) {
+export default function SaasCarousel({ currentCategory }) {
 
-  const {icon, setIcon} = useContext(IconsContext)
-
-  const handleIconClick = async (iconn) => {
-    await setIcon(iconn)
-    onIconChange(iconn)
-  };
 
   const settings = {
     dots: false,
@@ -88,41 +84,15 @@ function SaasCarousel({onIconChange}) {
 //1024
   return (
     <Slider {...settings}>
-      <div className="grid justify-center align-center w-[100%] ">
-        <div className=' flex flex-col text-[0.9375rem] place-self-center my-[12px] text-[#717171] hover:text-[#121212] cursor-pointer active:opacity-[70%]' onClick={() => handleIconClick('design')} ><IoBrush className='text-[24px] self-center' /><p className="text-center self-center">Design</p></div>
+    {categories.map((category) => (
+      <div key={category.slug} className="grid justify-center align-center w-[100%]">
+        <Link href={`/saas/${category.slug}`} className={`flex flex-col text-[0.9375rem] place-self-center my-[12px] ${currentCategory === category.slug ? 'text-[#121212]' : 'text-[#717171]'} hover:text-[#121212] cursor-pointer active:opacity-[70%]`}>
+          <category.icon className='text-[24px] self-center' />
+          <p className="text-center self-center">{category.name}</p>
+        </Link>
       </div>
-      <div className="flex justify-center align-middle w-[100%]">
-      <div className='flex flex-col text-[0.9375rem] self-center my-[12px] text-[#717171] hover:text-[#121212] cursor-pointer active:opacity-[70%]'  onClick={() => handleIconClick('podcasts')}><IoMicSharp className='text-[24px] self-center' /><p className="text-center self-center">Podcast</p></div>
-      </div>
-      <div className="flex justify-center align-middle w-[100%]">
-      <div className='flex flex-col text-[0.9375rem] self-center my-[12px] text-[#717171] hover:text-[#121212] cursor-pointer active:opacity-[70%]'  onClick={() => handleIconClick('videos')}><IoVideocam className='text-[24px] self-center' /><p className="text-center self-center">Video</p></div>
-      </div>
-      <div className="flex justify-center align-middle w-[100%]">
-      <div className='flex flex-col text-[0.9375rem] self-center my-[12px] text-[#717171] hover:text-[#121212] cursor-pointer active:opacity-[70%]'  onClick={() => handleIconClick('team')}><IoFolderOpen className='text-[24px] self-center' /><p className="text-center self-center">Team mgt</p></div>
-      </div>
-      <div className="flex justify-center align-middle w-[100%]">
-      <div className='flex flex-col text-[0.9375rem] self-center my-[12px] text-[#717171] hover:text-[#121212] cursor-pointer active:opacity-[70%]'  onClick={() => handleIconClick('writing')}><FaPenToSquare className='text-[24px] self-center' /><p className="text-center self-center">Writing</p></div>
-      </div>
-      <div className="flex justify-center align-middle w-[100%]">
-      <div className='flex flex-col text-[0.9375rem] self-center my-[12px] text-[#717171] hover:text-[#121212] cursor-pointer active:opacity-[70%]'  onClick={() => handleIconClick('audio')}><FaVolumeHigh className='text-[24px] self-center' /><p className="text-center self-center">Audio</p></div>
-      </div>
-      <div className="flex justify-center align-middle w-[100%]">
-      <div className='flex flex-col text-[0.9375rem] self-center my-[12px] text-[#717171] hover:text-[#121212] cursor-pointer active:opacity-[70%]'  onClick={() => handleIconClick('website')}><FaGlobe className='text-[24px] self-center' /><p className="text-center self-center">Websites</p></div>
-      </div>
-      <div className="flex justify-center align-middle w-[100%]">
-      <div className='flex flex-col text-[0.9375rem] self-center my-[12px] text-[#717171] hover:text-[#121212] cursor-pointer active:opacity-[70%]'  onClick={() => handleIconClick('productivity')}><MdAlarm className='text-[24px] self-center' /><p className="text-center self-center">Productivity</p></div>
-      </div>
-      <div className="flex justify-center align-middle w-[100%]">
-      <div className='flex flex-col text-[0.9375rem] self-center my-[12px] text-[#717171] hover:text-[#121212] cursor-pointer active:opacity-[70%]'><MdPhotoLibrary className='text-[24px] self-center' /><p className="text-center self-center"  onClick={() => handleIconClick('image')}>Images</p></div>
-      </div>
-      <div className="flex justify-center align-middle w-[100%]">
-        <div className='flex flex-col text-[0.9375rem] self-centerem my-[12px] text-[#717171] hover:text-[#121212] cursor-pointer active:opacity-[70%]'><IoBrush className='text-[24px] self-center' /><p className="text-center self-center"  onClick={() => handleIconClick('Design')}>Design</p></div>
-      </div>
-      <div className="flex justify-center align-middle w-[100%]">
-        <div className='flex flex-col text-[0.9375rem] self-centerem my-[12px] text-[#717171] hover:text-[#121212] cursor-pointer active:opacity-[70%]'><IoBrush className='text-[24px] self-center' /><p className="text-center self-center">Design</p></div>
-      </div>
-    </Slider>
+    ))}
+  </Slider>
   );
 }
 
-export default SaasCarousel;

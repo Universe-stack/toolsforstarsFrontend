@@ -265,7 +265,7 @@ const Page = () => {
               value={formData.name}
               onChange={handleInputChange}
               placeholder="Enter name of saas product"
-              className="block w-full py-2 px-4 mb-4 text-gray-700 bg-gray-200 border border-gray-200 rounded"
+              className="block w-full py-2 px-4 mb-4 text-gray-700 bg-gray-200 border border-gray-200 rounded bg-starsWhite text-starsBlack"
             />
             <button onClick={handleNext} className="hover:bg-starspurpleDark text-starsBlack py-2 px-4 rounded border border-[#ccc] flex gap-2 self-end">
               Next
@@ -290,7 +290,7 @@ const Page = () => {
               value={formData.productLink}
               onChange={handleInputChange}
               placeholder="Add the link to your product here"
-              className="block w-full py-2 px-4 mb-4 text-gray-700 bg-gray-200 border border-gray-200 rounded"
+              className="block w-full py-2 px-4 mb-4 text-gray-700 bg-gray-200 border border-gray-200 rounded bg-starsWhite text-starsBlack"
             />
 
             <h2 className="mt-6 text-[12px] font-bold leading-tight text-starsBlack sm:text-[16px] lg:text-[16px] text-left mb-2">Youtube Video Link</h2>
@@ -300,7 +300,7 @@ const Page = () => {
               value={formData.youtubeLink}
               onChange={handleInputChange}
               placeholder="Add the link to your promotional video here"
-              className="block w-full py-2 px-4 mb-4 text-gray-700 bg-gray-200 border border-gray-200 rounded"
+              className="block w-full py-2 px-4 mb-4 text-gray-700 bg-gray-200 border border-gray-200 rounded bg-starsWhite text-starsBlack"
             />
 
             <h2 className="mt-6 text-[12px] font-bold leading-tight text-starsBlack sm:text-[16px] lg:text-[16px] text-left mb-2">Description</h2>
@@ -310,7 +310,7 @@ const Page = () => {
               value={formData.description}
               onChange={handleInputChange}
               placeholder="describe this product briefly (tool for ...)"
-              className="block w-full py-2 px-4 mb-4 text-gray-700 bg-gray-200 border border-gray-200 rounded"
+              className="block w-full py-2 px-4 mb-4 text-gray-700 bg-gray-200 border border-gray-200 rounded bg-starsWhite text-starsBlack"
             />
 
             <div>
@@ -321,7 +321,7 @@ const Page = () => {
                     type="text"
                     value={feature}
                     onChange={(e) => handleFeatureChange(index, e.target.value)}
-                    className="border border-gray-300 rounded-md px-3 py-2 w-full mr-2"
+                    className="border border-gray-300 rounded-md px-3 py-2 w-full mr-2 bg-starsWhite text-starsBlack"
                     placeholder={`Feature ${index + 1}`}
                   />
                   <button
@@ -353,7 +353,7 @@ const Page = () => {
               name="logo"
               accept="image/*" // Only accept image files
               onChange={handleInputChange}
-              className="py-2 block w-full rounded-md bg-gray-100 border-gray-300 focus:border-starsBlack focus:ring focus:ring-starsBlack focus:ring-opacity-80 cursor-pointer mb-4"
+              className="py-2 block w-full rounded-md bg-gray-100 border-gray-300 focus:border-starsBlack focus:ring focus:ring-starsBlack focus:ring-opacity-80 cursor-pointer mb-4 bg-starsWhite text-starsBlack"
             />
 
             <h2 className="mt-6 text-[12px] font-bold leading-tight text-starsBlack sm:text-[16px] lg:text-[16px] text-left mb-2">
@@ -366,7 +366,7 @@ const Page = () => {
               accept="image/*" // Only accept image files
               multiple // Allow multiple file selection
               onChange={handleInputChange}
-              className="py-2 block w-full rounded-md bg-gray-100 border-gray-300 focus:border-starsBlack focus:ring focus:ring-starsBlack focus:ring-opacity-80 cursor-pointer mb-4"
+              className="py-2 block w-full rounded-md bg-gray-100 border-gray-300 focus:border-starsBlack focus:ring focus:ring-starsBlack focus:ring-opacity-80 cursor-pointer mb-4 bg-starsWhite text-starsBlack"
             />
 
             <h2 className="mt-6 text-[12px] font-bold leading-tight text-starsBlack sm:text-[16px] lg:text-[16px] text-left mb-2">
@@ -379,7 +379,7 @@ const Page = () => {
               name="pricing"
               onChange={handleInputChange}
               placeholder="Add price of tool ($)"
-              className="block w-full py-2 px-4 mb-4 text-gray-700 bg-gray-200 border border-gray-200 rounded"
+              className="block w-full py-2 px-4 mb-4 text-gray-700 bg-gray-200 border border-gray-200 rounded bg-starsWhite text-starsBlack"
             />
 
             <div className="mt-5">
@@ -392,7 +392,7 @@ const Page = () => {
                 value={formData.productType}
                 onChange={handleInputChange}
                 placeholder="e.g. saas"
-                className="block w-full py-2 px-4 mb-4 text-gray-700 bg-gray-200 border border-gray-200 rounded"
+                className="block w-full py-2 px-4 mb-4 text-gray-700 bg-gray-200 border border-gray-200 rounded bg-starsWhite text-starsBlack"
               />
             </div>
 
