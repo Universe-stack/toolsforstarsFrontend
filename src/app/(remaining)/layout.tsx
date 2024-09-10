@@ -2,6 +2,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import '../globals.css';
 import Navbar from '../component/Navbar';
+import Announcement from '../component/Announcement';
 import Footer from '../component/Footer';
 import localFont from '@next/font/local';
 import { IconsContextProvider } from '@/context/IconsContext';
@@ -38,6 +39,7 @@ const RootLayout: NextPage<{ children: React.ReactNode }> = ({ children }) => {
         <AuthProvider>
           <PaymentsContextProvider>
             <Navbar />
+            <Announcement />
             <ResourceProvider>
             <IconsContextProvider>
               {children}

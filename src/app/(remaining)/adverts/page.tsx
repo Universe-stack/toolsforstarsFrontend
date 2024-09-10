@@ -37,12 +37,12 @@ const Page = () => {
   };
 
   return (
-    <section className='w-full flex justify-center bg-starsWhite'>
+    <section className='w-full flex justify-center bg-starsWhite text-starsBlack'>
       
-      <div className='self-center w-[70%] my-[5rem] md:my-[5rem]'>
+      <div className='self-center w-[77%] my-[5rem] md:my-[5rem]'>
         <div className=''>
-          <h1 className='text-[2rem] font-[700]'>Advertise on Cre8camp</h1>
-          <p className='mt-2 text-[#ccc]'>Promote your products and services</p>
+          <h1 className='text-[2rem] font-[700]'>Advertise on Createcamp</h1>
+          <p className='mt-2 text-starsGrey'>Promote your products and services</p>
         </div>
 
         <div className='w-full flex gap-10 mb-6 mt-8' style={{ height: 'calc(100vh - 5rem)'}}>

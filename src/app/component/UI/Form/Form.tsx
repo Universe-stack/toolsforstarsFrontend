@@ -52,7 +52,7 @@ const AdForm = ({ onSubmit }) => {
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="mt-1 p-2 w-full border border-[#ccc] rounded-sm"
+          className="mt-1 p-2 w-full border border-[#ccc] rounded-sm bg-starsWhite text-starsBlack"
         />
       </div>
       <div className="mb-4">
@@ -60,7 +60,7 @@ const AdForm = ({ onSubmit }) => {
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className="mt-1 p-2 w-full border border-[#ccc] rounded-sm"
+          className="mt-1 p-2 w-full border border-[#ccc] rounded-sm bg-starsWhite text-starsBlack"
         />
         <div className="text-sm text-gray-500 mt-1">
           {description.length}/{DESCRIPTION_LIMIT} characters
@@ -75,7 +75,7 @@ const AdForm = ({ onSubmit }) => {
           type="text"
           value={link}
           onChange={(e) => setLink(e.target.value)}
-          className="mt-1 p-2 w-full border border-[#ccc] rounded-sm"
+          className="mt-1 p-2 w-full border border-[#ccc] rounded-sm bg-starsWhite text-starsBlack"
         />
       </div>
       <div className="grid grid-cols-2 gap-4 mb-4">
@@ -85,16 +85,16 @@ const AdForm = ({ onSubmit }) => {
             type="number"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
-            className="mt-1 p-2 w-full border border-[#ccc] rounded-sm"
+            className="mt-1 p-2 w-full border border-[#ccc] rounded-sm  bg-starsWhite text-starsBlack"
           />
         </div>
         <div>
-          <label className="block text-starsBlack text-[16px] mb-1">Image URL</label>
+          <label className="block text-starsBlack text-[16px] mb-1">Image URL(screenshot of Heropage)</label>
           <input
             type="text"
             value={image}
             onChange={(e) => setImage(e.target.value)}
-            className="mt-1 p-2 w-full border border-[#ccc] rounded-sm"
+            className="mt-1 p-2 w-full border border-[#ccc] rounded-sm bg-starsWhite text-starsBlack"
           />
         </div>
       </div>
@@ -103,7 +103,7 @@ const AdForm = ({ onSubmit }) => {
         <select
           value={adSpace}
           onChange={(e) => setAdSpace(e.target.value)}
-          className="mt-1 p-2 w-full border border-[#ccc] rounded-sm"
+          className="mt-1 p-2 w-full border border-[#ccc] rounded-sm bg-starsWhite text-starsBlack"
         >
           <option value="none">None</option>
           <option value="hero-pro">Landing page top banner  [$5/day]</option>
@@ -120,7 +120,7 @@ const AdForm = ({ onSubmit }) => {
           type="date"
           value={startingDate}
           onChange={(e) => setStartingDate(e.target.value)}
-          className="mt-1 p-2 w-full border border-[#ccc] rounded-sm"
+          className="mt-1 p-2 w-full border border-[#ccc] rounded-sm bg-starsWhite text-starsBlack"
         />
       </div>
       <div className="grid grid-cols-2 gap-4 mb-4">
@@ -129,7 +129,7 @@ const AdForm = ({ onSubmit }) => {
           <input
             type="number"
             value={campaignBudget}
-            className="mt-1 p-2 w-full border border-[#ccc] rounded-sm"
+            className="mt-1 p-2 w-full border border-[#ccc] rounded-sm bg-starsWhite text-starsBlack"
             readOnly
           />
         </div>
@@ -139,7 +139,7 @@ const AdForm = ({ onSubmit }) => {
             type="number"
             value={duration}
             onChange={(e) => setDuration(e.target.value)}
-            className="mt-1 p-2 w-full border border-[#ccc] rounded-sm"
+            className="mt-1 p-2 w-full border border-[#ccc] rounded-sm bg-starsWhite text-starsBlack"
           />
         </div>
       </div>

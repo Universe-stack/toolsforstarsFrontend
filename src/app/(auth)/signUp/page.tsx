@@ -82,7 +82,7 @@ const Page = () => {
             <p className="max-w-xl mx-auto mt-4 text-base leading-relaxed text-starsWhite">You can create a free CreateCamp account in 60 seconds</p>
         </div>
 
-        <div className="relative max-w-md mx-auto mt-8 md:mt-16 bg-starsWhite rounded-md">
+        <div className="relative max-w-md mx-auto mt-8 md:mt-16 bg-starsWhite text-starsBlack rounded-md">
             <div className="overflow-hidden bg-white rounded-md shadow-md">
                 <div className="px-4 py-6 sm:px-8 sm:py-7">
                     <form action="#" method="POST" onSubmit={handleSubmit}>
@@ -103,7 +103,7 @@ const Page = () => {
                                         value={form.name}
                                         id=""
                                         placeholder="Enter your full name"
-                                        className="block w-full py-4 pl-10 pr-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600"
+                                        className="block w-full py-4 pl-10 pr-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600 bg-starsWhite text-starsBlack"
                                     />
                                 </div>
                             </div>
@@ -124,7 +124,7 @@ const Page = () => {
                                         value={form.username}
                                         id=""
                                         placeholder="Enter your username"
-                                        className="block w-full py-4 pl-10 pr-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600"
+                                        className="block w-full py-4 pl-10 pr-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600 bg-starsWhite text-starsBlack"
                                     />
                                 </div>
                             </div>
@@ -145,7 +145,7 @@ const Page = () => {
                                         value={form.email}
                                         id=""
                                         placeholder="Enter email to get started"
-                                        className="block w-full py-4 pl-10 pr-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600"
+                                        className="block w-full py-4 pl-10 pr-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600 bg-starsWhite text-starsBlack"
                                     />
                                 </div>
                             </div>
@@ -171,21 +171,21 @@ const Page = () => {
                                         value={form.password}
                                         id=""
                                         placeholder="Enter your password"
-                                        className="block w-full py-4 pl-10 pr-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600"
+                                        className="block w-full py-4 pl-10 pr-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600 bg-starsWhite text-starsBlack"
                                     />
                                 </div>
                             </div>
 
                             <div>
-                                        <label className="text-base font-medium text-gray-900"> Role </label>
+                                        <label className="text-base font-medium text-starsWhite"> Role </label>
                                         <select
                                             name="role"
                                             value={form.role}
                                             onChange={handleInputChange}
-                                            className="block w-full py-4 pl-3 pr-10 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600  cursor-pointer"
+                                            className="block w-full py-4 pl-3 pr-10 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600  cursor-pointer bg-starsWhite text-starsBlack"
                                         >
-                                            <option value="visitor">Creator - You wish to use our platform</option>
-                                            <option value="publisher">Publisher - You wish to publish a tool</option>
+                                            <option value="visitor">Creator - You wish to find resources</option>
+                                            <option value="publisher">Publisher - You wish to publish a resource</option>
                                         </select>
                             </div>
 
@@ -194,7 +194,7 @@ const Page = () => {
                                             type="checkbox"
                                             name="agree"
                                             id="agree"
-                                            className="w-5 h-5 text-green-500 bg-white border-gray-200 rounded"
+                                            className="w-5 h-5 text-green-500 bg-white border-gray-200 rounded bg-starsWhite text-starsBlack"
                                             checked={agreeChecked}
                                             onChange={handleCheckboxChange}
                                         />

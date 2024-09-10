@@ -21,7 +21,7 @@ interface AdCardProps {
             <div className="py-5 sm:py-8 lg:py-16">
                 <div className="grid items-center grid-cols-1 gap-y-8 lg:grid-cols-2 lg:gap-x-8 2xl:gap-x-20">
                     <div className="lg:order-2">
-                        <Image width={500} height={500} className="w-full shadow-xl rounded-xl" src={``} alt="" />
+                        <Image width={500} height={500} className="w-full shadow-xl rounded-xl" src={image} alt="" />
                     </div>
 
                     <div className="lg:order-1">

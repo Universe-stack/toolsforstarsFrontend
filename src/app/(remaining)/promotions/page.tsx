@@ -13,7 +13,7 @@ const Page = () => {
   };
 
   return (
-    <section className='w-full flex justify-center'>
+    <section className='w-full flex justify-center bg-starsWhite text-starsBlack'>
     <div className="bg-white w-[80%] self-center text-starsBlack">
         <section className=" bg-opacity-30 py-10 sm:py-16 lg:pt-24 lg:pb-16">
             <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">

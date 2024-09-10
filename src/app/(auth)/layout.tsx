@@ -6,7 +6,7 @@ import { AuthProvider } from '@/context/AuthContext';
 
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://realsnetwork.vercel.app'),
+  metadataBase: new URL('https://createcamp.vercel.app'),
   title: 'CreateCamp',
   description: 'Become a real deal',
   generator: 'Next.js',
