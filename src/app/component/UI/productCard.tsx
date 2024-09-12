@@ -1,21 +1,23 @@
 'use client'
 import Link from "next/link";
+import Image from 'next/image'
 
 interface ProductCardProps {
     name: string;
     description: string;
     price:string;
-    productLink:string
+    productLink:string;
+    image:string;
     // Add other properties as needed
   }
   
 
   
-  const ProductCard: React.FC<ProductCardProps> = ({ name, description, price, productLink }) => {
+  const ProductCard: React.FC<ProductCardProps> = ({ name, description, price, productLink,image }) => {
   
     return (
       <div className="card 2xl:w-[22rem] xl:w-[22rem] lg:w-[22rem] md:w-[22rem] sm:w-[100%] xsm:w-[100%]  shadow-xl self-center border  border-[#f0f0f0] bg-starsWhite text-starsBlack">
-        <figure><img src="https://res.cloudinary.com/dck5v2kub/image/upload/v1710263377/toolsForstars/SAASPIC1_yv31md.webp" alt="Shoes" /></figure>
+        <figure><Image src={image}  width={500} height={100} alt={name} className="object-cover h-[40%]" /></figure>
         <div className="card-body">
           <div className="flex items-center justify-between">
             <h2 className="card-title text-[1.5rem]">{name}</h2>

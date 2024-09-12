@@ -24,8 +24,11 @@ const fetchAllProducts = async () => {
     headers: {
       'Content-Type': 'application/json',
     },
+    cache: 'no-store', 
+    next: { revalidate: 0 },
   });
   const data = await res.json();
+  console.log(data, "data hero")
   return Array.isArray(data.tools) ? data.tools : [];
 };
 
@@ -35,15 +38,16 @@ const fetchAds = async (space) => {
     headers: {
       'Content-Type': 'application/json',
     },
+    cache: 'no-store', 
+    next: { revalidate: 0 },
   });
   const data = await res.json();
-  return data.filter(item => item.adSpace === space);
+  return data;
 };
 
 const Hero = async () => {
   const fetchedData = await fetchAllProducts();
-  const ads = await fetchAds('hero');
-  const adsPro = await fetchAds('hero-pro');
+  const ads= await fetchAds();
 
   const writingData = fetchedData.filter(tool => tool.categories?.includes('writing'));
   const videoData = fetchedData.filter(tool => tool.categories?.includes('video'));
@@ -72,7 +76,7 @@ const Hero = async () => {
           </div>
         </div>
         <div className='2xl:w-[50%] xl:w-[50%] lg:w-[50%] md:w-[90%] sm:w-[90%] xsm:w-[80%] xsm:mt-[1rem] md:mt-[1rem] sm:mt-[1rem] self-center'>
-          <Carousel ads={adsPro} />
+          <Carousel ads={ads} />
         </div>
       </div>
 

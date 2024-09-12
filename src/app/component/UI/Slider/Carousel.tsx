@@ -6,14 +6,6 @@ import 'slick-carousel/slick/slick-theme.css';
 import ProductCard from '../productCard';
 
 function Carousel({ads}:any) {
-  const products = [
-    { name: 'alih', description: 'Connect your WordPress forms with hundreds of popular tools using custom-built integrations' },
-    { name: 'Beingo', description: 'Connect your WordPress forms with hundreds of popular tools using custom-built integrations' },
-    { name: 'Lakpa', description: 'Connect your WordPress forms with hundreds of popular tools using custom-built integrations' },
-    { name: 'Feura', description: 'Connect your WordPress forms with hundreds of popular tools using custom-built integrations' },
-    { name: 'Bioan', description: 'Connect your WordPress forms with hundreds of popular tools using custom-built integrations' },
-    { name: 'haone', description: 'Connect your WordPress forms with hundreds of popular tools using custom-built integrations' }
-  ];
 
   const settings = {
     dots: false,
@@ -39,7 +31,7 @@ function Carousel({ads}:any) {
     <Slider {...settings} className='z-30'>
       {ads.map((product:any, index:any) => (
         <div key={index} >
-          <ProductCard name={product.title} description={product.description} productLink={product.purchaseLink} price={product.price}  />
+          <ProductCard name={product.title} description={product.description} productLink={product.purchaseLink} price={product.price} image={product.image}  />
         </div>
       ))}
     </Slider>
