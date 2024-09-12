@@ -20,28 +20,38 @@ const buttonOptions = [
 ];
 
 const fetchAllProducts = async () => {
-  const res = await fetch('https://createcamp.onrender.com/tools/all', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    cache: 'no-store',
-  });
-  const data = await res.json();
-  console.log(data, "data hero")
-  return Array.isArray(data.tools) ? data.tools : [];
+  try {
+    const res = await fetch('https://createcamp.onrender.com/tools/all');
+
+    if (!res.ok) {
+      throw new Error('Failed to fetch products');
+    }
+
+    const data = await res.json();
+    console.log(data, "data hero");
+
+    // Ensure we return an array
+    return Array.isArray(data.tools) ? data.tools : [];
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    return []; // Return an empty array as fallback
+  }
 };
 
 const fetchAds = async (space) => {
-  const res = await fetch('https://createcamp.onrender.com/ads/all', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    cache: 'no-store'
-  });
-  const data = await res.json();
-  return data;
+  try {
+    const res = await fetch('https://createcamp.onrender.com/ads/all');
+
+    if (!res.ok) {
+      throw new Error('Failed to fetch ads');
+    }
+
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching ads:', error);
+    return {}; // Return an empty object as fallback
+  }
 };
 
 const Hero = async () => {
