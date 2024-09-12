@@ -25,8 +25,7 @@ const fetchAllProducts = async () => {
     headers: {
       'Content-Type': 'application/json',
     },
-    cache: 'no-store', 
-    next: { revalidate: 0 },
+    cache: 'no-store',
   });
   const data = await res.json();
   console.log(data, "data hero")
@@ -39,8 +38,7 @@ const fetchAds = async (space) => {
     headers: {
       'Content-Type': 'application/json',
     },
-    cache: 'no-store', 
-    next: { revalidate: 0 },
+    cache: 'no-store'
   });
   const data = await res.json();
   return data;
