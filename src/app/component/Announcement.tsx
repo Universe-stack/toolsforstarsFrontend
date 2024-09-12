@@ -5,7 +5,7 @@ type Props = {}
 
 const Announcement = (props: Props) => {
   return (
-    <div className='bg-starspurpleDark w-[100vw] flex justify-center py-2 '>
+    <div className='bg-starspurpleDark w-full flex justify-center py-2 '>
             <Link href={"/promotions"} className='w-[77%]'>
                 <div className='w-full flex justify-start gap-4'>
                     <p className='text-starsWhite self-center'>Announcement: Advertise & Promote your resource</p> 

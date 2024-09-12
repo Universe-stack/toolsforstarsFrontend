@@ -49,7 +49,7 @@ const HeroForm = (props: Props) => {
 
   return (
     <div className='mt-[5rem w-[100%]'>
-    <p className='font-[600] text-starsWhite 2xl:text-[1.25rem] xl:text-[1.25rem] lg:text-[1.25rem] md:text-[1.25rem] sm:text-[1rem] xsm:text-[1rem]'>Join our newsletter to get updates on new tools weekly</p>
+    <p className='font-[600] text-starsWhite 2xl:text-[1.25rem] xl:text-[1.25rem] lg:text-[1.25rem] md:text-[1.25rem] sm:text-[1rem] xsm:text-[1rem]'>Join our newsletter to get updates on FREE resources and tools weekly</p>
 
     <form onSubmit={subscribeUser} className='flex 2xl:flex-row xl:flex-row lg:flex-row md:flex-row sm:flex-col xsm:flex-col w-[100%] gap-3 mt-[1rem] mb-4'>
       <input type="email" name="email" aria-label='Enter email address' aria-describedby='newsletter-btn' value={emailState.email} autoCapitalize='off' autoCorrect='off' onChange={emailHandler} placeholder="Enter your email" className="input input-bordered w-[100%] 2xl:max-w-xs xl:max-w-xs bg-starsWhite text-starsBlack" />
