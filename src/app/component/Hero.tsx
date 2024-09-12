@@ -68,13 +68,13 @@ const Hero = async () => {
 
 
   return (
-    <section className='flex flex-col justify-center w-full pb-[3rem] bg-starsWhite'>
-      <div className='self-center 2xl:w-[100%] xl:w-[100%] lg:w-[100%] md:w-[100%] xsm:w-[100%] flex gap-[5%] h-[100%] 2xl:h-[80vh] xl:h-[80vh] lg:h-[80%] md:h-[100%] xsm:h-[100%] sm:flex-col xsm:flex-col 2xl:flex-row xl:flex-row lg:flex-row md:flex-col md:pb-[3rem] sm:pb-[3rem] xsm:pb-[3rem] relative'>
+    <section className='flex flex-col justify-center w-[100%] pb-[3rem] bg-starsWhite'>
+      <div className='self-center 2xl:w-[100%] xl:w-[100%] lg:w-[100%] md:w-[100%] xsm:w-[100%] flex justify-center gap-[5%] chrLl:gap-[2%] h-[100%] 2xl:h-[80vh] xl:h-[80vh] lg:h-[80%] md:h-[100%] xsm:h-[100%] sm:flex-col xsm:flex-col 2xl:flex-row xl:flex-row lg:flex-row md:flex-col md:pb-[3rem] sm:pb-[3rem] xsm:pb-[3rem] relative'>
           <HeroVideo />
-        <div className='2xl:w-[50%] xl:w-[50%] lg:w-[50%] md:w-[80%] sm:w-[80%] xsm:w-[80%] flex xl:justify-center lg:justify-center md:justify-center self-center md:mt-[5rem] xsm:mt-[5rem] z-30'>
-          <div className='2xl:w-[72%] xl:w-[80%] lg:w-[80%]  md:w-[100%] 2xl:ml-auto md:ml-0 md:self-center xl:self-center lg:self-center'>
+        <div className=' 2xl:w-[50%] chrLl:w-[40%] xl:w-[50%] lg:w-[50%] md:w-[80%] sm:w-[80%] xsm:w-[80%] flex xl:justify-center lg:justify-center md:justify-center self-center md:mt-[5rem] xsm:mt-[5rem] chrLl:mt-[1.1rem] z-30'>
+          <div className='2xl:w-[72%] xl:w-[80%] lg:w-[80%] chrLl:w-[90%]  md:w-[100%] 2xl:ml-auto xl:ml-0 md:ml-0 md:self-center  lg:self-center chrLl:self-start xl:self-start '>
             
-            <h1 className='text-4xl sm:text-5xl md:text-4xl lg:text-5xl xl:text-5xl font-[700] text-starsWhite text-center xl:text-left 2xl:text-left lg:text-left xsm:leading-[3rem] sm:leading-[3rem] md:leading-[3.5rem] lg:leading-[3.5rem] xl:leading-[3.5rem] 2xl:leading-[3.5rem]'> You&apos;ve got the skills already -  Let us kit you up</h1>
+            <h1 className='text-4xl chrLl:text-[2.5rem] chrLl:leading-[3.5rem]  sm:text-5xl md:text-4xl lg:text-5xl xl:text-5xl font-[700] text-starsWhite text-center xl:text-left 2xl:text-left lg:text-left xsm:leading-[3rem] sm:leading-[3rem] md:leading-[3.5rem] lg:leading-[3.5rem] xl:leading-[3.5rem] 2xl:leading-[3.5rem]'> You&apos;ve got the skills already -  Let us kit you up</h1>
             <p className='mt-[1rem] text-[1rem] text-starsWhite text-center xl:text-left 2xl:text-left text-2xl xsm:text-[1.05rem] sm:text-[1.05rem] lg:text-left md:text-[1.25rem] lg:text-[1.25rem] xl:text-[1.25rem] '>
               This collection contains a variety of secret internet creator resources that you can use in your next project
             </p>
@@ -84,12 +84,12 @@ const Hero = async () => {
             </div>
           </div>
         </div>
-        <div className='2xl:w-[50%] xl:w-[50%] lg:w-[50%] md:w-[90%] sm:w-[90%] xsm:w-[80%] xsm:mt-[1rem] md:mt-[1rem] sm:mt-[1rem] self-center overflow-hidden'>
+        <div className=' 2xl:w-[50%] chrLl:w-[50%] xl:w-[50%] lg:w-[50%] md:w-[90%] sm:w-[90%] xsm:w-[80%] xsm:mt-[1rem] md:mt-[1rem] sm:mt-[1rem] self-center overflow-hidden'>
           <Carousel ads={ads} />
         </div>
      </div>
 
-      <div className="2xl:w-[75%] xl:w-[75%] md:w-[80%] sm:w-[80%] xsm:w-[80%] self-center ">
+      <div className="2xl:w-[75%] xl:w-[75%] chrLl:w-[90%] md:w-[80%] sm:w-[80%] xsm:w-[80%] self-center ">
         <div className="mt-[3rem]">
           <h2 className='font-[600] text-[1.5rem] text-starsBlack'> Top Charts</h2>
           <ClientFilters

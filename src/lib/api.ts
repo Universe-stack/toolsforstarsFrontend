@@ -1,88 +1,41 @@
-export async function fetchSaasTools(page = 1, sortBy = '', category = '') {
-  const url = new URL('https://createcamp.onrender.com/tools/saas');
-  url.searchParams.append('page', page.toString());
-  if (sortBy) url.searchParams.append('sortBy', sortBy);
-  if (category) url.searchParams.append('category', category);
-  console.log(sortBy, "sort by")
+import { cache } from 'react'
 
-  const res = await fetch(url.toString(), {
+const BASE_URL = 'https://createcamp.onrender.com'
+
+const fetchWithCache = cache(async (url:any, options:any) => {
+  const res = await fetch(url, options)
+  if (!res.ok) {
+    throw new Error(`Failed to fetch data from ${url}`)
+  }
+  return res.json()
+})
+
+async function fetchData(endpoint:any, params = {}, options = {}) {
+  const url = new URL(`${BASE_URL}${endpoint}`)
+  
+  Object.entries(params).forEach(([key, value]) => {
+    if (value) url.searchParams.append(key, value.toString())
+  })
+
+  const fetchOptions = {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     },
-    cache: 'no-store',
-  });
-
-  console.log(res, "data")
-
-  if (!res.ok) {
-    throw new Error('Failed to fetch SaaS tools');
+    next: { revalidate: 60 }, // Cache for 60 seconds
+    ...options,
   }
 
-  return res.json();
+  return fetchWithCache(url.toString(), fetchOptions)
 }
 
-export async function fetchApps(page = 1, sortBy = '', category = '') {
-  const url = new URL('https://createcamp.onrender.com/tools/apps');
-  url.searchParams.append('page', page.toString());
-  if (sortBy) url.searchParams.append('sortBy', sortBy);
-  if (category) url.searchParams.append('category', category);
-  console.log(sortBy, "sort by")
+export const fetchSaasTools = (page = 1, sortBy = '', category = '') =>
+  fetchData('/tools/saas', { page, sortBy, category })
 
-  const res = await fetch(url.toString(), {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    cache: 'no-store',
-  });
+export const fetchApps = (page = 1, sortBy = '', category = '') =>
+  fetchData('/tools/apps', { page, sortBy, category })
 
-  console.log(res, "data")
+export const fetchCourses = (page = 1, sortBy = '', category = '') =>
+  fetchData('/tools/courses', { page, sortBy, category })
 
-  if (!res.ok) {
-    throw new Error('Failed to fetch SaaS tools');
-  }
-
-  return res.json();
-}
-
-
-export async function fetchCourses(page = 1, sortBy = '', category = '') {
-  const url = new URL('https://createcamp.onrender.com/tools/courses');
-  url.searchParams.append('page', page.toString());
-  if (sortBy) url.searchParams.append('sortBy', sortBy);
-  if (category) url.searchParams.append('category', category);
-  console.log(sortBy, "sort by")
-
-  const res = await fetch(url.toString(), {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    cache: 'no-store',
-  });
-
-  console.log(res, "data")
-
-  if (!res.ok) {
-    throw new Error('Failed to fetch SaaS tools');
-  }
-
-  return res.json();
-}
-
-export async function fetchAds() {
-  const res = await fetch('https://createcamp.onrender.com/ads/all', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    cache: 'no-store',
-  });
-
-  if (!res.ok) {
-    throw new Error('Failed to fetch ads');
-  }
-
-  return res.json();
-}
+export const fetchAds = () => fetchData('/ads/all')

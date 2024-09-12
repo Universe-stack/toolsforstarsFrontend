@@ -64,7 +64,7 @@ const ClientFilters = ({ data, buttonOptions,category }: Props) => {
 
     return (
         <div>
-            <div className='xl:grid xl:grid-cols-10 lg:grid-cols-7 mt-4 justify-center gap-4 xsm:flex xsm:align-center xsm:overflow-x-auto xsm:justify-start scroll-container'>
+            <div className='xl:grid  chrLl:grid-cols-9 xl:grid-cols-10 lg:grid-cols-7 mt-4 justify-center gap-4 xsm:flex xsm:align-center xsm:overflow-x-auto xsm:justify-start scroll-container'>
                 {buttonOptions.map((item, id) => (
                     <button
                         key={id}

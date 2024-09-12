@@ -23,6 +23,12 @@ const config: Config = {
 
       '2xl': '1536px',
       // => @media (min-width: 1536px) { ... }
+
+      'chr4k': '2560px',
+
+      'chrLl': '1440px',
+
+      'chrLs': '1024px'
     },
     colors: {
       'starsGrey': '#5F6368',
