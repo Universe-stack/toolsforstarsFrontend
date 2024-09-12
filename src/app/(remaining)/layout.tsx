@@ -23,7 +23,7 @@ const maison= localFont({
 
 export const metadata = {
   title: "Createcamp",
-  description: "This is a great website about everything!",
+  description: "Free AI resources for internet creators, artists, designers and more",
 };
 
 const RootLayout: NextPage<{ children: React.ReactNode }> = ({ children }) => {
