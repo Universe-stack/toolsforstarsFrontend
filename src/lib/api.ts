@@ -4,10 +4,7 @@ const BASE_URL = 'https://createcamp.onrender.com'
 
 async function fetchWithErrorHandling(url: string, options: RequestInit = {}) {
   try {
-    const res = await fetch(url, {
-      ...options,
-      next: { revalidate: 60 }, // Cache for 60 seconds
-    })
+    const res = await fetch(url)
 
     if (!res.ok) {
       if (res.status === 404) {

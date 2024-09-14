@@ -8,13 +8,13 @@ import AdsCarouselWrapper from '@/app/component/AdsCarouselWrapper';
 import SortBy from '@/app/component/SortBy';
 
 async function fetchCategoryData(category: string, page: number = 1, sortBy: string = '') {
-    const res = await fetch(`https://createcamp.onrender.com/tools/saas/filterResults?category=${category}&sortBy=${sortBy}&page=${page}`, { cache: 'no-store' });
+    const res = await fetch(`https://createcamp.onrender.com/tools/saas/filterResults?category=${category}&sortBy=${sortBy}&page=${page}`);
     if (!res.ok) throw new Error('Failed to fetch data');
     return res.json();
   }
   
   async function fetchAds() {
-    const res = await fetch('https://createcamp.onrender.com/ads/all', { cache: 'no-store' });
+    const res = await fetch('https://createcamp.onrender.com/ads/all');
     if (!res.ok) throw new Error('Failed to fetch ads');
     return res.json();
   }
