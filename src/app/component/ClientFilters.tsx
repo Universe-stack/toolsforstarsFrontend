@@ -64,12 +64,12 @@ const ClientFilters = ({ data, buttonOptions,category }: Props) => {
 
     return (
         <div>
-            <div className='xl:grid  chrLl:grid-cols-9 xl:grid-cols-10 lg:grid-cols-7 mt-4 justify-center gap-4 xsm:flex xsm:align-center xsm:overflow-x-auto xsm:justify-start scroll-container'>
+            <div className='xl:grid chrLl:grid-cols-9 xl:grid-cols-10 lg:grid-cols-9 mt-4 justify-center gap-4 xsm:flex xsm:align-center xsm:overflow-x-auto xsm:justify-start scroll-container'>
                 {buttonOptions.map((item, id) => (
                     <button
                         key={id}
                         onClick={() => handleFilter(item.title)}  // Use item.title as filter parameter
-                        className='xl:w-full rounded-full xsm:flex-shrink-0 xsm:w-35 xsm:px-4 xsm:py-2 sm:py-2 sm:px-4  md:py-2 md:px-4 lg:py-2 lg:px-4  2xl:py-2 2xl:px-2 xl:py-2 xl:px-2 border hover:bg-[#e49a2d] hover:text-starsWhite hover:border-none text-starsBlack border-starsBlack'
+                        className='xl:w-full rounded-full xsm:flex-shrink-0 xsm:w-35 xsm:px-4 xsm:py-2 sm:py-2 sm:px-4  md:py-2 md:px-4 lg:py-[0.4rem] lg:px-4  2xl:py-2 2xl:px-2 xl:py-2 xl:px-2 border hover:bg-[#e49a2d] hover:text-starsWhite hover:border-none text-starsBlack border-starsBlack'
                     >
                         <span className="text-[14px]">{item.title}</span>
                     </button>

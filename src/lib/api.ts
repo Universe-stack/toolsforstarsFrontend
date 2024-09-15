@@ -1,68 +1,61 @@
-import { notFound } from 'next/navigation'
+import { notFound } from 'next/navigation';
 
-const BASE_URL = 'https://createcamp.onrender.com'
-const TIMEOUT = 8000 // 8 seconds timeout
+const BASE_URL = 'https://createcamp.onrender.com';
 
-async function fetchWithErrorHandling(url: string, options: RequestInit = {}): Promise<any> {
-  const controller = new AbortController()
-  const id = setTimeout(() => controller.abort(), TIMEOUT)
-
+async function fetchWithErrorHandling(url: string, options: RequestInit = {}) {
   try {
-    const res = await fetch(url, { ...options, signal: controller.signal })
+    const res = await fetch(url, {
+      ...options,
+      headers: {
+        'Content-Type': 'application/json',
+        ...options.headers,
+      },
+    });
 
     if (!res.ok) {
       if (res.status === 404) {
-        notFound()
+        notFound(); // Handle 404 case
       }
-      throw new Error(`Failed to fetch data from ${url}`)
+      throw new Error(`Failed to fetch data from ${url}`);
     }
 
-    return await res.json()
-  } catch (error:any) {
-    if (error.name === 'AbortError') {
-      console.error('Request timed out')
-    } else {
-      console.error('Fetch error:', error)
-    }
-    throw error
-  } finally {
-    clearTimeout(id)
+    return await res.json();
+  } catch (error) {
+    console.error('Fetch error:', error);
+    throw error;
   }
 }
 
-async function fetchData(endpoint: string, params: Record<string, string | number> = {}): Promise<any> {
-  const url = new URL(`${BASE_URL}${endpoint}`)
+async function fetchData(endpoint: string, params: Record<string, string | number> = {}) {
+  const url = new URL(`${BASE_URL}${endpoint}`);
   
   Object.entries(params).forEach(([key, value]) => {
-    if (value) url.searchParams.append(key, value.toString())
-  })
+    if (value) url.searchParams.append(key, value.toString());
+  });
 
-  return fetchWithErrorHandling(url.toString())
+  return fetchWithErrorHandling(url.toString());
 }
 
-export async function fetchAllData(page = 1, sortBy = '', category = '') {
-  try {
-    const [saasTools, apps, courses, ads] = await Promise.all([
-      fetchData('/tools/saas', { page, sortBy, category }),
-      fetchData('/tools/apps', { page, sortBy, category }),
-      fetchData('/tools/courses', { page, sortBy, category }),
-      fetchData('/ads/all')
-    ])
-
-    return { saasTools, apps, courses, ads }
-  } catch (error) {
-    console.error('Error fetching data:', error)
-    throw error
-  }
+// Fetch SaaS tools data
+export async function fetchSaasTools(page = 1, sortBy = '', category = '') {
+  return fetchData('/tools/saas', { page, sortBy, category });
 }
 
-export const fetchSaasTools = (page = 1, sortBy = '', category = '') => 
-  fetchData('/tools/saas', { page, sortBy, category })
+// Fetch apps data
+export async function fetchApps(page = 1, sortBy = '', category = '') {
+  return fetchData('/tools/apps', { page, sortBy, category });
+}
 
-export const fetchApps = (page = 1, sortBy = '', category = '') => 
-  fetchData('/tools/apps', { page, sortBy, category })
+// Fetch courses data
+export async function fetchCourses(page = 1, sortBy = '', category = '') {
+  return fetchData('/tools/courses', { page, sortBy, category });
+}
 
-export const fetchCourses = (page = 1, sortBy = '', category = '') => 
-  fetchData('/tools/courses', { page, sortBy, category })
+// Fetch all ads
+export async function fetchAds() {
+  return fetchData('/ads/all');
+}
 
-export const fetchAds = () => fetchData('/ads/all')
+export const config = {
+  runtime: 'edge', // Ensures that this function will run as an Edge Function
+};
