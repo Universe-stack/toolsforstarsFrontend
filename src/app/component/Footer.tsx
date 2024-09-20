@@ -47,10 +47,6 @@ const Footer = () => {
                             <li>
                                 <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white text-[14px]"> How to - Blog </a>
                             </li>
-
-                            <li>
-                                <a href="#" title="" className="text-blue-200 transition-all duration-200 hover:text-white focus:text-white text-[14px]"> Careers </a>
-                            </li>
                         </ul>
                     </div>
 
