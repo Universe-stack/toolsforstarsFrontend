@@ -74,8 +74,8 @@ const Hero = async () => {
         <div className=' 2xl:w-[50%] chrLl:w-[40%] xl:w-[50%] lg:w-[50%] md:w-[80%] sm:w-[80%] xsm:w-[80%] flex xl:justify-between lg:justify-between md:justify-center self-center md:mt-[5rem] xsm:mt-[5rem] chrLl:mt-[1.1rem] lg:mt-[2.5rem]  z-30'>
           <div className='2xl:w-[72%] xl:w-[80%] chrLl:w-[90%] lg:w-[80%]  md:w-[100%] 2xl:ml-[21%] xl:ml-[21%] lg:ml-[21%]  md:self-center 2xl:self-start  chrLl:self-start lg:self-center xl:self-start '>
             
-            <h1 className='text-4xl chrLl:text-[2.5rem] chrLl:leading-[3.5rem] lg:text-[1.65rem]  sm:text-5xl md:text-4xl xl:text-5xl font-[700] text-starsWhite text-center xl:text-left 2xl:text-left lg:text-left xsm:leading-[3rem] sm:leading-[3rem] md:leading-[3.5rem] lg:leading-[3rem] xl:leading-[3.5rem] 2xl:leading-[3.5rem]'> You&apos;ve got the skills already -  Let us kit you up</h1>
-            <p className='mt-[1rem] text-[1rem] text-starsWhite text-center xl:text-left 2xl:text-left text-2xl xsm:text-[1.05rem] sm:text-[1.05rem] lg:text-left md:text-[1.1rem] lg:text-[0.9rem]  2xl:leading-8 xl:leading-8 lg:leading-6 xl:text-[1.25rem] '>
+            <h1 className='text-4xl chrLl:text-[2.5rem] xl:text-[2.5rem] chrLl:leading-[3.5rem] lg:text-[1.65rem]  sm:text-5xl md:text-4xl font-[700] text-starsWhite text-center xl:text-left 2xl:text-left lg:text-left xsm:leading-[3rem] sm:leading-[3rem] md:leading-[3.5rem] lg:leading-[3rem] xl:leading-[3rem] 2xl:leading-[3.5rem]'> You&apos;ve got the skills already -  Let us kit you up</h1>
+            <p className='mt-[1rem] text-[1rem] text-starsWhite text-center xl:text-left 2xl:text-left text-2xl xsm:text-[1.05rem] sm:text-[1.05rem] lg:text-left md:text-[1.1rem] lg:text-[0.9rem]  2xl:leading-8 xl:leading-8 lg:leading-6 xl:text-[1rem] '>
               This collection contains a variety of secret internet creator resources that you can use in your next project
             </p>
 

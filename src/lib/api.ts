@@ -38,17 +38,17 @@ async function fetchData(endpoint: string, params: Record<string, string | numbe
 
 // Fetch SaaS tools data
 export async function fetchSaasTools(page = 1, sortBy = '', category = '') {
-  return fetchData('/tools/saas', { page, sortBy, category });
+  return fetchData('/tools/saas/filterResults', { page, sortBy, category });
 }
 
 // Fetch apps data
 export async function fetchApps(page = 1, sortBy = '', category = '') {
-  return fetchData('/tools/apps', { page, sortBy, category });
+  return fetchData('/tools/apps/filterResults', { page, sortBy, category });
 }
 
 // Fetch courses data
 export async function fetchCourses(page = 1, sortBy = '', category = '') {
-  return fetchData('/tools/courses', { page, sortBy, category });
+  return fetchData('/tools/courses/courses/filterResults', { page, sortBy, category });
 }
 
 // Fetch all ads
